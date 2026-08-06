@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "product": "プロダクト",
+    "docs": "ドキュメント",
+    "resources": "リソース",
+    "themeToggle": "テーマを切り替える",
+    "language": "言語"
+  },
+  "footer": {
+    "tagline": "コーディングエージェントのための物理的なステータスライト。",
+    "disclaimer": "免責事項は準備中です。",
+    "sourceLink": "ソースを見る"
+  },
+  "home": {
+    "eyebrow": "Agent Andon Light v0.1.0",
+    "title": "ターミナルを見つめなくても、エージェントの状態がわかる。",
+    "subtitle": "Claude Code や CLI コーディングエージェントのための物理的なデスクトップ・ステータスライト — 一目で緑・黄・赤がわかります。",
+    "ctaProduct": "プロダクトを見る",
+    "ctaDocs": "ドキュメントを読む"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "home": "ホームに戻る"
+  }
+}

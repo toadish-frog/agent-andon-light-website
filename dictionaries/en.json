@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Home",
+    "product": "Product",
+    "docs": "Documentation",
+    "resources": "Resources",
+    "themeToggle": "Toggle theme",
+    "language": "Language"
+  },
+  "footer": {
+    "tagline": "A physical status light for your coding agent.",
+    "disclaimer": "Disclaimer text pending.",
+    "sourceLink": "View source"
+  },
+  "home": {
+    "eyebrow": "Agent Andon Light v0.1.0",
+    "title": "Know your agent's state without staring at a terminal.",
+    "subtitle": "A physical desktop status light for Claude Code and CLI coding agents — green, yellow, red, at a glance.",
+    "ctaProduct": "See the product",
+    "ctaDocs": "Read the docs"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "home": "Go home"
+  }
+}

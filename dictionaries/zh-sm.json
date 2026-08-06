@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "首页",
+    "product": "产品",
+    "docs": "文档",
+    "resources": "资源",
+    "themeToggle": "切换主题",
+    "language": "语言"
+  },
+  "footer": {
+    "tagline": "为你的 Coding Agent 打造的实体状态灯。",
+    "disclaimer": "免责声明内容待补充。",
+    "sourceLink": "查看源码"
+  },
+  "home": {
+    "eyebrow": "Agent Andon Light v0.1.0",
+    "title": "无需盯着屏幕，也能一眼看懂 Agent 的状态。",
+    "subtitle": "为 Claude Code 与 CLI Coding Agent 打造的实体桌面状态灯——绿、黄、红，一目了然。",
+    "ctaProduct": "查看产品",
+    "ctaDocs": "阅读文档"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "home": "返回首页"
+  }
+}
