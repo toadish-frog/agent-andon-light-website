@@ -121,5 +121,18 @@
       "heading": "文档",
       "body": "从组装硬件、安装软件，到遇到问题时怎么解决——不管你的技术背景如何，都能看懂。"
     }
+  },
+  "resources": {
+    "index": {
+      "heading": "资源",
+      "body": "这里有项目更新，也有帮你亲手做一台所需要的工具和文档链接。"
+    },
+    "categories": {
+      "build": "动手做",
+      "run": "跑起来"
+    },
+    "postsHeading": "项目动态",
+    "readMore": "阅读全文",
+    "publishedOn": "发布于"
   }
 }

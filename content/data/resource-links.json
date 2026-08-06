@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "id": "build",
+      "links": [
+        {
+          "title": "Arduino IDE",
+          "description": "The program you'll use to flash firmware onto the board.",
+          "url": "https://www.arduino.cc/en/software"
+        },
+        {
+          "title": "arduino-pico",
+          "description": "The board package that teaches the Arduino IDE how to talk to the RP2040 chip.",
+          "url": "https://github.com/earlephilhower/arduino-pico"
+        },
+        {
+          "title": "Adafruit NeoPixel",
+          "description": "The library that drives the addressable LEDs — the timing they need is too precise for a plain digitalWrite.",
+          "url": "https://github.com/adafruit/Adafruit_NeoPixel"
+        },
+        {
+          "title": "KiCad",
+          "description": "Free, open-source software for designing circuit boards — used to design this one.",
+          "url": "https://www.kicad.org/"
+        },
+        {
+          "title": "RP2040 documentation",
+          "description": "Official documentation for the microcontroller at the heart of the board.",
+          "url": "https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html"
+        }
+      ]
+    },
+    {
+      "id": "run",
+      "links": [
+        {
+          "title": "andon-light on PyPI",
+          "description": "The command-line tool that talks to the device, published and ready to install.",
+          "url": "https://pypi.org/project/andon-light/"
+        },
+        {
+          "title": "Source code on GitHub",
+          "description": "Firmware, hardware design files, host CLI, and hook setup — all of it, MIT-licensed.",
+          "url": "https://github.com/toadish-frog/agent-andon-light"
+        },
+        {
+          "title": "Claude Code Hooks reference",
+          "description": "Official docs for the hook events this project's integration is built on.",
+          "url": "https://code.claude.com/docs/en/hooks"
+        }
+      ]
+    }
+  ]
+}

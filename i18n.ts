@@ -26,3 +26,11 @@ export const localeUsesFlag: Record<Locale, boolean> = {
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }
+
+/** BCP-47 tags for Intl.* formatting — our internal codes (zh-sm/zh-tr) aren't valid tags themselves. */
+export const intlLocaleTag: Record<Locale, string> = {
+  en: "en-US",
+  ja: "ja-JP",
+  "zh-sm": "zh-CN",
+  "zh-tr": "zh-TW",
+};

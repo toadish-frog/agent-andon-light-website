@@ -1,8 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { ComponentProps } from "react";
 
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
+import Link from "next/link";
+
+import type { Locale } from "@/i18n";
 
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
 
@@ -98,4 +102,34 @@ export function extractHeadings(markdown: string): Heading[] {
   }
 
   return headings;
+}
+
+/**
+ * `components` override for `<MDXRemote>`, shared by docs and resource
+ * posts (posts link into `/docs/...` too). Internal links are written in
+ * MDX source without a locale prefix (e.g. `/docs/hardware/bom`) and get
+ * the current locale spliced in here; external links open in a new tab.
+ */
+export function mdxLinkComponents(locale: Locale) {
+  return {
+    a: ({ href = "", ...props }: ComponentProps<"a">) => {
+      if (href.startsWith("/docs/") || href.startsWith("/resources/")) {
+        // Trailing slash (required by next.config's trailingSlash: true) has
+        // to land before any #fragment, not after it.
+        const [docPath, hash] = href.split("#");
+        const normalizedPath = docPath?.endsWith("/") ? docPath : `${docPath}/`;
+        const finalHref = `/${locale}${normalizedPath}${hash ? `#${hash}` : ""}`;
+        return <Link href={finalHref} {...props} />;
+      }
+      const isExternal = /^https?:\/\//.test(href);
+      return (
+        <a
+          href={href}
+          {...props}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        />
+      );
+    },
+  };
 }

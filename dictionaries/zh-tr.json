@@ -121,5 +121,18 @@
       "heading": "文件",
       "body": "從組裝硬體、安裝軟體，到遇到問題時怎麼解決——不管你的技術背景如何，都看得懂。"
     }
+  },
+  "resources": {
+    "index": {
+      "heading": "資源",
+      "body": "這裡有專案更新，也有幫你親手做一台所需要的工具和文件連結。"
+    },
+    "categories": {
+      "build": "動手做",
+      "run": "跑起來"
+    },
+    "postsHeading": "專案動態",
+    "readMore": "閱讀全文",
+    "publishedOn": "發布於"
   }
 }

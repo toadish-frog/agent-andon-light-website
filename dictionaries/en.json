@@ -121,5 +121,18 @@
       "heading": "Documentation",
       "body": "Everything you need to build the hardware, install the software, and fix things when they don't work — written for whatever level of technical comfort you're starting from."
     }
+  },
+  "resources": {
+    "index": {
+      "heading": "Resources",
+      "body": "Posts from the project, plus the tools and docs that make it possible to build one yourself."
+    },
+    "categories": {
+      "build": "Build It",
+      "run": "Run It"
+    },
+    "postsHeading": "From the Project",
+    "readMore": "Read more",
+    "publishedOn": "Published"
   }
 }

@@ -1,42 +1,16 @@
-import type { ComponentProps } from "react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import { DocsToc } from "@/app/components/ui/docsToc";
-import { extractHeadings, getAllDocSlugs, getDocBySlug } from "@/app/utils/mdx";
+import { extractHeadings, getAllDocSlugs, getDocBySlug, mdxLinkComponents } from "@/app/utils/mdx";
 import { getDictionary } from "@/dictionaries";
-import { defaultLocale, isLocale, locales, type Locale } from "@/i18n";
+import { defaultLocale, isLocale, locales } from "@/i18n";
 
 export function generateStaticParams() {
   const docSlugs = getAllDocSlugs();
   return locales.flatMap((lang) => docSlugs.map((slug) => ({ lang, slug })));
-}
-
-function mdxComponents(locale: Locale) {
-  return {
-    a: ({ href = "", ...props }: ComponentProps<"a">) => {
-      if (href.startsWith("/docs/")) {
-        // Trailing slash (required by next.config's trailingSlash: true) has
-        // to land before any #fragment, not after it.
-        const [docPath, hash] = href.split("#");
-        const normalizedPath = docPath?.endsWith("/") ? docPath : `${docPath}/`;
-        const finalHref = `/${locale}${normalizedPath}${hash ? `#${hash}` : ""}`;
-        return <Link href={finalHref} {...props} />;
-      }
-      const isExternal = /^https?:\/\//.test(href);
-      return (
-        <a
-          href={href}
-          {...props}
-          target={isExternal ? "_blank" : undefined}
-          rel={isExternal ? "noopener noreferrer" : undefined}
-        />
-      );
-    },
-  };
 }
 
 export default async function DocPage({
@@ -69,7 +43,7 @@ export default async function DocPage({
         <p>{doc.description}</p>
         <MDXRemote
           source={doc.content}
-          components={mdxComponents(lang)}
+          components={mdxLinkComponents(lang)}
           options={{
             mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] },
           }}
