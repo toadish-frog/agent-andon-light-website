@@ -63,12 +63,7 @@
     "overview": {
       "heading": "桌上到底放了什么",
       "body": "一块 Waveshare RP2040-Zero，手工焊接在定制电路板上，驱动着 3D 打印扩散罩下的 10 颗可寻址 WS2812B LED。一根 USB-C 线同时负责供电和串口通信——不需要额外电源，不需要无线配对，除了安装 CLI 之外什么都不用配置。",
-      "images": {
-        "top": "已组装电路板的俯视图",
-        "side": "从侧面看到的 USB-C 接口与 LED 灯带",
-        "angle1": "焊接在电路板上的 RP2040-Zero 斜视图",
-        "angle2": "外壳与扩散罩的斜视图"
-      }
+      "diagramAriaLabel": "电路板示意图：一块 RP2040-Zero、一个 USB-C 接口，以及一排 10 颗可寻址 LED——1 颗状态灯，加上绿、黄、红各 3 颗"
     },
     "howItWorks": {
       "heading": "一个字符，一种颜色",
@@ -112,5 +107,19 @@
       "body": "已经制作并测试了 5 台。Linux 上一行 pipx 命令就能装好，Windows 有一键（未签名）安装程序，macOS 暂不支持。这是个人爱好项目，不是商用产品——不做路线图承诺，只呈现现在真正能用的东西。"
     },
     "disclaimer": "小字说明还在准备中。"
+  },
+  "docs": {
+    "sections": {
+      "hardware": "硬件",
+      "firmware": "固件",
+      "software": "软件",
+      "install": "安装"
+    },
+    "onThisPage": "本页内容",
+    "notTranslated": "这个页面还没有翻译，目前显示的是英文版。",
+    "index": {
+      "heading": "文档",
+      "body": "从组装硬件、安装软件，到遇到问题时怎么解决——不管你的技术背景如何，都能看懂。"
+    }
   }
 }

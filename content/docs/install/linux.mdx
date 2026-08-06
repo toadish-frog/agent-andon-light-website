@@ -1,0 +1,33 @@
+---
+title: "Install on Linux"
+description: "One command to install, one to check it worked, one to wire it up to Claude Code."
+section: "install"
+order: 1
+---
+
+There's no separate installer to build here — on Linux, the command-line tool is published straight to PyPI, so installing it is a single command. This page assumes you're reasonably comfortable in a terminal.
+
+## 1. Install
+
+```txt
+sudo apt install -y pipx   # skip this if you already have pipx
+pipx install andon-light
+```
+
+No need to clone the project's repository — this pulls the published package directly.
+
+## 2. Check it worked
+
+```txt
+andon-light doctor
+```
+
+This confirms the tool can actually find your device. If it reports a permission error instead, your user account needs to be added to the `dialout` group — see the [Linux-specific section](/docs/hardware/troubleshooting#linux-specific-notes) of the troubleshooting page for exactly how.
+
+## 3. Connect it to Claude Code
+
+```txt
+andon-light install-hooks
+```
+
+This shows you exactly what it's about to add to your Claude Code settings before making any changes, asks you to confirm, and lets you choose whether to apply it globally (`~/.claude/settings.json`) or to a single project (`./.claude/settings.json`). See [Claude Code Hooks](/docs/software/claude-code-hooks) for what this actually sets up and why it's built the way it is.

@@ -1,0 +1,48 @@
+---
+title: "Bill of Materials"
+description: "Every part you need, whether you're getting the board fabricated or wiring one up by hand."
+section: "hardware"
+order: 2
+---
+
+Everything on this list is a normal, easy-to-find part — nothing export-controlled, nothing exotic. Just a small dev board, some addressable LEDs, and a handful of passive components.
+
+## If you're getting the board fabricated
+
+This is what's currently used to build the device. A board fabrication service places and solders everything except the microcontroller — you solder that one part on yourself (see the [build guide](/docs/hardware/build-guide)).
+
+| Part | What it is | How many |
+| --- | --- | --- |
+| Waveshare RP2040-Zero | The microcontroller board — this is what runs the firmware | 1 |
+| WS2812B-2020 | Addressable RGB LED | 10 |
+| 470 µF electrolytic capacitor | Smooths out power to the LEDs | 1 |
+| 100 nF ceramic capacitor | One per LED, keeps each one stable | 10 |
+| 330 Ω resistor | Sits on the data line to protect against signal issues | 1 |
+
+**Enclosure:** a 3D-printed case (base and lid) that lets the light through while hiding the electronics.
+
+The full sourcing details — exact part numbers, manufacturers, datasheets — live in the KiCad-generated files in the project's hardware folder on GitHub, which are the source of truth if this table and those files ever disagree.
+
+## If you're prototyping on a breadboard
+
+For testing without a fabricated board:
+
+| Part | How many | Notes |
+| --- | --- | --- |
+| Waveshare RP2040-Zero | 1 | |
+| LED strip board (WS2812-style, 10 LEDs) | 1 | |
+| Half-size breadboard | 1 | |
+| Jumper wires (male-to-male, male-to-female) | 1 set | |
+| 3-pin connector matching the LED strip's header | 1 | Match whatever connector type your strip actually has |
+| USB-C to USB-A cable | 1 | Make sure it's a data cable, not a charge-only one — many cheap cables are charge-only |
+| 74HCT125 level shifter | 1 (optional) | Only needed if you run into data-line glitches |
+| 330–470 Ω resistor | 1 (optional but recommended) | On the data line, near the strip |
+| Electrolytic capacitor, 100–1000 µF, 6.3V or higher | 1 (optional but recommended) | Across power and ground, near the strip. Mind the polarity — it only goes in one way. |
+
+No soldering needed here beyond attaching header pins to the RP2040-Zero — everything else just plugs together.
+
+## A few things worth knowing
+
+- If a fabrication service is placing the parts for you, double-check the listed components are actually in that service's stock before finalizing an order — hand-soldering doesn't have this constraint.
+- If you're designing your own version of the LED board, it's worth ordering a spare — cheap insurance against a dead LED or an accidentally-reversed connection.
+- An earlier version of this device used 3 separate colored bulbs instead of the LED strip. It's kept for reference but isn't part of the current build.

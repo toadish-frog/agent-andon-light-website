@@ -63,12 +63,7 @@
     "overview": {
       "heading": "What's actually on the desk",
       "body": "A Waveshare RP2040-Zero, hand-soldered onto a custom PCB, driving 10 addressable WS2812B LEDs behind a 3D-printed diffuser. One USB-C cable carries both power and the serial connection back to your machine — no separate power supply, no wireless pairing, nothing to configure beyond installing the CLI.",
-      "images": {
-        "top": "Top view of the assembled circuit board",
-        "side": "Side view showing the USB-C connector and LED strip",
-        "angle1": "Angled view of the RP2040-Zero soldered onto the board",
-        "angle2": "Angled view of the enclosure and diffuser"
-      }
+      "diagramAriaLabel": "Diagram of the board: an RP2040-Zero, a USB-C connector, and a row of 10 addressable LEDs split into a status pixel plus green, yellow, and red sections"
     },
     "howItWorks": {
       "heading": "One character, one color",
@@ -112,5 +107,19 @@
       "body": "Five units built and tested. Linux is a one-line pipx install; Windows has a one-click (unsigned) installer. macOS isn't supported yet. This is a hobby project, not a commercial product — no roadmap promises, just what's actually working today."
     },
     "disclaimer": "Fine print pending — jokes to be supplied."
+  },
+  "docs": {
+    "sections": {
+      "hardware": "Hardware",
+      "firmware": "Firmware",
+      "software": "Software",
+      "install": "Install"
+    },
+    "onThisPage": "On this page",
+    "notTranslated": "This page hasn't been translated yet — showing the English version.",
+    "index": {
+      "heading": "Documentation",
+      "body": "Everything you need to build the hardware, install the software, and fix things when they don't work — written for whatever level of technical comfort you're starting from."
+    }
   }
 }

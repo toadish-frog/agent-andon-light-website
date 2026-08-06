@@ -1,0 +1,196 @@
+---
+title: "Troubleshooting"
+description: "Something not working? Work through these in order to find out where the problem actually is."
+section: "hardware"
+order: 3
+---
+
+If something isn't behaving, the fastest way to fix it is to narrow down *where* the problem is before trying to fix it — is it the board itself, the software on your computer, or the connection between them? Each step below builds on the last, so it's worth going in order even if you're pretty sure you know what's wrong.
+
+## Not sure where to start?
+
+| What you're seeing | Go to |
+| --- | --- |
+| The light is completely dark and unresponsive | [Step 1](#step-1-is-the-board-running-its-firmware) |
+| Colors look wrong, flickery, or the wrong LEDs are lighting up | [Step 3.5](#step-35-flickering-wrong-colors-or-odd-partial-lighting) |
+| The light is on, but stuck on the wrong color | [Step 4](#step-4-is-claude-codes-hook-setup-correct) |
+| The `andon-light` command itself fails with an error | [Step 2](#step-2-can-the-software-on-your-computer-see-the-board) |
+| It worked before, but broke after unplugging and replugging it | [Step 1](#step-1-is-the-board-running-its-firmware) |
+
+## Step 1: Is the board running its firmware?
+
+Run this in a terminal:
+
+```txt
+lsusb | grep -i "2e8a"
+```
+
+| What you see | What it means | What to do |
+| --- | --- | --- |
+| `2e8a:0003 Raspberry Pi RP2 Boot` | The board is in "bootloader" mode — the special mode used only for flashing new firmware onto it, not for normal use. The LEDs won't respond in this mode. | Open the Arduino IDE and click Upload — it will detect this automatically and finish flashing. |
+| A line mentioning `Waveshare` or `RP2040 Zero` | Good — the firmware is running normally. | Move on to Step 2. |
+| Nothing at all | Either the board isn't plugged in, or your cable doesn't support data (some only carry power). | Try a different USB-C cable, and make sure it's fully plugged in. |
+
+You can also check for the bootloader's file-transfer drive directly:
+
+```txt
+find /media /run/media /mnt -maxdepth 3 -iname "*RPI*" 2>/dev/null
+```
+
+If this prints a path, the board is in bootloader mode — same fix as above.
+
+## Step 2: Can the software on your computer see the board?
+
+```txt
+andon-light doctor
+```
+
+| What you see | What it means |
+| --- | --- |
+| `Found device on /dev/ttyACM0` (or similar) | The software can see the board and has permission to use it. Move on to Step 3. |
+| `No device found` | The board isn't running its firmware — go back to Step 1. |
+| `[Errno 13] Permission denied` | A permissions issue, specific to Linux — see [Permission denied](#permission-denied-opening-the-port) below. |
+
+## Step 3: Is something else holding the connection open?
+
+```txt
+andon-light set idle
+```
+
+| What you see | What it means |
+| --- | --- |
+| It runs without printing anything, and exits cleanly | The connection between your computer and the board is working. If the LEDs still didn't change, go to Step 3.5, or try re-flashing (Step 1). |
+| `andon-light: serial error: ... Device or resource busy` | Something else has the connection open — almost always the Arduino IDE's own Serial Monitor left open in the background. Close it and try again. |
+
+If you're not sure it actually worked, check the exit code directly:
+
+```txt
+andon-light set idle; echo "exit code: $?"
+```
+
+An exit code of `0` means success.
+
+## Step 3.5: Flickering, wrong colors, or odd partial lighting
+
+Addressable LEDs need both precise timing on the data signal and enough power — a shaky connection can cause visible glitches even when everything is "technically" working.
+
+**First, rule out something that isn't actually a bug:** by design, only 3 LEDs light up at a time (plus the always-on first one) — seeing most of the strip dark while the light shows green is completely normal. See the [pixel layout](/docs/hardware/build-guide#how-the-leds-are-laid-out) if you want the details. The issues below look different: LEDs *within* the lit group are wrong, or the pattern doesn't match any valid state at all.
+
+On the fabricated board, the chip and LEDs share one board, so there's no cable to inspect — "signal issue" almost always means a bad solder joint. On a breadboard build, it's usually the wiring instead. Both are covered below.
+
+| What you're seeing | Likely cause | What to try |
+| --- | --- | --- |
+| Some LEDs in the active group are dark or wrong, others are fine | A shaky connection on the data line — a marginal connection partway down the chain can cause the LEDs after it to lose sync | **Fabricated board:** check for a cold or weak solder joint on the chip's pins. **Breadboard:** shorten the signal wire, double-check the connector, or add the optional level shifter from the [parts list](/docs/hardware/bom). |
+| Colors look dim or wrong, or the board seems to restart when the light comes on | Not enough power reaching the LEDs | **Fabricated board:** make sure your USB-C cable actually supports data *and* power, and check the solder joints on the power pins. **Breadboard:** double check `V` goes to the `5V` pin, not `3V3` — see the [build guide](/docs/hardware/build-guide#if-youre-prototyping-on-a-breadboard). |
+| Nothing lights up at all — not even the first LED — even though `andon-light set idle` runs successfully | A mismatch between the firmware's expected data pin and the board's actual wiring | **Fabricated board:** this would mean something's off with the board design itself — compare against a known-working unit first. **Breadboard:** double-check the pin you wired matches the firmware's setting. If the first LED lights up fine but the others don't respond, that's Step 3, not this. |
+| The colors show up on the wrong LEDs (for example, "working" lights up the wrong group) | The LED strip is wired in from the wrong end | **Fabricated board:** this would point to a manufacturing issue — compare against a known-working unit. **Breadboard:** check which end of the strip is marked as the data input, and make sure that's the end you wired the signal to. |
+
+Still stuck? Double-check the Adafruit NeoPixel library is actually installed in the Arduino IDE (Tools → Manage Libraries → search "Adafruit NeoPixel"). A missing library usually shows up as a compile error rather than one of the symptoms above, but it's worth ruling out.
+
+## Step 4: Is Claude Code's hook setup correct?
+
+```txt
+cat ~/.claude/settings.json
+```
+
+Work through this checklist:
+
+- **Is it valid JSON?** Run:
+
+  ```txt
+  python3 -c "import json, os; json.load(open(os.path.expanduser('~/.claude/settings.json'))); print('VALID JSON')"
+  ```
+
+  If this shows an error, there's a small syntax mistake somewhere in the file (often a missing comma or bracket) — Claude Code will likely ignore the whole hooks section until it's fixed.
+- **Does every hook command end with `|| true`?** Without it, any hiccup (like the board being unplugged) shows up as noisy error output inside Claude Code, instead of failing quietly the way a passive status light should. One side effect: Claude Code's own hook log can say a hook "completed successfully" even when the underlying command actually failed — so if you suspect this, run the command directly (without the `|| true`) and check its real exit code rather than trusting that log line.
+- **Are the hook commands *not* marked `"async": true`?** Running them asynchronously means they can finish out of order, which can leave the light stuck on a stale color.
+- **Did you restart Claude Code after editing this file?** Hook settings are only read when a session starts — a session that's already running won't notice a config change. This is by far the most common reason "nothing happened."
+
+## Step 5: Try it by hand
+
+This is a good way to figure out whether a problem is in the light/software, or in Claude Code's hooks — run the same commands a hook would run, yourself:
+
+```txt
+andon-light set working    # LEDs 2-4 solid green (rest dark except LED 1)
+andon-light set waiting    # LEDs 5-7 solid yellow (rest dark except LED 1)
+andon-light set idle       # LEDs 8-10 solid red (rest dark except LED 1)
+andon-light set compacting # chase pattern across LEDs 2-10
+```
+
+If all four of these work correctly by hand, but the light doesn't react during an actual Claude Code session, the problem is in the hook setup (Step 4) or Claude Code just hasn't picked up a recent config change yet (try restarting it) — not the hardware or the CLI.
+
+## Linux-specific notes
+
+### Permission denied opening the port
+
+```txt
+ls -la /dev/ttyACM0
+```
+
+Check the group column — it should say `dialout`.
+
+**Check with `id`, not `groups $USER`** — they can give different answers, and `id` is the one that reflects what a running program can actually do:
+
+```txt
+id
+```
+
+Here's the subtlety: `id` with no arguments shows the group permissions actually baked into your *current shell*, which is what the system checks when `andon-light` tries to open the port. `groups $USER` instead looks up your account's settings fresh, regardless of what any already-running program has. So it's possible to see `dialout` listed under `groups $USER` while every currently open terminal — even a brand new one — still doesn't have it under `id`, because group membership gets fixed in place wherever a session started, and just logging out and back in on the desktop doesn't reliably refresh every process.
+
+If `dialout` is missing from `id`:
+
+| Fix | How long it lasts | Command |
+| --- | --- | --- |
+| Quick unblock | Just this terminal | `newgrp dialout` |
+| Permanent fix | Every program, reliably | `sudo reboot` |
+| Quick workaround | Resets every time you unplug and replug | `sudo chmod 666 /dev/ttyACM0` |
+
+### Arduino IDE won't launch from a terminal
+
+The Arduino IDE's AppImage can sometimes fail with a FUSE-related error (`dlopen(): error loading libfuse.so.2` or `Cannot mount AppImage`). If double-clicking it doesn't work, try running it from a terminal instead, which skips the FUSE step entirely:
+
+```txt
+cd ~/Downloads
+./arduino-ide_2.3.10_Linux_64bit.AppImage --appimage-extract-and-run
+```
+
+(Adjust the filename if your download is a different version.) It takes a few seconds to extract and open, and should restore whatever sketch you had open last time.
+
+### What things should look like when everything's working
+
+```txt
+$ lsusb | grep 2e8a
+Bus 005 Device 010: ID 2e8a:0003 Raspberry Pi RP2 Boot      # this line means bootloader mode (only expected right after flashing)
+
+# once firmware is running normally, lsusb won't show a separate "RP2 Boot" line —
+# check udevadm instead:
+$ udevadm info -a -n /dev/ttyACM0 | grep -iE "manufacturer|product"
+ATTRS{manufacturer}=="Waveshare"
+ATTRS{product}=="RP2040 Zero"
+
+$ andon-light doctor
+Found device on /dev/ttyACM0
+
+$ andon-light set working; echo "exit=$?"
+exit=0
+```
+
+## Windows-specific notes
+
+### "Windows protected your PC" warning
+
+Neither `andon-light.exe` nor the installer is digitally signed, so Windows shows this warning the first time either one runs, and some antivirus tools may flag it too — a side effect of how these particular installers package themselves, which happens to resemble how some malware behaves. Neither means anything is actually broken.
+
+**To continue anyway:** click "More info," then "Run anyway."
+
+### `andon-light` isn't found after installing
+
+Open a **new** terminal window — a terminal that was already open before you installed won't pick up the change to your system's PATH.
+
+### Leftover PATH entry after uninstalling
+
+If you installed an older version before this was fixed, its uninstaller might leave a stale entry behind. To check manually: System Properties → Environment Variables → `Path` (under your user account) → remove any leftover `AndonLight` entry.
+
+## Why the software on your computer doesn't need to know about the LED hardware at all
+
+The command-line tool maps each state to a single character — working becomes `G`, waiting becomes `Y`, and so on — and just sends that one character to whatever port it found the board on. It has no idea how many LEDs are connected, how they're wired, or even that they're addressable LEDs at all — all of that logic lives entirely in the firmware, on the other side of the USB connection. That's also why finding the device automatically works the same way no matter which version of the LED hardware is attached: it's matching the microcontroller board itself, not anything downstream of it.

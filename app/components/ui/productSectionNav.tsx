@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
+import { useActiveSection } from "@/app/utils/useActiveSection";
 import { cn } from "@/lib/utils";
 
 interface Section {
@@ -16,27 +17,8 @@ interface Section {
  * exists to jump between and highlight this page's own sections.
  */
 export function ProductSectionNav({ sections }: { sections: Section[] }) {
-  const [activeId, setActiveId] = useState(sections[0]?.id);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const mostVisible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (mostVisible) setActiveId(mostVisible.target.id);
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
-    );
-
-    const elements = sections
-      .map((section) => document.getElementById(section.id))
-      .filter((el): el is HTMLElement => el !== null);
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, [sections]);
+  const ids = useMemo(() => sections.map((section) => section.id), [sections]);
+  const activeId = useActiveSection(ids);
 
   return (
     <nav

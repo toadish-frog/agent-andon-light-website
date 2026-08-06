@@ -1,0 +1,42 @@
+---
+title: "Install on Windows"
+description: "The one-click installer, what the security warning means, and how to verify it's working."
+section: "install"
+order: 2
+---
+
+Windows gets a one-click installer rather than a command-line install. It's a small program you download and run — no admin rights needed.
+
+## 1. Download and run the installer
+
+Grab `andon-light-setup.exe` from the project's [GitHub releases page](https://github.com/toadish-frog/agent-andon-light/releases) and run it. It installs just for your user account (no admin prompt), and adds itself to your PATH automatically.
+
+## 2. About the security warning
+
+Neither the installer nor the tool itself is digitally signed, so Windows will show a "Windows protected your PC" warning the first time you run either one — and some antivirus tools might flag it too. This is a side effect of how small, unsigned tools like this get packaged, which happens to resemble how some actual malware behaves. It doesn't mean anything is broken.
+
+**To continue anyway:** click "More info," then "Run anyway."
+
+The real fix for this warning — a paid code-signing certificate — costs somewhere in the range of $70–400 a year, and even then, a brand new certificate still needs to build up trust with Windows over time before the warning fully goes away. That's not worth it yet for a small hobby project distributed to a handful of people directly.
+
+## 3. Check it worked
+
+Open a **new** terminal window (one that was already open before installing won't see the updated PATH), then run:
+
+```txt
+andon-light doctor
+```
+
+This confirms the tool can find your device.
+
+## 4. Connect it to Claude Code
+
+The installer's finish page has a checkbox that runs `andon-light install-hooks` for you — it opens a visible console window with the same "show you what's about to change, then ask for confirmation" flow described in [Claude Code Hooks](/docs/software/claude-code-hooks). You can also run this yourself later from a terminal at any time:
+
+```txt
+andon-light install-hooks
+```
+
+## If something's not working
+
+See the [Windows-specific section](/docs/hardware/troubleshooting#windows-specific-notes) of the troubleshooting page — it covers the PATH issue after installing, and cleaning up a leftover PATH entry if you're upgrading from an older version.

@@ -1,0 +1,53 @@
+---
+title: "Command-Line Tool"
+description: "The andon-light command that talks to your device — install, commands, and how it finds the board."
+section: "software"
+order: 1
+---
+
+`andon-light` is the small program that runs on your computer and talks to the device over USB. It's written in Python, and it's what Claude Code's hooks call behind the scenes to change the light automatically — but you can also run it yourself any time.
+
+## Installing it
+
+For everyday use, install the published version rather than building it from source — see the [Linux](/docs/install/linux) or [Windows](/docs/install/windows) install guide. macOS isn't tested or supported yet.
+
+If you're working on the tool's own source code instead, install it in "editable" mode from inside the `host/` folder of the project:
+
+```txt
+cd host
+pipx install --editable .
+```
+
+This links directly back to the source files, so any changes you make show up immediately without reinstalling.
+
+If you'd rather keep it in its own isolated environment instead of on your system PATH:
+
+```txt
+cd host
+python3 -m venv .venv
+.venv/bin/pip install -e .
+```
+
+## Using it
+
+```txt
+andon-light doctor                              # check that it can find your device
+andon-light set working                         # solid green
+andon-light set waiting                         # solid yellow
+andon-light set idle                             # solid red
+andon-light set compacting                       # chase pattern (housekeeping)
+andon-light heartbeat                            # just resets the watchdog, no color change
+andon-light --port /dev/ttyACM0 set working      # manually specify the port, if auto-detection picks the wrong one
+andon-light install-hooks                        # set up the Claude Code integration
+andon-light install-hooks --yes --scope global   # same, but skips the confirmation prompt
+```
+
+`install-hooks` always shows you exactly what it's about to change before touching anything, asks you to confirm, and lets you choose whether to apply it globally (`~/.claude/settings.json`) or just to one project (`./.claude/settings.json`). If you've already customized a hook it would otherwise overwrite, it warns you first rather than silently replacing it. See [Claude Code Hooks](/docs/software/claude-code-hooks) for what it actually sets up and why.
+
+## How it finds your device
+
+The tool looks for a USB device matching a specific vendor ID (`0x2E8A`), which is the ID used by this board's chip family — so it should find your device automatically without you needing to know which port it's on.
+
+If it picks the wrong device, or doesn't find anything, you can override it with the `--port` flag or the `ANDON_LIGHT_PORT` environment variable.
+
+If you see a "device or resource busy" error, it usually means another program already has the connection open — most often the Arduino IDE's Serial Monitor left running in the background, since only one program can use the connection at a time. The tool automatically retries for about half a second before giving up; if it still fails, you'll get a short one-line message and a non-zero exit code, rather than a raw error dump.

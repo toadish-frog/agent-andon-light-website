@@ -1,0 +1,69 @@
+---
+title: "Firmware Overview"
+description: "What's actually running on the device, and how it turns a single letter into light."
+section: "firmware"
+order: 1
+---
+
+The firmware is the small program that runs directly on the device's chip (a Waveshare RP2040-Zero) — not on your laptop. It's written in C++ using the Arduino framework, and its whole job is simple: listen for a single character over USB, and light up the right LEDs.
+
+An earlier version of this device used 3 separate colored bulbs instead of an LED strip. That firmware still exists for reference, but it's not the one being actively developed — everything below describes the current strip-based version.
+
+This page covers the firmware itself: the code, what it depends on, and how to flash and test it. For the physical side of things — soldering, wiring — see the [build guide](/docs/hardware/build-guide), which is the definitive source for anything about assembling the hardware.
+
+## What it depends on
+
+Addressable LEDs (the WS2812 family) need extremely precisely timed signals — far more precise than a simple "turn this pin on and off" command can produce. **Adafruit_NeoPixel** is the standard library for driving them, and it's what this firmware uses. It has built-in support for this chip's timing hardware, which makes the signal reliable.
+
+## Setting it up
+
+1. Arduino IDE 2.x, with the `arduino-pico` board package installed.
+2. The Adafruit NeoPixel library, installed through the Arduino Library Manager.
+3. Open `andon_light_firmware.ino` — the Arduino IDE will automatically load the other related files (`led_controller.h/.cpp` and `watchdog.h`) as additional tabs alongside it.
+
+If you haven't built the physical device yet, that happens first — see the [build guide](/docs/hardware/build-guide) §2, before coming back here to flash and test.
+
+## Flashing and testing it
+
+1. Select "Waveshare RP2040-Zero" as the board, then flash.
+2. Open the Serial Monitor at 115200 baud, with the line ending set to "Newline."
+3. You should see the first LED dim white, with the rest dark — that's the normal state right after power-on.
+4. Type `G`, `Y`, then `R`, pressing enter after each. Only that state's group of 3 LEDs should light up, with the rest staying dark.
+5. Type `C` and confirm you see the chase pattern described below.
+6. If you want to see the "stale connection" pulse without waiting the full 30 minutes: temporarily change `kWatchdogTimeoutMs` to `15000` in the code, flash, confirm you see the slow red pulse, then change it back to `1800000` and flash again.
+
+## A bit more detail
+
+### Power
+
+Brightness is intentionally capped (`kBrightness = 130/255` in `led_controller.cpp`) to keep current draw reasonable and avoid the LEDs being uncomfortably bright to look at directly — feel free to raise it if the light ends up diffused behind a cover. If you're seeing flicker or wrong colors, that's a hardware issue (a solder joint or a wiring problem, depending on how you built it) — see the [build guide's pitfalls section](/docs/hardware/build-guide#common-pitfalls), not something to fix in the firmware.
+
+### How the LEDs are laid out
+
+| LED | Role | Color |
+| --- | --- | --- |
+| 1 | Always-on "I'm alive" indicator | Dim white |
+| 2-4 | Working | Green (`G`) |
+| 5-7 | Waiting on you | Yellow (`Y`) |
+| 8-10 | Idle | Red (`R`); pulses slowly if the connection goes stale |
+
+A few details on how this behaves:
+
+- LED 1 stays dim white through every state, including right after the device is powered off and while it's genuinely off — it's a simple "the board has power and firmware is running" indicator, independent of whatever color the other LEDs are showing.
+- Each state only lights its own group of 3 — every other group (aside from LED 1) stays dark.
+- The stale-connection pulse breathes gently across LEDs 8-10 specifically, using the same fade pattern as the chase animation, just confined to that group.
+- The chase pattern (compacting) uses all 9 non-status LEDs: one LED lights up and sweeps from LED 10 down to LED 2, then locks in place; the next sweep locks in the LED next to it, and so on, until all 9 are lit — then it resets and repeats.
+
+If you're curious about the exact numbers, they live in `led_controller.cpp` as `kGreenStart`/`kYellowStart`/`kRedStart`/`kStatusPixel`.
+
+### Wire protocol reference
+
+| Command | Effect | Meaning |
+| --- | --- | --- |
+| `G` | LEDs 2-4 solid green | Agent working |
+| `Y` | LEDs 5-7 solid yellow | Waiting on you for input or a permission |
+| `R` | LEDs 8-10 solid red | Idle, stopped, or the connection dropped |
+| `C` | Chase pattern across LEDs 2-10 | Housekeeping ("compacting") — still alive, just tidying up |
+| `H` | No visual change | A heartbeat — resets the watchdog without changing color |
+
+If the device goes 30 minutes without hearing anything from your computer, it assumes the connection is lost and switches to the slow pulsing red pattern automatically, rather than silently freezing on whatever it last showed.

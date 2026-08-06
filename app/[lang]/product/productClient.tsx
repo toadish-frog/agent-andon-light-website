@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-
 import { AuroraGlow } from "@/app/components/ui/auroraGlow";
+import { BoardDiagram } from "@/app/components/ui/boardDiagram";
 import { LiveStatusStrip } from "@/app/components/ui/liveStatusStrip";
 import { ProductSectionNav } from "@/app/components/ui/productSectionNav";
 import { Reveal } from "@/app/components/ui/reveal";
@@ -29,13 +28,6 @@ export function ProductClient({
     { id: "hooks", label: p.nav.hooks },
     { id: "open-source", label: p.nav.openSource },
     { id: "field-notes", label: p.nav.fieldNotes },
-  ];
-
-  const images = [
-    { src: "/product/top.png", alt: p.overview.images.top },
-    { src: "/product/side.png", alt: p.overview.images.side },
-    { src: "/product/angle-1.png", alt: p.overview.images.angle1 },
-    { src: "/product/angle-2.png", alt: p.overview.images.angle2 },
   ];
 
   return (
@@ -65,21 +57,16 @@ export function ProductClient({
         <Reveal className="mx-auto mt-20 max-w-5xl">
           <h2 className={`text-center ${headingClass}`}>{p.overview.heading}</h2>
           <p className={`mx-auto max-w-2xl text-center ${bodyClass}`}>{p.overview.body}</p>
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {images.map((img) => (
-              <div
-                key={img.src}
-                className="overflow-hidden rounded-2xl border border-black/10 dark:border-white/10"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={1613}
-                  height={1010}
-                  className="h-auto w-full"
-                />
-              </div>
-            ))}
+          <div className="mt-10 overflow-hidden rounded-2xl border border-black/10 p-4 dark:border-white/10">
+            <BoardDiagram
+              ariaLabel={p.overview.diagramAriaLabel}
+              labels={{
+                working: dict.home.states.working.label,
+                waiting: dict.home.states.waiting.label,
+                idle: dict.home.states.idle.label,
+              }}
+              className="w-full"
+            />
           </div>
         </Reveal>
       </section>
