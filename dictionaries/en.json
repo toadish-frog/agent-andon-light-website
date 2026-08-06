@@ -45,5 +45,72 @@
   "notFound": {
     "title": "Page not found",
     "home": "Go home"
+  },
+  "product": {
+    "nav": {
+      "overview": "Overview",
+      "howItWorks": "How it works",
+      "reliability": "Reliability",
+      "hooks": "Hooks",
+      "openSource": "Open Source",
+      "fieldNotes": "Field Notes"
+    },
+    "hero": {
+      "eyebrow": "The Hardware",
+      "title": "Ten LEDs, one wire, no dashboard.",
+      "subtitle": "A closer look at how Agent Andon Light turns hook events into light — the board, the protocol, and the firmware behind it."
+    },
+    "overview": {
+      "heading": "What's actually on the desk",
+      "body": "A Waveshare RP2040-Zero, hand-soldered onto a custom PCB, driving 10 addressable WS2812B LEDs behind a 3D-printed diffuser. One USB-C cable carries both power and the serial connection back to your machine — no separate power supply, no wireless pairing, nothing to configure beyond installing the CLI.",
+      "images": {
+        "top": "Top view of the assembled circuit board",
+        "side": "Side view showing the USB-C connector and LED strip",
+        "angle1": "Angled view of the RP2040-Zero soldered onto the board",
+        "angle2": "Angled view of the enclosure and diffuser"
+      }
+    },
+    "howItWorks": {
+      "heading": "One character, one color",
+      "body": "The host CLI talks to the firmware over USB serial with about the simplest protocol that could work: a single ASCII character plus a newline. No JSON, no handshake.",
+      "protocolHeading": "Wire protocol",
+      "commandLabel": "Command",
+      "effectLabel": "Effect",
+      "meaningLabel": "Meaning",
+      "commands": [
+        { "command": "G", "effect": "Solid green", "meaning": "Agent working" },
+        { "command": "Y", "effect": "Solid yellow", "meaning": "Waiting for you" },
+        { "command": "R", "effect": "Solid red", "meaning": "Idle / stopped" },
+        { "command": "C", "effect": "Chase-fill", "meaning": "Compacting" },
+        { "command": "H", "effect": "No change", "meaning": "Heartbeat" }
+      ]
+    },
+    "reliability": {
+      "heading": "Built to be trusted while you're not looking",
+      "body": "A 30-minute watchdog runs on the firmware itself — if it stops hearing from the host, the red section switches from solid to a slow breathing pulse instead of freezing on a stale color. A status light you walk away from has to fail visibly, not silently."
+    },
+    "hooks": {
+      "heading": "Wired straight into Claude Code",
+      "body": "Claude Code hooks call the CLI directly and synchronously — not async — so the light always reflects the true order of events, even through a tool-call-heavy turn.",
+      "eventLabel": "Hook event",
+      "colorLabel": "Color",
+      "hookRows": [
+        { "event": "SessionStart", "color": "Idle" },
+        { "event": "UserPromptSubmit / PreToolUse", "color": "Working" },
+        { "event": "Notification / PermissionRequest", "color": "Waiting" },
+        { "event": "PreCompact", "color": "Compacting" },
+        { "event": "Stop / SessionEnd", "color": "Idle" }
+      ]
+    },
+    "openSource": {
+      "heading": "Nothing hidden",
+      "body": "MIT-licensed, start to finish — schematics, firmware, host CLI, and the hook config it installs. The full bill of materials and build guide are in the docs if you want to build your own.",
+      "ctaLabel": "View on GitHub"
+    },
+    "fieldNotes": {
+      "heading": "Where it stands",
+      "body": "Five units built and tested. Linux is a one-line pipx install; Windows has a one-click (unsigned) installer. macOS isn't supported yet. This is a hobby project, not a commercial product — no roadmap promises, just what's actually working today."
+    },
+    "disclaimer": "Fine print pending — jokes to be supplied."
   }
 }

@@ -45,5 +45,72 @@
   "notFound": {
     "title": "页面未找到",
     "home": "返回首页"
+  },
+  "product": {
+    "nav": {
+      "overview": "总览",
+      "howItWorks": "工作原理",
+      "reliability": "可靠性",
+      "hooks": "Hooks 集成",
+      "openSource": "开源",
+      "fieldNotes": "现状"
+    },
+    "hero": {
+      "eyebrow": "硬件",
+      "title": "10 颗 LED，一根线，没有仪表盘。",
+      "subtitle": "看看 Agent Andon Light 是如何把 hook 事件变成灯光的——从电路板、通信协议到固件。"
+    },
+    "overview": {
+      "heading": "桌上到底放了什么",
+      "body": "一块 Waveshare RP2040-Zero，手工焊接在定制电路板上，驱动着 3D 打印扩散罩下的 10 颗可寻址 WS2812B LED。一根 USB-C 线同时负责供电和串口通信——不需要额外电源，不需要无线配对，除了安装 CLI 之外什么都不用配置。",
+      "images": {
+        "top": "已组装电路板的俯视图",
+        "side": "从侧面看到的 USB-C 接口与 LED 灯带",
+        "angle1": "焊接在电路板上的 RP2040-Zero 斜视图",
+        "angle2": "外壳与扩散罩的斜视图"
+      }
+    },
+    "howItWorks": {
+      "heading": "一个字符，一种颜色",
+      "body": "主机端 CLI 通过 USB 串口和固件通信，用的是能想到的最简单的协议：一个 ASCII 字符加换行。没有 JSON，也没有握手过程。",
+      "protocolHeading": "通信协议",
+      "commandLabel": "指令",
+      "effectLabel": "效果",
+      "meaningLabel": "含义",
+      "commands": [
+        { "command": "G", "effect": "绿灯常亮", "meaning": "Agent 正在工作" },
+        { "command": "Y", "effect": "黄灯常亮", "meaning": "等待你处理" },
+        { "command": "R", "effect": "红灯常亮", "meaning": "空闲 / 已停止" },
+        { "command": "C", "effect": "依次点亮", "meaning": "正在整理" },
+        { "command": "H", "effect": "无变化", "meaning": "心跳信号" }
+      ]
+    },
+    "reliability": {
+      "heading": "即使你没在看，也靠得住",
+      "body": "固件本身跑着一个 30 分钟的看门狗定时器——一旦主机端失联，红色区域不会停在常亮状态，而是切换成缓慢的呼吸式闪烁。一盏可以放心离开的状态灯，必须把异常明明白白地显示出来，而不是悄悄卡死。"
+    },
+    "hooks": {
+      "heading": "直接接入 Claude Code",
+      "body": "Claude Code 的 hooks 是同步、直接调用 CLI 的，不是异步——这样即使在工具调用密集的回合里，灯光也始终反映事件的真实顺序。",
+      "eventLabel": "Hook 事件",
+      "colorLabel": "颜色",
+      "hookRows": [
+        { "event": "SessionStart", "color": "空闲" },
+        { "event": "UserPromptSubmit / PreToolUse", "color": "工作中" },
+        { "event": "Notification / PermissionRequest", "color": "等待中" },
+        { "event": "PreCompact", "color": "整理中" },
+        { "event": "Stop / SessionEnd", "color": "空闲" }
+      ]
+    },
+    "openSource": {
+      "heading": "没什么好藏的",
+      "body": "从电路图、固件、主机端 CLI，到自动安装的 hook 配置，全部以 MIT 协议开源。如果你想自己动手做一台，完整的物料清单和组装指南都在文档里。",
+      "ctaLabel": "在 GitHub 上查看"
+    },
+    "fieldNotes": {
+      "heading": "目前的进展",
+      "body": "已经制作并测试了 5 台。Linux 上一行 pipx 命令就能装好，Windows 有一键（未签名）安装程序，macOS 暂不支持。这是个人爱好项目，不是商用产品——不做路线图承诺，只呈现现在真正能用的东西。"
+    },
+    "disclaimer": "小字说明还在准备中。"
   }
 }

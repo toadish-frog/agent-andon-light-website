@@ -45,5 +45,72 @@
   "notFound": {
     "title": "ページが見つかりません",
     "home": "ホームに戻る"
+  },
+  "product": {
+    "nav": {
+      "overview": "概要",
+      "howItWorks": "しくみ",
+      "reliability": "信頼性",
+      "hooks": "フック連携",
+      "openSource": "オープンソース",
+      "fieldNotes": "現状"
+    },
+    "hero": {
+      "eyebrow": "ハードウェア",
+      "title": "LED10個、配線1本、ダッシュボードなし。",
+      "subtitle": "Agent Andon Lightがフックイベントを光に変える仕組みを、基板・プロトコル・ファームウェアのレベルで見ていきます。"
+    },
+    "overview": {
+      "heading": "実際に机の上にあるもの",
+      "body": "Waveshare RP2040-Zeroを専用基板にハンダ付けし、3Dプリントの拡散カバーの奥で10個のアドレサブルWS2812B LEDを駆動します。USB-Cケーブル1本で電源とシリアル通信の両方をまかない、別電源もワイヤレスペアリングも不要——CLIをインストールする以外、設定することはありません。",
+      "images": {
+        "top": "組み立て済み基板の上面図",
+        "side": "USB-Cコネクタとテープ部を横から見た図",
+        "angle1": "基板にハンダ付けされたRP2040-Zeroの斜視図",
+        "angle2": "筐体と拡散カバーの斜視図"
+      }
+    },
+    "howItWorks": {
+      "heading": "1文字が、1つの色になる。",
+      "body": "ホストCLIはUSBシリアル経由でファームウェアと通信します。プロトコルはほぼ最小構成——ASCII文字1つと改行だけ。JSONもハンドシェイクもありません。",
+      "protocolHeading": "通信プロトコル",
+      "commandLabel": "コマンド",
+      "effectLabel": "動作",
+      "meaningLabel": "意味",
+      "commands": [
+        { "command": "G", "effect": "緑点灯", "meaning": "エージェントが作業中" },
+        { "command": "Y", "effect": "黄点灯", "meaning": "あなたの対応待ち" },
+        { "command": "R", "effect": "赤点灯", "meaning": "アイドル / 停止" },
+        { "command": "C", "effect": "順次点灯", "meaning": "コンパクト中" },
+        { "command": "H", "effect": "変化なし", "meaning": "ハートビート" }
+      ]
+    },
+    "reliability": {
+      "heading": "見ていない時こそ、信頼できるように。",
+      "body": "ファームウェア自体が30分のウォッチドッグタイマーを持っています。ホストからの通信が途絶えると、赤色のセクションは点灯したままではなく、ゆっくり明滅するパルスに切り替わります。離席中も信頼できるステータスライトであるためには、静かに固まるのではなく、目に見える形で異常を伝える必要があります。"
+    },
+    "hooks": {
+      "heading": "Claude Codeに直結。",
+      "body": "Claude Codeのフックは非同期ではなく、CLIを直接・同期的に呼び出します。ツール呼び出しが連続する場面でも、ライトは常に本当の出来事の順序を反映します。",
+      "eventLabel": "フックイベント",
+      "colorLabel": "色",
+      "hookRows": [
+        { "event": "SessionStart", "color": "アイドル" },
+        { "event": "UserPromptSubmit / PreToolUse", "color": "作業中" },
+        { "event": "Notification / PermissionRequest", "color": "待機中" },
+        { "event": "PreCompact", "color": "コンパクト中" },
+        { "event": "Stop / SessionEnd", "color": "アイドル" }
+      ]
+    },
+    "openSource": {
+      "heading": "隠しごとなし。",
+      "body": "回路図からファームウェア、ホストCLI、インストールされるフック設定まで、すべてMITライセンスで公開しています。自分で組み立てたい方向けに、部品表と組み立てガイドもドキュメントに揃えています。",
+      "ctaLabel": "GitHubで見る"
+    },
+    "fieldNotes": {
+      "heading": "現在地。",
+      "body": "5台を製作・検証済み。Linuxはpipxコマンド1行でインストールでき、Windowsにはワンクリック(未署名)インストーラーがあります。macOSはまだ未対応です。商用製品ではなく趣味のプロジェクトなので、ロードマップの約束はありません——あるのは、今実際に動いているものだけです。"
+    },
+    "disclaimer": "小さな注意書きは準備中です。"
   }
 }
