@@ -17,7 +17,30 @@
     "title": "Know your agent's state without staring at a terminal.",
     "subtitle": "A physical desktop status light for Claude Code and CLI coding agents — green, yellow, red, at a glance.",
     "ctaProduct": "See the product",
-    "ctaDocs": "Read the docs"
+    "ctaDocs": "Read the docs",
+    "stripAriaLabel": "Simulated status light cycling through idle, working, waiting, and compacting states",
+    "whatItIs": {
+      "heading": "A status light you don't have to look for.",
+      "body": "Ten addressable LEDs behind a diffuser, wired to a USB-C dev board, driven by a small Python CLI. Claude Code hooks flip its color automatically — green while the agent's working, yellow when it's waiting on you, red when it's idle. No dashboard, no extra window."
+    },
+    "whyItExists": {
+      "heading": "Built for the tab you keep checking.",
+      "body": "Coding agents run in the background, but \"in the background\" still means glancing at a terminal window every few minutes to check if it's stuck waiting on you. This moves that one bit of information off the screen entirely — walk away, glance at the light, know exactly where things stand."
+    },
+    "states": {
+      "heading": "Four states, one glance.",
+      "working": { "label": "Working", "description": "The agent is doing something." },
+      "waiting": { "label": "Waiting", "description": "It needs you — a permission or an answer." },
+      "idle": { "label": "Idle", "description": "Nothing running right now." },
+      "compacting": { "label": "Compacting", "description": "Housekeeping — still alive, not stuck." }
+    },
+    "openHardware": {
+      "heading": "Open hardware, honestly a hobby project.",
+      "body": "MIT-licensed — schematics, firmware, and CLI all included. Five units built and tested, Linux and Windows supported today. Not a commercial product, not for sale. Built because a physical light is more fun to build, and more useful to have, than another terminal tab."
+    },
+    "closing": {
+      "heading": "See it, build it, or just read about it."
+    }
   },
   "notFound": {
     "title": "Page not found",

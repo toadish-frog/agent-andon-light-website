@@ -17,7 +17,30 @@
     "title": "无需盯着屏幕，也能一眼看懂 Agent 的状态。",
     "subtitle": "为 Claude Code 与 CLI Coding Agent 打造的实体桌面状态灯——绿、黄、红，一目了然。",
     "ctaProduct": "查看产品",
-    "ctaDocs": "阅读文档"
+    "ctaDocs": "阅读文档",
+    "stripAriaLabel": "模拟状态灯，依次演示空闲、工作中、等待中、整理中四种状态",
+    "whatItIs": {
+      "heading": "不用刻意寻找的状态灯。",
+      "body": "扩散罩下藏着 10 颗可寻址 LED，接在一块 USB-C 开发板上，由一个小巧的 Python CLI 驱动。Claude Code 的 hooks 会自动切换颜色——Agent 工作时是绿色，等你处理时是黄色，空闲时是红色。不需要仪表盘，也不用多开一个窗口。"
+    },
+    "whyItExists": {
+      "heading": "为你忍不住反复查看的那个窗口而生。",
+      "body": "编码 Agent 在后台运行，但「后台」常常还是意味着你得每隔几分钟看一眼屏幕，确认它是不是卡在等你回应。把这一点信息挪到屏幕之外——起身离开，看一眼灯的颜色，就知道现在是什么状态。"
+    },
+    "states": {
+      "heading": "四种状态，一眼看懂。",
+      "working": { "label": "工作中", "description": "Agent 正在执行任务。" },
+      "waiting": { "label": "等待中", "description": "需要你处理——授权或回答问题。" },
+      "idle": { "label": "空闲", "description": "目前没有任务在运行。" },
+      "compacting": { "label": "整理中", "description": "内部整理，仍在运行，不是卡住了。" }
+    },
+    "openHardware": {
+      "heading": "开源硬件，说白了就是个业余项目。",
+      "body": "MIT 协议开源——原理图、固件、CLI 全部公开。已经制作并测试了 5 台，目前支持 Linux 和 Windows。不是商用产品，也不对外销售——比起再开一个屏幕窗口，做一盏看得见摸得着的灯，更好玩，也更实用。"
+    },
+    "closing": {
+      "heading": "从这里开始。"
+    }
   },
   "notFound": {
     "title": "页面未找到",

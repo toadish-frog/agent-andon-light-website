@@ -13,6 +13,18 @@
   --color-status-working: #22c55e;
   --color-status-waiting: #eab308;
   --color-status-idle: #ef4444;
+
+  --animate-aurora-drift: aurora-drift 18s ease-in-out infinite;
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3%, -4%) scale(1.08);
+  }
 }
 
 :root {
