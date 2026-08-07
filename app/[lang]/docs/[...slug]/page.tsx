@@ -23,7 +23,7 @@ export default async function DocPage({
 
   let doc: ReturnType<typeof getDocBySlug>;
   try {
-    doc = getDocBySlug(slug);
+    doc = getDocBySlug(slug, lang);
   } catch {
     notFound();
   }
@@ -34,7 +34,7 @@ export default async function DocPage({
   return (
     <div className="flex items-start gap-10">
       <article className="prose prose-neutral dark:prose-invert min-w-0 flex-1">
-        {lang !== defaultLocale && (
+        {lang !== defaultLocale && !doc.translated && (
           <p className="not-prose mb-6 rounded-lg border border-black/10 bg-black/[0.03] px-4 py-3 text-sm text-neutral-600 dark:border-white/10 dark:bg-white/[0.03] dark:text-neutral-400">
             {dict.docs.notTranslated}
           </p>

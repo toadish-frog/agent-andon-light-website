@@ -6,9 +6,17 @@ import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import Link from "next/link";
 
-import type { Locale } from "@/i18n";
+import { defaultLocale, locales, type Locale } from "@/i18n";
 
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
+
+// Translated files sit alongside the English original with a locale suffix
+// (build-guide.mdx / build-guide.ja.mdx / build-guide.zh-sm.mdx / ...). This
+// matches filenames carrying that suffix, so canonical-slug enumeration
+// doesn't double-count a doc once it has translations.
+const LOCALE_SUFFIX_PATTERN = new RegExp(
+  `\\.(${locales.filter((locale) => locale !== defaultLocale).join("|")})\\.mdx$`,
+);
 
 export type DocSection = "hardware" | "firmware" | "software" | "install";
 
@@ -27,6 +35,8 @@ export interface DocMeta extends DocFrontmatter {
 export interface DocEntry extends DocMeta {
   /** Raw MDX body, frontmatter stripped. */
   content: string;
+  /** True if a locale-specific file was found; false means this is the English fallback. */
+  translated: boolean;
 }
 
 export interface Heading {
@@ -42,7 +52,11 @@ function walkMdxFiles(dir: string, base: string[] = []): string[][] {
   for (const entry of entries) {
     if (entry.isDirectory()) {
       slugs.push(...walkMdxFiles(path.join(dir, entry.name), [...base, entry.name]));
-    } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+    } else if (
+      entry.isFile() &&
+      entry.name.endsWith(".mdx") &&
+      !LOCALE_SUFFIX_PATTERN.test(entry.name)
+    ) {
       slugs.push([...base, entry.name.replace(/\.mdx$/, "")]);
     }
   }
@@ -54,22 +68,27 @@ export function getAllDocSlugs(): string[][] {
   return walkMdxFiles(DOCS_DIR);
 }
 
-export function getDocBySlug(slug: string[]): DocEntry {
-  const filePath = `${path.join(DOCS_DIR, ...slug)}.mdx`;
-  const raw = fs.readFileSync(filePath, "utf8");
+export function getDocBySlug(slug: string[], locale: Locale = defaultLocale): DocEntry {
+  const basePath = path.join(DOCS_DIR, ...slug);
+  const localizedPath = `${basePath}.${locale}.mdx`;
+  const englishPath = `${basePath}.mdx`;
+
+  const translated = locale !== defaultLocale && fs.existsSync(localizedPath);
+  const raw = fs.readFileSync(translated ? localizedPath : englishPath, "utf8");
   const { data, content } = matter(raw);
 
   return {
     ...(data as DocFrontmatter),
     slug,
     content,
+    translated,
   };
 }
 
-export function getAllDocsMeta(): DocMeta[] {
+export function getAllDocsMeta(locale: Locale = defaultLocale): DocMeta[] {
   return getAllDocSlugs()
     .map((slug) => {
-      const { content: _content, ...meta } = getDocBySlug(slug);
+      const { content: _content, translated: _translated, ...meta } = getDocBySlug(slug, locale);
       return meta;
     })
     .sort((a, b) => a.order - b.order);

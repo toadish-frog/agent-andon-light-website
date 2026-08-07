@@ -1,0 +1,33 @@
+---
+title: "Linuxへのインストール"
+description: "インストールに1つ、動作確認に1つ、Claude Codeとの連携に1つ——コマンド3つで完了します。"
+section: "install"
+order: 1
+---
+
+Linuxでは、専用のインストーラーをビルドする必要はありません——コマンドラインツールはそのままPyPIに公開されているので、インストールはコマンド1つで済みます。このページは、ターミナルの操作にある程度慣れていることを前提にしています。
+
+## 1. インストールする
+
+```txt
+sudo apt install -y pipx   # pipxをまだ持っていない場合のみ
+pipx install andon-light
+```
+
+プロジェクトのリポジトリをクローンする必要はありません——公開済みのパッケージを直接インストールします。
+
+## 2. うまくいったか確認する
+
+```txt
+andon-light doctor
+```
+
+ツールが実際にデバイスを見つけられるかを確認します。権限エラーが表示された場合は、ユーザーアカウントを `dialout` グループに追加する必要があります——具体的な手順はトラブルシューティングページの[Linux特有の注意点](/docs/hardware/troubleshooting#linux特有の注意点)を参照してください。
+
+## 3. Claude Codeと接続する
+
+```txt
+andon-light install-hooks
+```
+
+Claude Codeの設定に追加しようとしている内容を、変更前にそのまま表示し、確認を求めます。適用範囲もグローバル（`~/.claude/settings.json`）か、プロジェクト単位（`./.claude/settings.json`）かを選べます。実際に何が設定され、なぜそういう作りになっているのかは[Claude Code フック連携](/docs/software/claude-code-hooks)を参照してください。

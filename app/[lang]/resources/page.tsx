@@ -18,7 +18,7 @@ export default async function ResourcesIndexPage({
   if (!isLocale(lang)) notFound();
 
   const dict = getDictionary(lang);
-  const posts = getAllPosts();
+  const posts = getAllPosts(lang);
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">

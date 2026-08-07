@@ -24,7 +24,7 @@ export default async function ResourcePostPage({
 
   let post: ReturnType<typeof getPostBySlug>;
   try {
-    post = getPostBySlug(slug);
+    post = getPostBySlug(slug, lang);
   } catch {
     notFound();
   }
@@ -33,7 +33,7 @@ export default async function ResourcePostPage({
 
   return (
     <article className="prose prose-neutral dark:prose-invert mx-auto max-w-2xl px-6 py-16">
-      {lang !== defaultLocale && (
+      {lang !== defaultLocale && !post.translated && (
         <p className="not-prose mb-6 rounded-lg border border-black/10 bg-black/[0.03] px-4 py-3 text-sm text-neutral-600 dark:border-white/10 dark:bg-white/[0.03] dark:text-neutral-400">
           {dict.docs.notTranslated}
         </p>

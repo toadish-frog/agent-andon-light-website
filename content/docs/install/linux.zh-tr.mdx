@@ -1,0 +1,33 @@
+---
+title: "在 Linux 上安裝"
+description: "一條指令安裝，一條指令檢查，一條指令接上 Claude Code。"
+section: "install"
+order: 1
+---
+
+在 Linux 上不需要單獨建置安裝程式——命令列工具直接發布在 PyPI 上，安裝就是一條指令的事。這篇假設你對終端機操作比較熟悉。
+
+## 1. 安裝
+
+```txt
+sudo apt install -y pipx   # 如果還沒有 pipx，先裝一下
+pipx install andon-light
+```
+
+不需要複製專案儲存庫——這條指令直接安裝已發布的套件。
+
+## 2. 檢查是否成功
+
+```txt
+andon-light doctor
+```
+
+確認工具真的能找到你的裝置。如果提示權限錯誤，需要把你的使用者帳號加入 `dialout` 使用者群組——具體步驟參見疑難排解頁面的 [Linux 專屬說明](/docs/hardware/troubleshooting#linux-專屬說明)。
+
+## 3. 接上 Claude Code
+
+```txt
+andon-light install-hooks
+```
+
+在做任何變更之前，會先完整顯示即將寫入 Claude Code 設定的內容，並等你確認。你可以選擇套用範圍是全域（`~/.claude/settings.json`）還是單一專案（`./.claude/settings.json`）。具體設定了什麼、為什麼這樣設計，參見 [Claude Code Hook 整合](/docs/software/claude-code-hooks)。

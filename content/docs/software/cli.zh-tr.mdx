@@ -1,0 +1,53 @@
+---
+title: "命令列工具"
+description: "和裝置溝通的 andon-light 指令——怎麼安裝、有哪些指令、怎麼找到裝置。"
+section: "software"
+order: 1
+---
+
+`andon-light` 是執行在你電腦上、透過 USB 和裝置溝通的一個小程式。它是用 Python 寫的，Claude Code 的 hook 在背後自動切換燈光顏色時，呼叫的正是它——不過你隨時也可以自己手動執行它。
+
+## 安裝
+
+日常使用建議直接裝已發布的版本，而不是自己從原始碼建置——參見 [Linux](/docs/install/linux) 或 [Windows](/docs/install/windows) 的安裝說明。macOS 目前還沒有測試和支援。
+
+如果你在開發這個工具本身的原始碼，在專案的 `host/` 目錄下用「可編輯」模式安裝：
+
+```txt
+cd host
+pipx install --editable .
+```
+
+這樣會直接連結回原始碼檔案，改了程式碼馬上生效，不用重新安裝。
+
+如果你想放在一個獨立的隔離環境裡，不加進系統 PATH：
+
+```txt
+cd host
+python3 -m venv .venv
+.venv/bin/pip install -e .
+```
+
+## 使用方法
+
+```txt
+andon-light doctor                              # 檢查能不能找到你的裝置
+andon-light set working                         # 常亮綠色
+andon-light set waiting                         # 常亮黃色
+andon-light set idle                             # 常亮紅色
+andon-light set compacting                       # 依序點亮模式（整理中）
+andon-light heartbeat                            # 只重置看門狗，不改變顏色
+andon-light --port /dev/ttyACM0 set working      # 如果自動偵測選錯了連接埠，手動指定
+andon-light install-hooks                        # 設定和 Claude Code 的整合
+andon-light install-hooks --yes --scope global   # 同上，跳過確認直接執行
+```
+
+`install-hooks` 在做任何變更之前，都會先完整顯示即將寫入的內容，並等你確認。你可以選擇套用範圍是全域（`~/.claude/settings.json`）還是單一專案（`./.claude/settings.json`）。如果某個 hook 你已經自訂過，即將被覆蓋，它會事先警告你。具體設定了什麼、為什麼這樣設計，參見 [Claude Code Hook 整合](/docs/software/claude-code-hooks)。
+
+## 怎麼找到你的裝置
+
+這個工具會尋找符合特定 USB 廠商 ID（`0x2E8A`）的裝置——這正是這塊板子所用晶片系列使用的 ID，所以通常不需要你手動指定連接埠，它就能自動找到裝置。
+
+如果它找錯了裝置，或者什麼都沒找到，可以用 `--port` 參數或 `ANDON_LIGHT_PORT` 環境變數手動指定。
+
+如果看到「裝置或資源忙碌中」的錯誤訊息，通常是因為別的程式已經佔用著這個連線——最常見的情況是背景還開著的 Arduino IDE 序列埠監控視窗。同一時間只能有一個程式使用這個連線。這個工具會自動重試大約半秒鐘，如果還是不行，會給出簡短的一行提示和非零的結束代碼，而不是丟出一大段原始錯誤訊息。

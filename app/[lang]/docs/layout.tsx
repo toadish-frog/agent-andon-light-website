@@ -16,7 +16,7 @@ export default async function DocsLayout({
   if (!isLocale(lang)) notFound();
 
   const dict = getDictionary(lang);
-  const docs = getAllDocsMeta();
+  const docs = getAllDocsMeta(lang);
 
   return (
     <div className="mx-auto flex max-w-6xl items-start gap-10 px-6 py-12">

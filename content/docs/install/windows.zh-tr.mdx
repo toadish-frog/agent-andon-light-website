@@ -1,0 +1,42 @@
+---
+title: "在 Windows 上安裝"
+description: "一鍵安裝程式、那個安全性警告是什麼意思，以及怎麼確認安裝成功。"
+section: "install"
+order: 2
+---
+
+Windows 上用的是一鍵安裝程式，而不是命令列安裝。下載下來執行就好，不需要系統管理員權限。
+
+## 1. 下載並執行安裝程式
+
+從專案的 [GitHub Releases 頁面](https://github.com/toadish-frog/agent-andon-light/releases)下載 `andon-light-setup.exe` 並執行。它只針對你的使用者帳號安裝（不會跳出系統管理員權限提示），並且會自動加入 PATH。
+
+## 2. 關於安全性警告
+
+安裝程式和工具本身都沒有數位簽章，所以不管第一次執行哪一個，Windows 都會跳出「Windows 已保護您的電腦」的警告，某些防毒軟體也可能會反應。這是這類小型未簽章工具打包方式的副作用，恰好和某些惡意軟體的行為有點像，並不代表任何東西壞了。
+
+**要繼續執行：** 點「其他資訊」，然後點「仍要執行」。
+
+真正能解決這個警告的辦法——買一張程式碼簽章憑證——一年大概要 70 到 400 美元。而且就算買了新憑證，也需要時間才能在 Windows 那邊累積出信任度。對一個只直接發給少數人的業餘專案來說，現在還不值得為此花這筆錢。
+
+## 3. 檢查是否成功
+
+打開一個**新的**終端機視窗（安裝之前就開著的終端機感知不到更新後的 PATH），執行：
+
+```txt
+andon-light doctor
+```
+
+確認工具能找到你的裝置。
+
+## 4. 接上 Claude Code
+
+安裝程式完成頁面上有個核取方塊，勾選後會自動執行 `andon-light install-hooks`，走的是和 [Claude Code Hook 整合](/docs/software/claude-code-hooks)裡說的一樣的流程——先顯示要改的內容，再等你確認。之後你也可以隨時自己在終端機裡執行：
+
+```txt
+andon-light install-hooks
+```
+
+## 遇到問題？
+
+參見疑難排解頁面的 [Windows 專屬說明](/docs/hardware/troubleshooting#windows-專屬說明)，裡面講了安裝後的 PATH 問題，以及從舊版本升級時怎麼清理殘留的 PATH 記錄。

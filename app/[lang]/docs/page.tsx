@@ -16,7 +16,7 @@ export default async function DocsIndexPage({
   if (!isLocale(lang)) notFound();
 
   const dict = getDictionary(lang);
-  const docs = getAllDocsMeta();
+  const docs = getAllDocsMeta(lang);
 
   return (
     <div>
