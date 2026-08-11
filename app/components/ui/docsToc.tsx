@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function DocsToc({ headings, label }: { headings: Heading[]; label: string }) {
   const ids = useMemo(() => headings.map((heading) => heading.id), [headings]);
-  const activeId = useActiveSection(ids);
+  const [activeId] = useActiveSection(ids);
 
   if (headings.length === 0) return null;
 

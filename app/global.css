@@ -50,6 +50,27 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Hides the scrollbar on the product page's single-line section nav (still scrollable, just not visibly). */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Soft fade at both edges of a horizontally-scrolling row, instead of a hard clip. */
+.edge-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 20px,
+    black calc(100% - 20px),
+    transparent
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

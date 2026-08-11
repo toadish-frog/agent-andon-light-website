@@ -15,12 +15,12 @@
         },
         {
           "title": "Adafruit NeoPixel",
-          "description": "The library that drives the addressable LEDs — the timing they need is too precise for a plain digitalWrite.",
+          "description": "The library that drives the addressable LEDs. Their timing is too precise for a plain digitalWrite.",
           "url": "https://github.com/adafruit/Adafruit_NeoPixel"
         },
         {
           "title": "KiCad",
-          "description": "Free, open-source software for designing circuit boards — used to design this one.",
+          "description": "Free, open-source software for designing circuit boards, used to design this one.",
           "url": "https://www.kicad.org/"
         },
         {
@@ -40,7 +40,7 @@
         },
         {
           "title": "Source code on GitHub",
-          "description": "Firmware, hardware design files, host CLI, and hook setup — all of it, MIT-licensed.",
+          "description": "Firmware, hardware design files, host CLI, and hook setup: all of it MIT-licensed.",
           "url": "https://github.com/toadish-frog/agent-andon-light"
         },
         {

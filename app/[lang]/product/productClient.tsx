@@ -27,7 +27,6 @@ export function ProductClient({
     { id: "reliability", label: p.nav.reliability },
     { id: "hooks", label: p.nav.hooks },
     { id: "open-source", label: p.nav.openSource },
-    { id: "field-notes", label: p.nav.fieldNotes },
   ];
 
   return (
@@ -151,14 +150,6 @@ export function ProductClient({
           >
             {p.openSource.ctaLabel}
           </a>
-        </Reveal>
-      </section>
-
-      {/* Field notes — honest status in place of fabricated testimonials, see ARCHITECTURE.md §5 */}
-      <section id="field-notes" className="scroll-mt-32 px-6 py-24">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className={headingClass}>{p.fieldNotes.heading}</h2>
-          <p className={bodyClass}>{p.fieldNotes.body}</p>
         </Reveal>
       </section>
 

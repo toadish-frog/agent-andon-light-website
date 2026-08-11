@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 /**
  * Tracks which of the given element ids is currently most in view — the
  * shared scroll-spy mechanism behind both `ProductSectionNav` and the docs
- * "on this page" TOC.
+ * "on this page" TOC. Also returns a setter so a click handler can pin the
+ * active id immediately, rather than waiting for a smooth-scroll jump to
+ * finish and the observer to catch up.
  */
-export function useActiveSection(ids: string[]): string | undefined {
+export function useActiveSection(
+  ids: string[],
+): [string | undefined, (id: string) => void] {
   const [activeId, setActiveId] = useState(ids[0]);
 
   useEffect(() => {
@@ -30,5 +34,5 @@ export function useActiveSection(ids: string[]): string | undefined {
     return () => observer.disconnect();
   }, [ids]);
 
-  return activeId;
+  return [activeId, setActiveId];
 }

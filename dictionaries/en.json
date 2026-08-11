@@ -9,37 +9,37 @@
   },
   "footer": {
     "tagline": "A physical status light for your coding agent.",
-    "disclaimer": "Disclaimer text pending.",
+    "disclaimer": "Independent hobby project, not affiliated with Anthropic. Hardware and firmware are MIT licensed and provided as-is.",
     "sourceLink": "View source"
   },
   "home": {
     "eyebrow": "Agent Andon Light v0.1.0",
-    "title": "Know your agent's state without staring at a terminal.",
-    "subtitle": "A physical desktop status light for Claude Code and CLI coding agents — green, yellow, red, at a glance.",
+    "title": "A status light for Claude Code and other coding agents.",
+    "subtitle": "Green while it's working, yellow when it's waiting on you, red when it's idle.",
     "ctaProduct": "See the product",
     "ctaDocs": "Read the docs",
     "stripAriaLabel": "Simulated status light cycling through idle, working, waiting, and compacting states",
-    "whatItIs": {
-      "heading": "A status light you don't have to look for.",
-      "body": "Ten addressable LEDs behind a diffuser, wired to a USB-C dev board, driven by a small Python CLI. Claude Code hooks flip its color automatically — green while the agent's working, yellow when it's waiting on you, red when it's idle. No dashboard, no extra window."
-    },
     "whyItExists": {
-      "heading": "Built for the tab you keep checking.",
-      "body": "Coding agents run in the background, but \"in the background\" still means glancing at a terminal window every few minutes to check if it's stuck waiting on you. This moves that one bit of information off the screen entirely — walk away, glance at the light, know exactly where things stand."
+      "heading": "No terminal to check, no app to open.",
+      "body": "A terminal or dashboard only tells you something if you're looking at it. This doesn't. It sits on your desk and shows the same thing whether you're at your keyboard or not."
+    },
+    "whatItIs": {
+      "heading": "Ten LEDs. A USB-C board. A small CLI.",
+      "body": "Ten addressable LEDs behind a diffuser, wired to a USB-C dev board, driven by a small Python CLI (a program you run by typing a command, not something with a window or icon). Claude Code hooks send state changes to the CLI, which updates the light: green while it's working, yellow when it's waiting on you, red when it's idle."
     },
     "states": {
       "heading": "Four states, one glance.",
       "working": { "label": "Working", "description": "The agent is doing something." },
-      "waiting": { "label": "Waiting", "description": "It needs you — a permission or an answer." },
+      "waiting": { "label": "Waiting", "description": "It needs you: a permission or an answer." },
       "idle": { "label": "Idle", "description": "Nothing running right now." },
-      "compacting": { "label": "Compacting", "description": "Housekeeping — still alive, not stuck." }
+      "compacting": { "label": "Compacting", "description": "Housekeeping. Still alive, not stuck." }
     },
     "openHardware": {
       "heading": "Open hardware, honestly a hobby project.",
-      "body": "MIT-licensed — schematics, firmware, and CLI all included. Five units built and tested, Linux and Windows supported today. Not a commercial product, not for sale. Built because a physical light is more fun to build, and more useful to have, than another terminal tab."
+      "body": "MIT-licensed: schematics, firmware, and CLI all included. Linux and Windows supported today. Not a commercial product, not for sale. Built because a physical light is more fun to build, and more useful to have, than another terminal tab."
     },
     "closing": {
-      "heading": "See it, build it, or just read about it."
+      "heading": "See the product, or read the docs."
     }
   },
   "notFound": {
@@ -52,17 +52,16 @@
       "howItWorks": "How it works",
       "reliability": "Reliability",
       "hooks": "Hooks",
-      "openSource": "Open Source",
-      "fieldNotes": "Field Notes"
+      "openSource": "Open Source"
     },
     "hero": {
       "eyebrow": "The Hardware",
       "title": "Ten LEDs, one wire, no dashboard.",
-      "subtitle": "A closer look at how Agent Andon Light turns hook events into light — the board, the protocol, and the firmware behind it."
+      "subtitle": "How Agent Andon Light turns hook events into light: the board, the protocol, and the firmware (the program that runs directly on the chip)."
     },
     "overview": {
       "heading": "What's actually on the desk",
-      "body": "A Waveshare RP2040-Zero, hand-soldered onto a custom PCB, driving 10 addressable WS2812B LEDs behind a 3D-printed diffuser. One USB-C cable carries both power and the serial connection back to your machine — no separate power supply, no wireless pairing, nothing to configure beyond installing the CLI.",
+      "body": "A small circuit board (a Waveshare RP2040-Zero), hand-soldered onto a custom PCB, driving 10 addressable WS2812B LEDs behind a 3D-printed diffuser. One USB-C cable carries both power and the serial connection back to your machine. No separate power supply, no wireless pairing, nothing to configure beyond installing the CLI (the command-line program that talks to the board).",
       "diagramAriaLabel": "Diagram of the board: an RP2040-Zero, a USB-C connector, and a row of 10 addressable LEDs split into a status pixel plus green, yellow, and red sections"
     },
     "howItWorks": {
@@ -82,11 +81,11 @@
     },
     "reliability": {
       "heading": "Built to be trusted while you're not looking",
-      "body": "A 30-minute watchdog runs on the firmware itself — if it stops hearing from the host, the red section switches from solid to a slow breathing pulse instead of freezing on a stale color. A status light you walk away from has to fail visibly, not silently."
+      "body": "A 30-minute watchdog runs on the firmware itself. If it stops hearing from the host, the red section switches from solid to a slow breathing pulse instead of freezing on a stale color. A status light you walk away from has to fail visibly, not silently."
     },
     "hooks": {
       "heading": "Wired straight into Claude Code",
-      "body": "Claude Code hooks call the CLI directly and synchronously — not async — so the light always reflects the true order of events, even through a tool-call-heavy turn.",
+      "body": "Claude Code hooks call the CLI directly, one event at a time, waiting for each call to finish before moving to the next. That's what keeps the light showing the true order of events, even during a turn with a lot of tool calls back to back.",
       "eventLabel": "Hook event",
       "colorLabel": "Color",
       "hookRows": [
@@ -99,14 +98,10 @@
     },
     "openSource": {
       "heading": "Nothing hidden",
-      "body": "MIT-licensed, start to finish — schematics, firmware, host CLI, and the hook config it installs. The full bill of materials and build guide are in the docs if you want to build your own.",
+      "body": "MIT-licensed, start to finish: schematics, firmware, host CLI, and the hook config it installs. The full parts list (bill of materials) and build guide are in the docs if you want to build your own.",
       "ctaLabel": "View on GitHub"
     },
-    "fieldNotes": {
-      "heading": "Where it stands",
-      "body": "Five units built and tested. Linux is a one-line pipx install; Windows has a one-click (unsigned) installer. macOS isn't supported yet. This is a hobby project, not a commercial product — no roadmap promises, just what's actually working today."
-    },
-    "disclaimer": "Fine print pending — jokes to be supplied."
+    "disclaimer": "Windows installer is unsigned. Windows shows a warning before you run it, every time, until it gets signed. macOS isn't tested and isn't officially supported. Built and maintained by one person, not a company. Issues and pull requests are welcome on GitHub."
   },
   "docs": {
     "sections": {
@@ -116,10 +111,10 @@
       "install": "Install"
     },
     "onThisPage": "On this page",
-    "notTranslated": "This page hasn't been translated yet — showing the English version.",
+    "notTranslated": "This page hasn't been translated yet. Showing the English version.",
     "index": {
       "heading": "Documentation",
-      "body": "Everything you need to build the hardware, install the software, and fix things when they don't work — written for whatever level of technical comfort you're starting from."
+      "body": "Build the hardware, install the software, fix what breaks."
     }
   },
   "resources": {

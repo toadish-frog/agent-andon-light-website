@@ -5,7 +5,7 @@ section: "install"
 order: 1
 ---
 
-在 Linux 上不需要单独构建安装程序——命令行工具直接发布在 PyPI 上，安装就是一条命令的事。这篇假设你对终端操作比较熟悉。
+在 Linux 上不需要单独构建安装程序。命令行工具直接发布在 PyPI 上，安装就是一条命令的事。这篇假设你对终端操作比较熟悉。
 
 ## 1. 安装
 
@@ -14,7 +14,7 @@ sudo apt install -y pipx   # 如果还没有 pipx，先装一下
 pipx install andon-light
 ```
 
-不需要克隆项目仓库——这条命令直接安装已发布的包。
+不需要克隆项目仓库。这条命令直接安装已发布的包。
 
 ## 2. 检查是否成功
 
@@ -22,7 +22,7 @@ pipx install andon-light
 andon-light doctor
 ```
 
-确认工具真的能找到你的设备。如果提示权限错误，需要把你的用户账号加入 `dialout` 用户组——具体步骤参见故障排查页面的 [Linux 专属说明](/docs/hardware/troubleshooting#linux-专属说明)。
+确认工具真的能找到你的设备。如果提示权限错误，需要把你的用户账号加入 `dialout` 用户组。具体步骤参见故障排查页面的 [Linux 专属说明](/docs/hardware/troubleshooting#linux-专属说明)。
 
 ## 3. 接上 Claude Code
 

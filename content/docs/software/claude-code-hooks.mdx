@@ -5,7 +5,7 @@ section: "software"
 order: 2
 ---
 
-Once you run `andon-light install-hooks`, the light updates on its own — you don't run any commands day-to-day. This page explains what that setup actually does, and why it's built the way it is, in case you're curious or something isn't behaving as expected.
+Once you run `andon-light install-hooks`, the light updates on its own. You don't run any commands day-to-day. This page explains what that setup actually does, and why it's built the way it is, in case you're curious or something isn't behaving as expected.
 
 Claude Code supports "hooks": places in its own lifecycle where it can run a command for you automatically, like "right when a session starts" or "right before it waits for your permission to do something." Installing the integration wires up each of those moments to call `andon-light` with the right color.
 
@@ -18,40 +18,40 @@ Claude Code supports "hooks": places in its own lifecycle where it can run a com
 | Right before it uses any tool | Working (green) | This fires on every single tool call, which keeps the light green continuously through a long, tool-heavy stretch of work. |
 | A general notification | Waiting (yellow) | Something needs your attention. |
 | Specifically asking your permission | Waiting (yellow) | For example, approving a command it wants to run. |
-| Housekeeping ("compacting") | Chase pattern | Internal maintenance — still working, just a different kind of busy. |
+| Housekeeping ("compacting") | Chase pattern | Internal maintenance: still working, just a different kind of busy. |
 | A turn or session ends normally | Idle (red) | Back to idle. |
-| A session ends for any reason | Idle (red) | Covers the cases a normal "ended" moment might miss — see below. |
+| A session ends for any reason | Idle (red) | Covers the cases a normal "ended" moment might miss: see below. |
 
-These commands run one at a time, in order — never in the background — which matters more than it might sound like (see [Why not run them in the background](#why-not-run-them-in-the-background) below). The setup merges into either your global Claude Code settings or a single project's settings, whichever you choose during install. It doesn't need to know anything about what's on the other end of the USB connection — it just calls `andon-light`, and the firmware handles the rest. If you edit this file, restart Claude Code (or start a new session) for the change to take effect.
+These commands run one at a time, in order (never in the background), which matters more than it might sound like (see [Why not run them in the background](#why-not-run-them-in-the-background) below). The setup merges into either your global Claude Code settings or a single project's settings, whichever you choose during install. It doesn't need to know anything about what's on the other end of the USB connection. It just calls `andon-light`, and the firmware handles the rest. If you edit this file, restart Claude Code (or start a new session) for the change to take effect.
 
 ## A few design decisions explained
 
 ### Why "before using a tool" matters so much
 
-Most of the moments above only happen once — you submit a prompt once, you get a notification once. But a single response from Claude Code might involve dozens of tool calls in a row (reading files, running commands, editing code), and nothing else would touch the light during all of that. Hooking into "right before every tool call" means the light gets refreshed continuously throughout, instead of possibly timing out and showing a stale/disconnected pulse in the middle of active work. The one gap this doesn't cover is a turn that's pure thinking with no tool calls at all — there's no hook for "still generating text" — but that's a much shorter window than the 30-minute stale-connection timeout, so it isn't a practical problem.
+Most of the moments above only happen once: you submit a prompt once, you get a notification once. But a single response from Claude Code might involve dozens of tool calls in a row (reading files, running commands, editing code), and nothing else would touch the light during all of that. Hooking into "right before every tool call" means the light gets refreshed continuously throughout, instead of possibly timing out and showing a stale/disconnected pulse in the middle of active work. The one gap this doesn't cover is a turn that's pure thinking with no tool calls at all (there's no hook for "still generating text"), but that's a much shorter window than the 30-minute stale-connection timeout, so it isn't a practical problem.
 
 ### Why permission requests get their own hook, separate from general notifications
 
-Both end up showing the same yellow color, so in practice it doesn't matter much which one fires — but having a hook specifically for "waiting on a permission" (like approving a command) makes that particular moment more precise and easier to reason about than lumping it in with every other kind of notification.
+Both end up showing the same yellow color, so in practice it doesn't matter much which one fires, but having a hook specifically for "waiting on a permission" (like approving a command) makes that particular moment more precise and easier to reason about than lumping it in with every other kind of notification.
 
 ### Why housekeeping gets its own distinct look
 
-Without a dedicated pattern for this, a housekeeping pause would either stay on whatever color was showing before (misleading if that was red/idle), or need a second hook just to change it back afterward once housekeeping finished. The chase pattern reads at a glance as "still alive, doing upkeep" — and naturally moves on to whatever the next real state is once the following hook fires, with no extra step needed.
+Without a dedicated pattern for this, a housekeeping pause would either stay on whatever color was showing before (misleading if that was red/idle), or need a second hook just to change it back afterward once housekeeping finished. The chase pattern reads at a glance as "still alive, doing upkeep," and naturally moves on to whatever the next real state is once the following hook fires, with no extra step needed.
 
 ### Why sessions start on idle, deliberately
 
-Without this, a brand new session would just inherit whatever color the *previous* session left behind. Usually that's fine, since a normal session ending already leaves it on idle — but if a previous session crashed partway through, that guarantee doesn't hold. Explicitly setting idle the moment a session starts removes the light's dependence on history working out cleanly every time.
+Without this, a brand new session would just inherit whatever color the *previous* session left behind. Usually that's fine, since a normal session ending already leaves it on idle, but if a previous session crashed partway through, that guarantee doesn't hold. Explicitly setting idle the moment a session starts removes the light's dependence on history working out cleanly every time.
 
 ### Why session-end is separate from turn-end
 
-If you interrupt Claude Code mid-turn (Ctrl+C), that's a different kind of stop than a turn ending normally, and the "turn ended" hook alone won't catch it — which would leave the light stuck on whatever it last showed. The "session ended for any reason" hook covers this, since it fires regardless of how the session actually stopped. The normal "turn ended" hook stays in place alongside it too, so the common case still resolves as quickly as possible without waiting on the rest of the session to fully wind down.
+If you interrupt Claude Code mid-turn (Ctrl+C), that's a different kind of stop than a turn ending normally, and the "turn ended" hook alone won't catch it, which would leave the light stuck on whatever it last showed. The "session ended for any reason" hook covers this, since it fires regardless of how the session actually stopped. The normal "turn ended" hook stays in place alongside it too, so the common case still resolves as quickly as possible without waiting on the rest of the session to fully wind down.
 
 ## Why not run them in the background
 
-Early on, every one of these commands ran in the background, specifically to avoid adding any delay to real tool calls. The tradeoff turned out not to be worth it: running in the background only guarantees each command *starts* in the right order, not that it *finishes* in the right order. Each call to `andon-light` is its own fresh, short-lived program — quick, but not instant — so under load (like a very tool-heavy stretch of work), a command that started later could occasionally finish before one that started earlier. In practice, that showed up as: a session correctly ends on red, but a slightly delayed yellow "waiting" command from earlier in the session finishes just after — silently overwriting the correct red with a stale yellow.
+Early on, every one of these commands ran in the background, specifically to avoid adding any delay to real tool calls. The tradeoff turned out not to be worth it: running in the background only guarantees each command *starts* in the right order, not that it *finishes* in the right order. Each call to `andon-light` is its own fresh, short-lived program (quick, but not instant), so under load (like a very tool-heavy stretch of work), a command that started later could occasionally finish before one that started earlier. In practice, that showed up as: a session correctly ends on red, but a slightly delayed yellow "waiting" command from earlier in the session finishes just after, silently overwriting the correct red with a stale yellow.
 
-Running them one at a time, in order, means Claude Code waits for each one to finish before moving on, which guarantees the light always reflects the true order of events. The extra wait per call is small enough not to be noticeable against how long real tool calls already take — so the delay it was meant to save wasn't worth the risk of the light showing the wrong thing.
+Running them one at a time, in order, means Claude Code waits for each one to finish before moving on, which guarantees the light always reflects the true order of events. The extra wait per call is small enough not to be noticeable against how long real tool calls already take, so the delay it was meant to save wasn't worth the risk of the light showing the wrong thing.
 
 ## Why every command is set up to fail silently
 
-If the board ever gets unplugged, or the command-line tool is run on a computer that doesn't have one connected, every single hook would otherwise print a loud error inside Claude Code on every prompt — which defeats the point of a status light that's supposed to quietly sit in the background. This is worth revisiting once the tool can automatically reconnect or gracefully handle a genuinely missing device — at that point, a real, persistent connection problem becomes worth surfacing instead of silently ignoring.
+If the board ever gets unplugged, or the command-line tool is run on a computer that doesn't have one connected, every single hook would otherwise print a loud error inside Claude Code on every prompt, which defeats the point of a status light that's supposed to quietly sit in the background. This is worth revisiting once the tool can automatically reconnect or gracefully handle a genuinely missing device. At that point, a real, persistent connection problem becomes worth surfacing instead of silently ignoring.

@@ -9,37 +9,37 @@
   },
   "footer": {
     "tagline": "为你的 Coding Agent 打造的实体状态灯。",
-    "disclaimer": "免责声明内容待补充。",
+    "disclaimer": "与 Anthropic 无关的个人业余项目。硬件和固件以 MIT 协议开源，不提供任何担保。",
     "sourceLink": "查看源码"
   },
   "home": {
     "eyebrow": "Agent Andon Light v0.1.0",
-    "title": "无需盯着屏幕，也能一眼看懂 Agent 的状态。",
-    "subtitle": "为 Claude Code 与 CLI Coding Agent 打造的实体桌面状态灯——绿、黄、红，一目了然。",
+    "title": "为 Claude Code 等 CLI 编码 Agent 打造的状态灯。",
+    "subtitle": "工作中是绿色，等你处理时是黄色，空闲时是红色。",
     "ctaProduct": "查看产品",
     "ctaDocs": "阅读文档",
     "stripAriaLabel": "模拟状态灯，依次演示空闲、工作中、等待中、整理中四种状态",
-    "whatItIs": {
-      "heading": "不用刻意寻找的状态灯。",
-      "body": "扩散罩下藏着 10 颗可寻址 LED，接在一块 USB-C 开发板上，由一个小巧的 Python CLI 驱动。Claude Code 的 hooks 会自动切换颜色——Agent 工作时是绿色，等你处理时是黄色，空闲时是红色。不需要仪表盘，也不用多开一个窗口。"
-    },
     "whyItExists": {
-      "heading": "为你忍不住反复查看的那个窗口而生。",
-      "body": "编码 Agent 在后台运行，但「后台」常常还是意味着你得每隔几分钟看一眼屏幕，确认它是不是卡在等你回应。把这一点信息挪到屏幕之外——起身离开，看一眼灯的颜色，就知道现在是什么状态。"
+      "heading": "不用看终端，也不用开任何软件。",
+      "body": "终端或仪表盘只有你在看的时候才有用。这盏灯不一样：放在桌上，不管你在不在电脑前，它都亮着同样的状态给你看。"
+    },
+    "whatItIs": {
+      "heading": "10 颗 LED，一块 USB-C 板，一个小 CLI。",
+      "body": "扩散罩下面是 10 颗可寻址 LED，接在一块 USB-C 开发板上，由一个小巧的 Python CLI 驱动（CLI 就是命令行程序，没有图标也没有窗口，靠打命令来运行）。Claude Code 的 hooks 把状态变化传给这个 CLI，CLI 再去改变灯的颜色：工作中是绿色，等你处理时是黄色，空闲时是红色。"
     },
     "states": {
       "heading": "四种状态，一眼看懂。",
       "working": { "label": "工作中", "description": "Agent 正在执行任务。" },
-      "waiting": { "label": "等待中", "description": "需要你处理——授权或回答问题。" },
+      "waiting": { "label": "等待中", "description": "需要你处理：授权或回答问题。" },
       "idle": { "label": "空闲", "description": "目前没有任务在运行。" },
       "compacting": { "label": "整理中", "description": "内部整理，仍在运行，不是卡住了。" }
     },
     "openHardware": {
       "heading": "开源硬件，说白了就是个业余项目。",
-      "body": "MIT 协议开源——原理图、固件、CLI 全部公开。已经制作并测试了 5 台，目前支持 Linux 和 Windows。不是商用产品，也不对外销售——比起再开一个屏幕窗口，做一盏看得见摸得着的灯，更好玩，也更实用。"
+      "body": "MIT 协议开源：原理图、固件、CLI 全部公开。目前支持 Linux 和 Windows。不是商用产品，也不对外销售。比起再开一个屏幕窗口，做一盏看得见摸得着的灯，更好玩，也更实用。"
     },
     "closing": {
-      "heading": "从这里开始。"
+      "heading": "去看看产品，或者去读文档。"
     }
   },
   "notFound": {
@@ -52,18 +52,17 @@
       "howItWorks": "工作原理",
       "reliability": "可靠性",
       "hooks": "Hooks 集成",
-      "openSource": "开源",
-      "fieldNotes": "现状"
+      "openSource": "开源"
     },
     "hero": {
       "eyebrow": "硬件",
       "title": "10 颗 LED，一根线，没有仪表盘。",
-      "subtitle": "看看 Agent Andon Light 是如何把 hook 事件变成灯光的——从电路板、通信协议到固件。"
+      "subtitle": "看看 Agent Andon Light 是如何把 hook 事件变成灯光的：从电路板、通信协议到固件（直接跑在芯片上的程序）。"
     },
     "overview": {
       "heading": "桌上到底放了什么",
-      "body": "一块 Waveshare RP2040-Zero，手工焊接在定制电路板上，驱动着 3D 打印扩散罩下的 10 颗可寻址 WS2812B LED。一根 USB-C 线同时负责供电和串口通信——不需要额外电源，不需要无线配对，除了安装 CLI 之外什么都不用配置。",
-      "diagramAriaLabel": "电路板示意图：一块 RP2040-Zero、一个 USB-C 接口，以及一排 10 颗可寻址 LED——1 颗状态灯，加上绿、黄、红各 3 颗"
+      "body": "一块小电路板（Waveshare RP2040-Zero），手工焊接在定制电路板上，驱动着 3D 打印扩散罩下的 10 颗可寻址 WS2812B LED。一根 USB-C 线同时负责供电和串口通信，不需要额外电源，不需要无线配对。唯一要做的配置，就是装好 CLI（靠打命令来操作、和板子通信的程序）。",
+      "diagramAriaLabel": "电路板示意图：一块 RP2040-Zero、一个 USB-C 接口，以及一排 10 颗可寻址 LED，分为 1 颗状态灯，加上绿、黄、红各 3 颗"
     },
     "howItWorks": {
       "heading": "一个字符，一种颜色",
@@ -82,11 +81,11 @@
     },
     "reliability": {
       "heading": "即使你没在看，也靠得住",
-      "body": "固件本身跑着一个 30 分钟的看门狗定时器——一旦主机端失联，红色区域不会停在常亮状态，而是切换成缓慢的呼吸式闪烁。一盏可以放心离开的状态灯，必须把异常明明白白地显示出来，而不是悄悄卡死。"
+      "body": "固件本身跑着一个 30 分钟的看门狗定时器。一旦主机端失联，红色区域不会停在常亮状态，而是切换成缓慢的呼吸式闪烁。一盏可以放心离开的状态灯，必须把异常明明白白地显示出来，而不是悄悄卡死。"
     },
     "hooks": {
       "heading": "直接接入 Claude Code",
-      "body": "Claude Code 的 hooks 是同步、直接调用 CLI 的，不是异步——这样即使在工具调用密集的回合里，灯光也始终反映事件的真实顺序。",
+      "body": "Claude Code 的 hooks 会一条一条按顺序调用 CLI，等前一条处理完才调用下一条。这样即使在工具调用密集的回合里，灯光也始终反映事件的真实顺序。",
       "eventLabel": "Hook 事件",
       "colorLabel": "颜色",
       "hookRows": [
@@ -99,14 +98,10 @@
     },
     "openSource": {
       "heading": "没什么好藏的",
-      "body": "从电路图、固件、主机端 CLI，到自动安装的 hook 配置，全部以 MIT 协议开源。如果你想自己动手做一台，完整的物料清单和组装指南都在文档里。",
+      "body": "从电路图、固件、主机端 CLI，到自动安装的 hook 配置，全部以 MIT 协议开源。如果你想自己动手做一台，完整的零件清单（物料清单）和组装指南都在文档里。",
       "ctaLabel": "在 GitHub 上查看"
     },
-    "fieldNotes": {
-      "heading": "目前的进展",
-      "body": "已经制作并测试了 5 台。Linux 上一行 pipx 命令就能装好，Windows 有一键（未签名）安装程序，macOS 暂不支持。这是个人爱好项目，不是商用产品——不做路线图承诺，只呈现现在真正能用的东西。"
-    },
-    "disclaimer": "小字说明还在准备中。"
+    "disclaimer": "Windows 安装程序没有数字签名，在拿到签名之前，每次运行 Windows 都会弹出警告。macOS 还没测试过，官方不支持。这是个人维护的项目，不是公司出品，欢迎在 GitHub 上提交 Issue 或 Pull Request。"
   },
   "docs": {
     "sections": {
@@ -119,7 +114,7 @@
     "notTranslated": "这个页面还没有翻译，目前显示的是英文版。",
     "index": {
       "heading": "文档",
-      "body": "从组装硬件、安装软件，到遇到问题时怎么解决——不管你的技术背景如何，都能看懂。"
+      "body": "组装硬件，安装软件，排除故障。"
     }
   },
   "resources": {

@@ -5,7 +5,7 @@ section: "install"
 order: 1
 ---
 
-There's no separate installer to build here — on Linux, the command-line tool is published straight to PyPI, so installing it is a single command. This page assumes you're reasonably comfortable in a terminal.
+There's no separate installer to build here. On Linux, the command-line tool is published straight to PyPI, so installing it is a single command. This page assumes you're reasonably comfortable in a terminal.
 
 ## 1. Install
 
@@ -14,7 +14,7 @@ sudo apt install -y pipx   # skip this if you already have pipx
 pipx install andon-light
 ```
 
-No need to clone the project's repository — this pulls the published package directly.
+No need to clone the project's repository. This pulls the published package directly.
 
 ## 2. Check it worked
 
@@ -22,7 +22,7 @@ No need to clone the project's repository — this pulls the published package d
 andon-light doctor
 ```
 
-This confirms the tool can actually find your device. If it reports a permission error instead, your user account needs to be added to the `dialout` group — see the [Linux-specific section](/docs/hardware/troubleshooting#linux-specific-notes) of the troubleshooting page for exactly how.
+This confirms the tool can actually find your device. If it reports a permission error instead, your user account needs to be added to the `dialout` group. See the [Linux-specific section](/docs/hardware/troubleshooting#linux-specific-notes) of the troubleshooting page for exactly how.
 
 ## 3. Connect it to Claude Code
 

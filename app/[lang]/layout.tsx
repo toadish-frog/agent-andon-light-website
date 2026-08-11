@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { Footer } from "@/app/components/footer";
 import { HtmlLang } from "@/app/components/htmlLang";
+import { MainContent } from "@/app/components/mainContent";
 import { Nav } from "@/app/components/nav";
 import { ThemeProvider } from "@/app/components/theme-provider";
 import { getDictionary } from "@/dictionaries";
@@ -27,7 +28,7 @@ export default async function LangLayout({
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <HtmlLang locale={lang} />
       <Nav locale={lang} dict={dict.nav} />
-      <main className="pt-16">{children}</main>
+      <MainContent>{children}</MainContent>
       <Footer dict={dict.footer} />
     </ThemeProvider>
   );

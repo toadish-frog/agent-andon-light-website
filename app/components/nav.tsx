@@ -9,6 +9,7 @@ import { locales, localeLabels, type Locale } from "@/i18n";
 import type { Dictionary } from "@/dictionaries";
 import { cn } from "@/lib/utils";
 import { useHasMounted } from "@/app/utils/useHasMounted";
+import { useIsProductPage } from "@/app/utils/useIsProductPage";
 
 const STORAGE_KEY = "andon-light-locale";
 
@@ -22,15 +23,17 @@ const localeGlyph: Record<Locale, string> = {
 };
 
 /**
- * Fixed, site-wide nav. The Product page (Phase 2) switches this to a
- * floating variant with in-page section links, à la the Apple product-page
- * pattern referenced in ARCH-prompt.md §5 — not implemented yet.
+ * Site-wide nav — fixed to the viewport on every page except the product
+ * page, where it's non-sticking (normal document flow) because that page
+ * has its own floating ProductSectionNav instead, à la the Apple
+ * product-page pattern referenced in ARCH-prompt.md §5.
  */
 export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const mounted = useHasMounted();
+  const isProductPage = useIsProductPage();
 
   const links = [
     { href: `/${locale}/`, label: dict.home },
@@ -46,7 +49,12 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] 
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50">
+    <header
+      className={cn(
+        "z-50 border-b border-black/5 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50",
+        isProductPage ? "relative" : "fixed inset-x-0 top-0",
+      )}
+    >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href={`/${locale}/`} className="font-mono text-sm font-semibold">
           Agent Andon Light
