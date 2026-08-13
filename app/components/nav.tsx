@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
@@ -47,6 +48,19 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] 
     const rest = pathname.replace(/^\/[^/]+/, "");
     router.push(`/${next}${rest || "/"}`);
   }
+
+  // Locale links only ever go through this <select>, not <Link>, so they
+  // miss Next's automatic viewport prefetch — that's why the *first* switch
+  // to a given locale is slow (cold fetch of that route's RSC payload) while
+  // later switches feel instant (cached). Warm all other locales for the
+  // current page up front so the first click is fast too.
+  useEffect(() => {
+    const rest = pathname.replace(/^\/[^/]+/, "");
+    for (const l of locales) {
+      if (l === locale) continue;
+      router.prefetch(`/${l}${rest || "/"}`);
+    }
+  }, [pathname, locale, router]);
 
   return (
     <header
