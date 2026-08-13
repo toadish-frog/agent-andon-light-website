@@ -21,7 +21,10 @@ export function DocsSidebar({
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Documentation" className="sticky top-24 hidden w-56 shrink-0 md:block">
+    <nav
+      aria-label="Documentation"
+      className="sticky top-24 hidden w-56 shrink-0 md:block"
+    >
       <div className="space-y-6 text-sm">
         {SECTION_ORDER.map((section) => {
           const items = docs.filter((doc) => doc.section === section);

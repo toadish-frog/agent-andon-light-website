@@ -7,10 +7,7 @@ export const dynamic = "force-static";
 const SITE_URL = "https://agent-andon-light.example.com";
 
 function escapeXml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 export function GET() {

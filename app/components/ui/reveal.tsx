@@ -11,7 +11,13 @@ const variants: Variants = {
 };
 
 /** Fades/slides a section in as it enters the viewport; a no-op when the visitor prefers reduced motion. */
-export function Reveal({ children, className }: { children: ReactNode; className?: string }) {
+export function Reveal({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (

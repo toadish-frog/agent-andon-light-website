@@ -18,6 +18,7 @@
     "subtitle": "Green while it's working, yellow when it's waiting on you, red when it's idle.",
     "ctaProduct": "See the product",
     "ctaDocs": "Read the docs",
+    "ctaResources": "Browse the resources",
     "stripAriaLabel": "Simulated status light cycling through idle, working, waiting, and compacting states",
     "whyItExists": {
       "heading": "No terminal to check, no app to open.",
@@ -30,9 +31,15 @@
     "states": {
       "heading": "Four states, one glance.",
       "working": { "label": "Working", "description": "The agent is doing something." },
-      "waiting": { "label": "Waiting", "description": "It needs you: a permission or an answer." },
+      "waiting": {
+        "label": "Waiting",
+        "description": "It needs you: a permission or an answer."
+      },
       "idle": { "label": "Idle", "description": "Nothing running right now." },
-      "compacting": { "label": "Compacting", "description": "Housekeeping. Still alive, not stuck." }
+      "compacting": {
+        "label": "Compacting",
+        "description": "Housekeeping. Still alive, not stuck."
+      }
     },
     "openHardware": {
       "heading": "Open hardware, honestly a hobby project.",

@@ -4,7 +4,12 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import { DocsToc } from "@/app/components/ui/docsToc";
-import { extractHeadings, getAllDocSlugs, getDocBySlug, mdxLinkComponents } from "@/app/utils/mdx";
+import {
+  extractHeadings,
+  getAllDocSlugs,
+  getDocBySlug,
+  mdxLinkComponents,
+} from "@/app/utils/mdx";
 import { getDictionary } from "@/dictionaries";
 import { defaultLocale, isLocale, locales } from "@/i18n";
 

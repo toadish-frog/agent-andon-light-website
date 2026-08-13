@@ -5,10 +5,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans:
-    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono:
-    var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
 
   /* Wire protocol states — Phase 0 baseline, refined once the design system lands. */
   --color-status-working: #22c55e;
@@ -61,7 +59,13 @@ body {
 
 /* Soft fade at both edges of a horizontally-scrolling row, instead of a hard clip. */
 .edge-fade-x {
-  mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 20px,
+    black calc(100% - 20px),
+    transparent
+  );
   -webkit-mask-image: linear-gradient(
     to right,
     transparent,

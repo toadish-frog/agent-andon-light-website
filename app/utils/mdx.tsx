@@ -88,7 +88,11 @@ export function getDocBySlug(slug: string[], locale: Locale = defaultLocale): Do
 export function getAllDocsMeta(locale: Locale = defaultLocale): DocMeta[] {
   return getAllDocSlugs()
     .map((slug) => {
-      const { content: _content, translated: _translated, ...meta } = getDocBySlug(slug, locale);
+      const {
+        content: _content,
+        translated: _translated,
+        ...meta
+      } = getDocBySlug(slug, locale);
       return meta;
     })
     .sort((a, b) => a.order - b.order);

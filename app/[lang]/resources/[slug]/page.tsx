@@ -45,7 +45,9 @@ export default async function ResourcePostPage({
       <MDXRemote
         source={post.content}
         components={mdxLinkComponents(lang)}
-        options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] } }}
+        options={{
+          mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] },
+        }}
       />
     </article>
   );

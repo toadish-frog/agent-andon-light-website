@@ -13,12 +13,7 @@ const GITHUB_URL = "https://github.com/toadish-frog/agent-andon-light";
 const headingClass = "text-2xl font-semibold tracking-tight sm:text-3xl";
 const bodyClass = "mt-4 text-neutral-600 dark:text-neutral-400";
 
-export function ProductClient({
-  dict,
-}: {
-  locale: Locale;
-  dict: Dictionary;
-}) {
+export function ProductClient({ dict }: { locale: Locale; dict: Dictionary }) {
   const p = dict.product;
 
   const sections = [
@@ -38,7 +33,9 @@ export function ProductClient({
         <AuroraGlow />
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
           <p className="font-mono text-sm text-neutral-500">{p.hero.eyebrow}</p>
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{p.hero.title}</h1>
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            {p.hero.title}
+          </h1>
           <p className="max-w-2xl text-lg text-neutral-600 dark:text-neutral-400">
             {p.hero.subtitle}
           </p>
@@ -55,7 +52,9 @@ export function ProductClient({
 
         <Reveal className="mx-auto mt-20 max-w-5xl">
           <h2 className={`text-center ${headingClass}`}>{p.overview.heading}</h2>
-          <p className={`mx-auto max-w-2xl text-center ${bodyClass}`}>{p.overview.body}</p>
+          <p className={`mx-auto max-w-2xl text-center ${bodyClass}`}>
+            {p.overview.body}
+          </p>
           <div className="mt-10 overflow-hidden rounded-2xl border border-black/10 p-4 dark:border-white/10">
             <BoardDiagram
               ariaLabel={p.overview.diagramAriaLabel}
@@ -84,17 +83,24 @@ export function ProductClient({
           <table className="mt-4 w-full text-left text-sm">
             <thead>
               <tr className="border-b border-black/10 dark:border-white/10">
-                <th className="py-2 font-mono font-medium">{p.howItWorks.commandLabel}</th>
+                <th className="py-2 font-mono font-medium">
+                  {p.howItWorks.commandLabel}
+                </th>
                 <th className="py-2 font-medium">{p.howItWorks.effectLabel}</th>
                 <th className="py-2 font-medium">{p.howItWorks.meaningLabel}</th>
               </tr>
             </thead>
             <tbody>
               {p.howItWorks.commands.map((row) => (
-                <tr key={row.command} className="border-b border-black/5 dark:border-white/5">
+                <tr
+                  key={row.command}
+                  className="border-b border-black/5 dark:border-white/5"
+                >
                   <td className="py-2 font-mono">{row.command}</td>
                   <td className="py-2">{row.effect}</td>
-                  <td className="py-2 text-neutral-600 dark:text-neutral-400">{row.meaning}</td>
+                  <td className="py-2 text-neutral-600 dark:text-neutral-400">
+                    {row.meaning}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -127,9 +133,14 @@ export function ProductClient({
             </thead>
             <tbody>
               {p.hooks.hookRows.map((row) => (
-                <tr key={row.event} className="border-b border-black/5 dark:border-white/5">
+                <tr
+                  key={row.event}
+                  className="border-b border-black/5 dark:border-white/5"
+                >
                   <td className="py-2 font-mono text-xs">{row.event}</td>
-                  <td className="py-2 text-neutral-600 dark:text-neutral-400">{row.color}</td>
+                  <td className="py-2 text-neutral-600 dark:text-neutral-400">
+                    {row.color}
+                  </td>
                 </tr>
               ))}
             </tbody>

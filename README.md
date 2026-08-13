@@ -17,13 +17,13 @@ npm run dev
 
 ## Scripts
 
-| Command | Does |
-| --- | --- |
-| `npm run dev` | Local dev server |
-| `npm run build` | Static export to `out/` |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run format` / `format:check` | Prettier |
+| Command                           | Does                    |
+| --------------------------------- | ----------------------- |
+| `npm run dev`                     | Local dev server        |
+| `npm run build`                   | Static export to `out/` |
+| `npm run lint`                    | ESLint                  |
+| `npm run typecheck`               | `tsc --noEmit`          |
+| `npm run format` / `format:check` | Prettier                |
 
 ## Structure
 

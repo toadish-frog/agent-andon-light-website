@@ -71,7 +71,9 @@ export function HomeClient({
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {dict.whatItIs.heading}
         </h2>
-        <p className="mt-4 text-neutral-600 dark:text-neutral-400">{dict.whatItIs.body}</p>
+        <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+          {dict.whatItIs.body}
+        </p>
       </Reveal>
 
       {/* Why it exists */}
@@ -79,7 +81,9 @@ export function HomeClient({
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {dict.whyItExists.heading}
         </h2>
-        <p className="mt-4 text-neutral-600 dark:text-neutral-400">{dict.whyItExists.body}</p>
+        <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+          {dict.whyItExists.body}
+        </p>
       </Reveal>
 
       {/* Four states */}
@@ -95,7 +99,9 @@ export function HomeClient({
             >
               <div className="flex items-center gap-2">
                 <span className={`h-2.5 w-2.5 rounded-full ${STATE_DOT_CLASS[state]}`} />
-                <dt className="font-mono text-sm font-medium">{dict.states[state].label}</dt>
+                <dt className="font-mono text-sm font-medium">
+                  {dict.states[state].label}
+                </dt>
               </div>
               <dd className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 {dict.states[state].description}
@@ -110,7 +116,9 @@ export function HomeClient({
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {dict.openHardware.heading}
         </h2>
-        <p className="mt-4 text-neutral-600 dark:text-neutral-400">{dict.openHardware.body}</p>
+        <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+          {dict.openHardware.body}
+        </p>
       </Reveal>
 
       {/* Closing CTA */}
@@ -132,6 +140,14 @@ export function HomeClient({
             {dict.ctaDocs}
           </Link>
         </div>
+
+        {/* Nav's link list is desktop-only (md:flex); this is the small-screen path to Resources. */}
+        <Link
+          href={`/${locale}/resources/`}
+          className="rounded-full border border-black/10 px-5 py-2.5 text-sm font-medium md:hidden dark:border-white/20"
+        >
+          {dict.ctaResources}
+        </Link>
       </Reveal>
     </>
   );

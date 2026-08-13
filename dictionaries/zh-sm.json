@@ -18,6 +18,7 @@
     "subtitle": "工作中是绿色，等你处理时是黄色，空闲时是红色。",
     "ctaProduct": "查看产品",
     "ctaDocs": "阅读文档",
+    "ctaResources": "查看资源",
     "stripAriaLabel": "模拟状态灯，依次演示空闲、工作中、等待中、整理中四种状态",
     "whyItExists": {
       "heading": "不用看终端，也不用开任何软件。",
@@ -32,7 +33,10 @@
       "working": { "label": "工作中", "description": "Agent 正在执行任务。" },
       "waiting": { "label": "等待中", "description": "需要你处理：授权或回答问题。" },
       "idle": { "label": "空闲", "description": "目前没有任务在运行。" },
-      "compacting": { "label": "整理中", "description": "内部整理，仍在运行，不是卡住了。" }
+      "compacting": {
+        "label": "整理中",
+        "description": "内部整理，仍在运行，不是卡住了。"
+      }
     },
     "openHardware": {
       "heading": "开源硬件，说白了就是个业余项目。",

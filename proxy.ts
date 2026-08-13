@@ -16,8 +16,6 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const locale = resolveLocaleFromAcceptLanguage(
-    request.headers.get("accept-language"),
-  );
+  const locale = resolveLocaleFromAcceptLanguage(request.headers.get("accept-language"));
   return NextResponse.redirect(new URL(`/${locale}/`, request.url));
 }

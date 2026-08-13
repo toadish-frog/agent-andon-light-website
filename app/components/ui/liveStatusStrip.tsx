@@ -89,7 +89,8 @@ export function LiveStatusStrip({
     return () => clearTimeout(timer);
   }, [frameIndex, prefersReducedMotion]);
 
-  const frame = FRAMES[prefersReducedMotion ? STATIC_FRAME_INDEX : frameIndex] ?? FRAMES[0]!;
+  const frame =
+    FRAMES[prefersReducedMotion ? STATIC_FRAME_INDEX : frameIndex] ?? FRAMES[0]!;
   const label = labels[frame.state];
 
   return (
@@ -100,7 +101,9 @@ export function LiveStatusStrip({
         className="flex items-center gap-2 rounded-full border border-black/10 bg-white/60 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-black/40"
       >
         {Array.from({ length: 10 }, (_, index) => {
-          const isLit = index !== STATUS_INDEX && pixelClassName(index, frame).startsWith("bg-status");
+          const isLit =
+            index !== STATUS_INDEX &&
+            pixelClassName(index, frame).startsWith("bg-status");
           return (
             <motion.span
               key={index}
@@ -111,11 +114,7 @@ export function LiveStatusStrip({
                 "h-2.5 w-2.5 rounded-full transition-colors duration-200",
                 pixelClassName(index, frame),
               )}
-              style={
-                isLit
-                  ? { boxShadow: "0 0 6px 1px currentColor" }
-                  : undefined
-              }
+              style={isLit ? { boxShadow: "0 0 6px 1px currentColor" } : undefined}
             />
           );
         })}

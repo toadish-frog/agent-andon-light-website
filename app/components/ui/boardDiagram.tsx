@@ -80,7 +80,12 @@ export function BoardDiagram({
         </pattern>
       </defs>
 
-      <rect width={960} height={300} fill="url(#board-grid)" className="text-neutral-400" />
+      <rect
+        width={960}
+        height={300}
+        fill="url(#board-grid)"
+        className="text-neutral-400"
+      />
 
       <g className="text-neutral-500 dark:text-neutral-400">
         {/* Top dimension line: LED count */}
@@ -139,7 +144,15 @@ export function BoardDiagram({
           stroke="currentColor"
           strokeWidth={1.5}
         />
-        <rect x={125} y={150} width={20} height={20} rx={3} fill="currentColor" opacity={0.15} />
+        <rect
+          x={125}
+          y={150}
+          width={20}
+          height={20}
+          rx={3}
+          fill="currentColor"
+          opacity={0.15}
+        />
         <text
           x={140}
           y={238}

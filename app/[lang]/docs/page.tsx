@@ -38,7 +38,12 @@ export default async function DocsIndexPage({
               <ul className="mt-3 space-y-3">
                 {items.map((doc) => (
                   <li key={doc.slug.join("/")}>
-                    <DocCard locale={lang} slug={doc.slug} title={doc.title} description={doc.description} />
+                    <DocCard
+                      locale={lang}
+                      slug={doc.slug}
+                      title={doc.title}
+                      description={doc.description}
+                    />
                   </li>
                 ))}
               </ul>

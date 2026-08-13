@@ -4,28 +4,78 @@
       "id": "build",
       "links": [
         {
-          "title": "Arduino IDE",
-          "description": "The program you'll use to flash firmware onto the board.",
+          "title": {
+            "en": "Arduino IDE",
+            "ja": "Arduino IDE",
+            "zh-sm": "Arduino IDE",
+            "zh-tr": "Arduino IDE"
+          },
+          "description": {
+            "en": "The program you'll use to flash firmware onto the board.",
+            "ja": "ボードにファームウェアを書き込むために使うアプリです。",
+            "zh-sm": "用来把固件烧录进开发板的软件。",
+            "zh-tr": "用來把韌體燒錄進開發板的軟體。"
+          },
           "url": "https://www.arduino.cc/en/software"
         },
         {
-          "title": "arduino-pico",
-          "description": "The board package that teaches the Arduino IDE how to talk to the RP2040 chip.",
+          "title": {
+            "en": "arduino-pico",
+            "ja": "arduino-pico",
+            "zh-sm": "arduino-pico",
+            "zh-tr": "arduino-pico"
+          },
+          "description": {
+            "en": "The board package that teaches the Arduino IDE how to talk to the RP2040 chip.",
+            "ja": "Arduino IDEにRP2040チップとの通信方法を教えるボードパッケージです。",
+            "zh-sm": "让 Arduino IDE 认识 RP2040 芯片的开发板包。",
+            "zh-tr": "讓 Arduino IDE 認得 RP2040 晶片的開發板套件。"
+          },
           "url": "https://github.com/earlephilhower/arduino-pico"
         },
         {
-          "title": "Adafruit NeoPixel",
-          "description": "The library that drives the addressable LEDs. Their timing is too precise for a plain digitalWrite.",
+          "title": {
+            "en": "Adafruit NeoPixel",
+            "ja": "Adafruit NeoPixel",
+            "zh-sm": "Adafruit NeoPixel",
+            "zh-tr": "Adafruit NeoPixel"
+          },
+          "description": {
+            "en": "The library that drives the addressable LEDs. Their timing is too precise for a plain digitalWrite.",
+            "ja": "アドレサブルLEDを駆動するライブラリです。LEDのタイミング制御は非常に精密で、単純なdigitalWriteでは動きません。",
+            "zh-sm": "驱动可寻址 LED 的库。LED 的时序要求非常精确，普通的 digitalWrite 做不到。",
+            "zh-tr": "驅動可定址 LED 的函式庫。LED 的時序要求非常精確，一般的 digitalWrite 做不到。"
+          },
           "url": "https://github.com/adafruit/Adafruit_NeoPixel"
         },
         {
-          "title": "KiCad",
-          "description": "Free, open-source software for designing circuit boards, used to design this one.",
+          "title": {
+            "en": "KiCad",
+            "ja": "KiCad",
+            "zh-sm": "KiCad",
+            "zh-tr": "KiCad"
+          },
+          "description": {
+            "en": "Free, open-source software for designing circuit boards, used to design this one.",
+            "ja": "無料でオープンソースの回路基板設計ソフトです。このボードの設計にも使われています。",
+            "zh-sm": "免费开源的电路板设计软件，这块板子就是用它设计的。",
+            "zh-tr": "免費開源的電路板設計軟體，這塊板子就是用它設計的。"
+          },
           "url": "https://www.kicad.org/"
         },
         {
-          "title": "RP2040 documentation",
-          "description": "Official documentation for the microcontroller at the heart of the board.",
+          "title": {
+            "en": "RP2040 documentation",
+            "ja": "RP2040 ドキュメント",
+            "zh-sm": "RP2040 文档",
+            "zh-tr": "RP2040 文件"
+          },
+          "description": {
+            "en": "Official documentation for the microcontroller at the heart of the board.",
+            "ja": "ボードの中核であるマイコン（RP2040）の公式ドキュメントです。",
+            "zh-sm": "这块板子核心芯片（RP2040）的官方文档。",
+            "zh-tr": "這塊板子核心晶片（RP2040）的官方文件。"
+          },
           "url": "https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html"
         }
       ]
@@ -34,18 +84,48 @@
       "id": "run",
       "links": [
         {
-          "title": "andon-light on PyPI",
-          "description": "The command-line tool that talks to the device, published and ready to install.",
+          "title": {
+            "en": "andon-light on PyPI",
+            "ja": "PyPI版 andon-light",
+            "zh-sm": "PyPI 上的 andon-light",
+            "zh-tr": "PyPI 上的 andon-light"
+          },
+          "description": {
+            "en": "The command-line tool that talks to the device, published and ready to install.",
+            "ja": "デバイスと通信するコマンドラインツールです。公開済みで、すぐインストールできます。",
+            "zh-sm": "和设备对话的命令行工具，已发布，可以直接安装。",
+            "zh-tr": "和裝置溝通的命令列工具，已發布，可以直接安裝。"
+          },
           "url": "https://pypi.org/project/andon-light/"
         },
         {
-          "title": "Source code on GitHub",
-          "description": "Firmware, hardware design files, host CLI, and hook setup: all of it MIT-licensed.",
+          "title": {
+            "en": "Source code on GitHub",
+            "ja": "GitHub上のソースコード",
+            "zh-sm": "GitHub 上的源码",
+            "zh-tr": "GitHub 上的原始碼"
+          },
+          "description": {
+            "en": "Firmware, hardware design files, host CLI, and hook setup: all of it MIT-licensed.",
+            "ja": "ファームウェア、ハードウェア設計データ、ホスト側CLI、フック設定一式。すべてMITライセンスです。",
+            "zh-sm": "固件、硬件设计文件、主机端 CLI、Hook 配置：全部 MIT 许可。",
+            "zh-tr": "韌體、硬體設計檔案、主機端 CLI、Hook 設定：全部採 MIT 授權。"
+          },
           "url": "https://github.com/toadish-frog/agent-andon-light"
         },
         {
-          "title": "Claude Code Hooks reference",
-          "description": "Official docs for the hook events this project's integration is built on.",
+          "title": {
+            "en": "Claude Code Hooks reference",
+            "ja": "Claude Code フックリファレンス",
+            "zh-sm": "Claude Code Hook 参考文档",
+            "zh-tr": "Claude Code Hook 參考文件"
+          },
+          "description": {
+            "en": "Official docs for the hook events this project's integration is built on.",
+            "ja": "このプロジェクトの連携が使っているフックイベントの公式ドキュメントです。",
+            "zh-sm": "这个项目集成所依赖的 Hook 事件的官方文档。",
+            "zh-tr": "這個專案整合所依賴的 Hook 事件官方文件。"
+          },
           "url": "https://code.claude.com/docs/en/hooks"
         }
       ]

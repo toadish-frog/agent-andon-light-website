@@ -10,18 +10,21 @@ export function AuroraGlow({ className }: { className?: string }) {
   return (
     <div
       aria-hidden="true"
-      className={cn("pointer-events-none absolute inset-0 -z-10 overflow-hidden", className)}
+      className={cn(
+        "pointer-events-none absolute inset-0 -z-10 overflow-hidden",
+        className,
+      )}
     >
       <div
-        className="animate-aurora-drift absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-status-working/25 blur-3xl"
+        className="animate-aurora-drift bg-status-working/25 absolute -top-24 left-1/4 h-72 w-72 rounded-full blur-3xl"
         style={{ animationDelay: "0s" }}
       />
       <div
-        className="animate-aurora-drift absolute top-1/3 right-1/4 h-72 w-72 rounded-full bg-status-waiting/20 blur-3xl"
+        className="animate-aurora-drift bg-status-waiting/20 absolute top-1/3 right-1/4 h-72 w-72 rounded-full blur-3xl"
         style={{ animationDelay: "-6s" }}
       />
       <div
-        className="animate-aurora-drift absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-status-idle/15 blur-3xl"
+        className="animate-aurora-drift bg-status-idle/15 absolute bottom-0 left-1/3 h-72 w-72 rounded-full blur-3xl"
         style={{ animationDelay: "-12s" }}
       />
     </div>

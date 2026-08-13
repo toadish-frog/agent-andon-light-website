@@ -53,7 +53,11 @@ export function getPostBySlug(slug: string, locale: Locale = defaultLocale): Pos
 export function getAllPosts(locale: Locale = defaultLocale): PostMeta[] {
   return getAllPostSlugs()
     .map((slug) => {
-      const { content: _content, translated: _translated, ...meta } = getPostBySlug(slug, locale);
+      const {
+        content: _content,
+        translated: _translated,
+        ...meta
+      } = getPostBySlug(slug, locale);
       return meta;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

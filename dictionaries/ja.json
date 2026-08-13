@@ -18,6 +18,7 @@
     "subtitle": "作業中は緑、対応待ちは黄色、アイドル時は赤。",
     "ctaProduct": "プロダクトを見る",
     "ctaDocs": "ドキュメントを読む",
+    "ctaResources": "リソースを見る",
     "stripAriaLabel": "アイドル・作業中・待機中・コンパクト中の4状態を順番に再現するシミュレーション表示",
     "whyItExists": {
       "heading": "ターミナルを確認しなくていい。アプリを開かなくていい。",
@@ -29,10 +30,19 @@
     },
     "states": {
       "heading": "4つの状態が、ひと目でわかる。",
-      "working": { "label": "作業中", "description": "エージェントが何か実行しています。" },
-      "waiting": { "label": "待機中", "description": "権限の許可や回答など、あなたの対応が必要です。" },
+      "working": {
+        "label": "作業中",
+        "description": "エージェントが何か実行しています。"
+      },
+      "waiting": {
+        "label": "待機中",
+        "description": "権限の許可や回答など、あなたの対応が必要です。"
+      },
       "idle": { "label": "アイドル", "description": "今は何も実行していません。" },
-      "compacting": { "label": "コンパクト中", "description": "内部整理中です。停止しているわけではありません。" }
+      "compacting": {
+        "label": "コンパクト中",
+        "description": "内部整理中です。停止しているわけではありません。"
+      }
     },
     "openHardware": {
       "heading": "オープンなハードウェア、正直に言うと趣味の産物です。",

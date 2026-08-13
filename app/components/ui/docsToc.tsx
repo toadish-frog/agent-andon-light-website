@@ -14,7 +14,9 @@ export function DocsToc({ headings, label }: { headings: Heading[]; label: strin
 
   return (
     <nav aria-label={label} className="sticky top-24 hidden w-56 shrink-0 xl:block">
-      <p className="mb-3 text-xs font-medium tracking-wide text-neutral-400 uppercase">{label}</p>
+      <p className="mb-3 text-xs font-medium tracking-wide text-neutral-400 uppercase">
+        {label}
+      </p>
       <ul className="space-y-2 text-sm">
         {headings.map((heading) => (
           <li key={heading.id} className={heading.depth === 3 ? "pl-4" : undefined}>

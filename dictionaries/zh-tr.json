@@ -18,6 +18,7 @@
     "subtitle": "工作中是綠色，等你處理時是黃色，閒置時是紅色。",
     "ctaProduct": "查看產品",
     "ctaDocs": "閱讀文件",
+    "ctaResources": "查看資源",
     "stripAriaLabel": "模擬狀態燈，依序演示閒置、工作中、等待中、整理中四種狀態",
     "whyItExists": {
       "heading": "不用看終端機，也不用開任何軟體。",
@@ -32,7 +33,10 @@
       "working": { "label": "工作中", "description": "Agent 正在執行任務。" },
       "waiting": { "label": "等待中", "description": "需要你處理：授權或回答問題。" },
       "idle": { "label": "閒置", "description": "目前沒有任務在執行。" },
-      "compacting": { "label": "整理中", "description": "內部整理，仍在運作，不是卡住了。" }
+      "compacting": {
+        "label": "整理中",
+        "description": "內部整理，仍在運作，不是卡住了。"
+      }
     },
     "openHardware": {
       "heading": "開源硬體，說白了就是個業餘專案。",
