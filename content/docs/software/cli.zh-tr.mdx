@@ -13,7 +13,7 @@ order: 1
 
 如果你在開發這個工具本身的原始碼，在專案的 `host/` 目錄下用「可編輯」模式安裝：
 
-```txt
+```bash
 cd host
 pipx install --editable .
 ```
@@ -22,7 +22,7 @@ pipx install --editable .
 
 如果你想放在一個獨立的隔離環境裡，不加進系統 PATH：
 
-```txt
+```bash
 cd host
 python3 -m venv .venv
 .venv/bin/pip install -e .
@@ -30,7 +30,7 @@ python3 -m venv .venv
 
 ## 使用方法
 
-```txt
+```bash
 andon-light doctor                              # 檢查能不能找到你的裝置
 andon-light set working                         # 常亮綠色
 andon-light set waiting                         # 常亮黃色

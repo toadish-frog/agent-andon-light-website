@@ -29,12 +29,16 @@
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
+  --code-background: #f5f5f5;
+  --code-border: rgb(0 0 0 / 8%);
   color-scheme: light;
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #f5f5f5;
+  --code-background: #171717;
+  --code-border: rgb(255 255 255 / 10%);
   color-scheme: dark;
 }
 
@@ -55,6 +59,55 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Tailwind Typography hard-codes a fixed dark `pre` background for both
+   `.prose` and `.prose-invert` — this ties it to the site's actual theme
+   tokens instead, so code blocks stop staying black in light mode. Acts as
+   a fallback for any code fence Shiki doesn't process (e.g. one with no
+   language tag); Shiki's own inline styles win for everything it does. */
+.prose pre {
+  background: var(--code-background);
+  border: 1px solid var(--code-border);
+  color: var(--foreground);
+}
+
+/* Typography wraps inline `code` in literal backtick characters via
+   `content: "\`"` on ::before/::after — renders as `` `text` `` instead of
+   a code tag. Drop those and style it as an actual pill instead. Excludes
+   `pre code` (the highlighted block contents Shiki already owns styling
+   for), which would otherwise inherit this background/border too. */
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+.prose code {
+  background: var(--code-background);
+  border: 1px solid var(--code-border);
+  border-radius: 0.25rem;
+  padding: 0.15em 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* `@shikijs/rehype` renders the `light` theme (github-light) inline by
+   default and ships the `dark` theme (github-dark) as `--shiki-dark`/
+   `--shiki-dark-bg` variables per token — this is Shiki's documented
+   "dual theme" pattern, activated here by the same `.dark` class next-themes
+   already toggles, instead of a `prefers-color-scheme` query. */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
 /* Soft fade at both edges of a horizontally-scrolling row, instead of a hard clip. */

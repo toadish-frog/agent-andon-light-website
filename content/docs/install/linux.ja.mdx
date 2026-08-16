@@ -9,7 +9,7 @@ Linuxでは、専用のインストーラーをビルドする必要はありま
 
 ## 1. インストールする
 
-```txt
+```bash
 sudo apt install -y pipx   # pipxをまだ持っていない場合のみ
 pipx install andon-light
 ```
@@ -18,7 +18,7 @@ pipx install andon-light
 
 ## 2. うまくいったか確認する
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -26,7 +26,7 @@ andon-light doctor
 
 ## 3. 使っているエージェントと接続する
 
-```txt
+```bash
 andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```

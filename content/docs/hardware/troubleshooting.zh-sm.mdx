@@ -21,7 +21,7 @@ order: 3
 
 在终端里运行：
 
-```txt
+```bash
 lsusb | grep -i "2e8a"
 ```
 
@@ -33,7 +33,7 @@ lsusb | grep -i "2e8a"
 
 也可以直接检查引导加载模式下出现的那个文件传输盘：
 
-```txt
+```bash
 find /media /run/media /mnt -maxdepth 3 -iname "*RPI*" 2>/dev/null
 ```
 
@@ -41,7 +41,7 @@ find /media /run/media /mnt -maxdepth 3 -iname "*RPI*" 2>/dev/null
 
 ## 第 2 步：电脑上的软件能看到板子吗？
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -53,7 +53,7 @@ andon-light doctor
 
 ## 第 3 步：是不是有别的东西占着这个连接？
 
-```txt
+```bash
 andon-light set idle
 ```
 
@@ -64,7 +64,7 @@ andon-light set idle
 
 如果不确定命令到底成功没有，直接看退出码：
 
-```txt
+```bash
 andon-light set idle; echo "exit code: $?"
 ```
 
@@ -89,7 +89,7 @@ andon-light set idle; echo "exit code: $?"
 
 ## 第 4 步：Claude Code 的 hook 设置对吗？
 
-```txt
+```bash
 cat ~/.claude/settings.json
 ```
 
@@ -97,7 +97,7 @@ cat ~/.claude/settings.json
 
 - **是合法的 JSON 吗？** 运行：
 
-  ```txt
+  ```bash
   python3 -c "import json, os; json.load(open(os.path.expanduser('~/.claude/settings.json'))); print('VALID JSON')"
   ```
 
@@ -110,7 +110,7 @@ cat ~/.claude/settings.json
 
 这个方法能帮你分清楚问题是出在"灯和 CLI 这边"，还是"Claude Code 的 hook 这边"。自己手动运行一遍 hook 会执行的那些命令：
 
-```txt
+```bash
 andon-light set working    # LED 2-4 常亮绿色（除 1 号外其余熄灭）
 andon-light set waiting    # LED 5-7 常亮黄色（除 1 号外其余熄灭）
 andon-light set idle       # LED 8-10 常亮红色（除 1 号外其余熄灭）
@@ -123,7 +123,7 @@ andon-light set compacting # LED 2-10 依次点亮模式
 
 ### 打开端口时提示权限被拒绝
 
-```txt
+```bash
 ls -la /dev/ttyACM0
 ```
 
@@ -131,7 +131,7 @@ ls -la /dev/ttyACM0
 
 **用 `id` 检查，不要用 `groups $USER`。** 这两个命令给出的答案可能不一样，而真正反映"正在运行的程序实际拥有什么权限"的是 `id`。
 
-```txt
+```bash
 id
 ```
 
@@ -149,7 +149,7 @@ id
 
 Arduino IDE 的 AppImage 有时会因为 FUSE 相关的错误（`dlopen(): error loading libfuse.so.2` 或 `Cannot mount AppImage`）启动失败。如果双击打不开，可以试试从终端启动，能完全绕开 FUSE 挂载这一步：
 
-```txt
+```bash
 cd ~/Downloads
 ./arduino-ide_2.3.10_Linux_64bit.AppImage --appimage-extract-and-run
 ```
@@ -158,7 +158,7 @@ cd ~/Downloads
 
 ### 一切正常时应该是什么样子
 
-```txt
+```bash
 $ lsusb | grep 2e8a
 Bus 005 Device 010: ID 2e8a:0003 Raspberry Pi RP2 Boot      # 这一行代表引导加载模式（如果不是刚烧录完看到这个，要留意）
 

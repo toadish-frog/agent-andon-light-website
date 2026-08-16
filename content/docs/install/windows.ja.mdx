@@ -23,7 +23,7 @@ Windowsでは、コマンドライン操作の代わりにワンクリックの�
 
 **新しい**ターミナルウィンドウを開き（インストール前から開いていたターミナルは、更新後のPATHを認識しません）、次を実行します。
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -33,7 +33,7 @@ andon-light doctor
 
 インストーラーの完了画面には、Claude Code用とCodex CLI用、それぞれ独立したチェックボックスがあります。使っている方にチェックを入れてください。どちらも、[Claude Code フック連携](/docs/software/claude-code-hooks)や[Codex CLI フック連携](/docs/software/codex-cli-hooks)で説明している「変更内容を表示してから確認を求める」流れで、そのエージェント向けの `andon-light install-hooks` を実行してくれます。後からでも、ターミナルで次を実行すればいつでも同じことができます。
 
-```txt
+```bash
 andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```

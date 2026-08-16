@@ -21,7 +21,7 @@ If something isn't behaving, the fastest way to fix it is to narrow down *where*
 
 Run this in a terminal:
 
-```txt
+```bash
 lsusb | grep -i "2e8a"
 ```
 
@@ -33,7 +33,7 @@ lsusb | grep -i "2e8a"
 
 You can also check for the bootloader's file-transfer drive directly:
 
-```txt
+```bash
 find /media /run/media /mnt -maxdepth 3 -iname "*RPI*" 2>/dev/null
 ```
 
@@ -41,7 +41,7 @@ If this prints a path, the board is in bootloader mode: same fix as above.
 
 ## Step 2: Can the software on your computer see the board?
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -53,7 +53,7 @@ andon-light doctor
 
 ## Step 3: Is something else holding the connection open?
 
-```txt
+```bash
 andon-light set idle
 ```
 
@@ -64,7 +64,7 @@ andon-light set idle
 
 If you're not sure it actually worked, check the exit code directly:
 
-```txt
+```bash
 andon-light set idle; echo "exit code: $?"
 ```
 
@@ -89,7 +89,7 @@ Still stuck? Double-check the Adafruit NeoPixel library is actually installed in
 
 ## Step 4: Is Claude Code's hook setup correct?
 
-```txt
+```bash
 cat ~/.claude/settings.json
 ```
 
@@ -97,7 +97,7 @@ Work through this checklist:
 
 - **Is it valid JSON?** Run:
 
-  ```txt
+  ```bash
   python3 -c "import json, os; json.load(open(os.path.expanduser('~/.claude/settings.json'))); print('VALID JSON')"
   ```
 
@@ -110,7 +110,7 @@ Work through this checklist:
 
 This is a good way to figure out whether a problem is in the light/software, or in Claude Code's hooks. Run the same commands a hook would run, yourself:
 
-```txt
+```bash
 andon-light set working    # LEDs 2-4 solid green (rest dark except LED 1)
 andon-light set waiting    # LEDs 5-7 solid yellow (rest dark except LED 1)
 andon-light set idle       # LEDs 8-10 solid red (rest dark except LED 1)
@@ -123,7 +123,7 @@ If all four of these work correctly by hand, but the light doesn't react during 
 
 ### Permission denied opening the port
 
-```txt
+```bash
 ls -la /dev/ttyACM0
 ```
 
@@ -131,7 +131,7 @@ Check the group column: it should say `dialout`.
 
 **Check with `id`, not `groups $USER`.** They can give different answers, and `id` is the one that reflects what a running program can actually do:
 
-```txt
+```bash
 id
 ```
 
@@ -149,7 +149,7 @@ If `dialout` is missing from `id`:
 
 The Arduino IDE's AppImage can sometimes fail with a FUSE-related error (`dlopen(): error loading libfuse.so.2` or `Cannot mount AppImage`). If double-clicking it doesn't work, try running it from a terminal instead, which skips the FUSE step entirely:
 
-```txt
+```bash
 cd ~/Downloads
 ./arduino-ide_2.3.10_Linux_64bit.AppImage --appimage-extract-and-run
 ```
@@ -158,7 +158,7 @@ cd ~/Downloads
 
 ### What things should look like when everything's working
 
-```txt
+```bash
 $ lsusb | grep 2e8a
 Bus 005 Device 010: ID 2e8a:0003 Raspberry Pi RP2 Boot      # this line means bootloader mode (only expected right after flashing)
 

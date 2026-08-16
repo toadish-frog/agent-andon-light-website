@@ -9,7 +9,7 @@ There's no separate installer to build here. On Linux, the command-line tool is 
 
 ## 1. Install
 
-```txt
+```bash
 sudo apt install -y pipx   # skip this if you already have pipx
 pipx install andon-light
 ```
@@ -18,7 +18,7 @@ No need to clone the project's repository. This pulls the published package dire
 
 ## 2. Check it worked
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -26,7 +26,7 @@ This confirms the tool can actually find your device. If it reports a permission
 
 ## 3. Connect it to your agent
 
-```txt
+```bash
 andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```

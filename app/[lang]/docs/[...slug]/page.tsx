@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+
+import { shikiOptions } from "@/app/utils/shiki";
 
 import { DocsToc } from "@/app/components/ui/docsToc";
 import {
@@ -50,7 +53,10 @@ export default async function DocPage({
           source={doc.content}
           components={mdxLinkComponents(lang)}
           options={{
-            mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] },
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+              rehypePlugins: [rehypeSlug, [rehypeShiki, shikiOptions]],
+            },
           }}
         />
       </article>

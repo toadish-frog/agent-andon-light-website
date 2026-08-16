@@ -13,7 +13,7 @@ order: 1
 
 このツール自体のソースコードを開発している場合は、プロジェクトの `host/` フォルダの中で「編集可能」モードでインストールします。
 
-```txt
+```bash
 cd host
 pipx install --editable .
 ```
@@ -22,7 +22,7 @@ pipx install --editable .
 
 パソコンのPATHに追加せず、専用の隔離された環境に入れたい場合は次のようにします。
 
-```txt
+```bash
 cd host
 python3 -m venv .venv
 .venv/bin/pip install -e .
@@ -30,7 +30,7 @@ python3 -m venv .venv
 
 ## 使い方
 
-```txt
+```bash
 andon-light doctor                              # デバイスを認識できているか確認する
 andon-light set working                         # 緑色に点灯
 andon-light set waiting                         # 黄色に点灯

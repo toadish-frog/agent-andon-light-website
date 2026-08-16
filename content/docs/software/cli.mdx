@@ -13,7 +13,7 @@ For everyday use, install the published version rather than building it from sou
 
 If you're working on the tool's own source code instead, install it in "editable" mode from inside the `host/` folder of the project:
 
-```txt
+```bash
 cd host
 pipx install --editable .
 ```
@@ -22,7 +22,7 @@ This links directly back to the source files, so any changes you make show up im
 
 If you'd rather keep it in its own isolated environment instead of on your system PATH:
 
-```txt
+```bash
 cd host
 python3 -m venv .venv
 .venv/bin/pip install -e .
@@ -30,7 +30,7 @@ python3 -m venv .venv
 
 ## Using it
 
-```txt
+```bash
 andon-light doctor                              # check that it can find your device
 andon-light set working                         # solid green
 andon-light set waiting                         # solid yellow

@@ -23,7 +23,7 @@ The real fix for this warning (a paid code-signing certificate) costs somewhere 
 
 Open a **new** terminal window (one that was already open before installing won't see the updated PATH), then run:
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -33,7 +33,7 @@ This confirms the tool can find your device.
 
 The installer's finish page has two independent checkboxes, one for Claude Code and one for Codex CLI: check whichever ones you use. Each runs `andon-light install-hooks` for that agent, in a visible console window, with the same "show you what's about to change, then ask for confirmation" flow described in [Claude Code Hooks](/docs/software/claude-code-hooks) and [Codex CLI Hooks](/docs/software/codex-cli-hooks). You can also run either of these yourself later from a terminal at any time:
 
-```txt
+```bash
 andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```

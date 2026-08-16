@@ -23,7 +23,7 @@ Windows 上用的是一键安装程序，而不是命令行安装。下载下来
 
 打开一个**新的**终端窗口（安装之前就开着的终端感知不到更新后的 PATH），运行：
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -33,7 +33,7 @@ andon-light doctor
 
 安装程序完成页面上有两个各自独立的复选框，一个对应 Claude Code，一个对应 Codex CLI：勾选你用到的那个（或两个都勾）。勾选后会自动为对应的 agent 运行 `andon-light install-hooks`，走的是和 [Claude Code Hook 集成](/docs/software/claude-code-hooks)、[Codex CLI Hook 集成](/docs/software/codex-cli-hooks)里说的一样的流程：先展示要改的内容，再等你确认。以后你也可以随时自己在终端里运行：
 
-```txt
+```bash
 andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```

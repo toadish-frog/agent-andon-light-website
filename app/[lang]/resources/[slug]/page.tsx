@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import { formatDate } from "@/app/utils/formatDate";
 import { mdxLinkComponents } from "@/app/utils/mdx";
+import { shikiOptions } from "@/app/utils/shiki";
 import { getDictionary } from "@/dictionaries";
 import { defaultLocale, isLocale, locales } from "@/i18n";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog";
@@ -46,7 +48,10 @@ export default async function ResourcePostPage({
         source={post.content}
         components={mdxLinkComponents(lang)}
         options={{
-          mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] },
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+            rehypePlugins: [rehypeSlug, [rehypeShiki, shikiOptions]],
+          },
         }}
       />
     </article>

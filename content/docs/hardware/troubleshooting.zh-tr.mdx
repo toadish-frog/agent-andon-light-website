@@ -21,7 +21,7 @@ order: 3
 
 在終端機裡執行：
 
-```txt
+```bash
 lsusb | grep -i "2e8a"
 ```
 
@@ -33,7 +33,7 @@ lsusb | grep -i "2e8a"
 
 也可以直接檢查開機載入器模式下出現的那個檔案傳輸磁碟：
 
-```txt
+```bash
 find /media /run/media /mnt -maxdepth 3 -iname "*RPI*" 2>/dev/null
 ```
 
@@ -41,7 +41,7 @@ find /media /run/media /mnt -maxdepth 3 -iname "*RPI*" 2>/dev/null
 
 ## 第 2 步：電腦上的軟體能看到板子嗎？
 
-```txt
+```bash
 andon-light doctor
 ```
 
@@ -53,7 +53,7 @@ andon-light doctor
 
 ## 第 3 步：是不是有別的東西佔用著這個連線？
 
-```txt
+```bash
 andon-light set idle
 ```
 
@@ -64,7 +64,7 @@ andon-light set idle
 
 如果不確定指令到底成功了沒，直接看結束代碼：
 
-```txt
+```bash
 andon-light set idle; echo "exit code: $?"
 ```
 
@@ -89,7 +89,7 @@ andon-light set idle; echo "exit code: $?"
 
 ## 第 4 步：Claude Code 的 hook 設定對嗎？
 
-```txt
+```bash
 cat ~/.claude/settings.json
 ```
 
@@ -97,7 +97,7 @@ cat ~/.claude/settings.json
 
 - **是合法的 JSON 嗎？** 執行：
 
-  ```txt
+  ```bash
   python3 -c "import json, os; json.load(open(os.path.expanduser('~/.claude/settings.json'))); print('VALID JSON')"
   ```
 
@@ -110,7 +110,7 @@ cat ~/.claude/settings.json
 
 這個方法能幫你分清楚問題是出在「燈和 CLI 這邊」，還是「Claude Code 的 hook 這邊」。自己手動執行一遍 hook 會執行的那些指令：
 
-```txt
+```bash
 andon-light set working    # LED 2-4 常亮綠色（除 1 號外其餘熄滅）
 andon-light set waiting    # LED 5-7 常亮黃色（除 1 號外其餘熄滅）
 andon-light set idle       # LED 8-10 常亮紅色（除 1 號外其餘熄滅）
@@ -123,7 +123,7 @@ andon-light set compacting # LED 2-10 依序點亮模式
 
 ### 開啟連接埠時提示權限被拒
 
-```txt
+```bash
 ls -la /dev/ttyACM0
 ```
 
@@ -131,7 +131,7 @@ ls -la /dev/ttyACM0
 
 **用 `id` 檢查，不要用 `groups $USER`。** 這兩個指令給出的答案可能不一樣，而真正反映「正在執行的程式實際擁有什麼權限」的是 `id`。
 
-```txt
+```bash
 id
 ```
 
@@ -149,7 +149,7 @@ id
 
 Arduino IDE 的 AppImage 有時會因為 FUSE 相關的錯誤（`dlopen(): error loading libfuse.so.2` 或 `Cannot mount AppImage`）啟動失敗。如果雙擊打不開，可以試試從終端機啟動，能完全繞開 FUSE 掛載這一步：
 
-```txt
+```bash
 cd ~/Downloads
 ./arduino-ide_2.3.10_Linux_64bit.AppImage --appimage-extract-and-run
 ```
@@ -158,7 +158,7 @@ cd ~/Downloads
 
 ### 一切正常時應該是什麼樣子
 
-```txt
+```bash
 $ lsusb | grep 2e8a
 Bus 005 Device 010: ID 2e8a:0003 Raspberry Pi RP2 Boot      # 這一行代表開機載入器模式（如果不是剛燒錄完看到這個，要留意）
 
