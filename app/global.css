@@ -8,6 +8,12 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
 
+  /* 27" 1440p and up (2560px). Named (not an arbitrary `min-[2560px]:`)
+     specifically so Tailwind sorts its media query after `2xl` in the
+     compiled CSS — an arbitrary variant here would emit *before* `2xl` and
+     silently lose the cascade tie to it at 2560px+. */
+  --breakpoint-3xl: 160rem;
+
   /* Wire protocol states — Phase 0 baseline, refined once the design system lands. */
   --color-status-working: #22c55e;
   --color-status-waiting: #eab308;

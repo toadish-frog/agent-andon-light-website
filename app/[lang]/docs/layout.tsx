@@ -19,7 +19,7 @@ export default async function DocsLayout({
   const docs = getAllDocsMeta(lang);
 
   return (
-    <div className="mx-auto flex max-w-6xl items-start gap-10 px-6 py-12">
+    <div className="3xl:max-w-[1800px] mx-auto flex max-w-6xl items-start gap-10 px-6 py-12 2xl:max-w-[1440px]">
       <DocsSidebar docs={docs} locale={lang} sectionLabels={dict.docs.sections} />
       <div className="min-w-0 flex-1">{children}</div>
     </div>

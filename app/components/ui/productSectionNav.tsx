@@ -125,7 +125,7 @@ export function ProductSectionNav({ sections }: { sections: Section[] }) {
       transition={{ duration: prefersReducedMotion ? 0 : 0.25, ease: "easeInOut" }}
       className="sticky top-0 z-40 border-b border-black/5 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50"
     >
-      <ul className="no-scrollbar edge-fade-x mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-6 py-3 text-sm whitespace-nowrap">
+      <ul className="no-scrollbar edge-fade-x 3xl:max-w-[1800px] mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-6 py-3 text-sm whitespace-nowrap 2xl:max-w-[1440px]">
         {sections.map((section) => (
           <li key={section.id}>
             <a

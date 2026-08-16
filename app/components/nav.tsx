@@ -69,7 +69,7 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] 
         isProductPage ? "relative" : "fixed inset-x-0 top-0",
       )}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <nav className="3xl:max-w-[1800px] mx-auto flex max-w-6xl items-center justify-between px-6 py-4 2xl:max-w-[1440px]">
         <Link href={`/${locale}/`} className="font-mono text-sm font-semibold">
           Agent Andon Light
         </Link>

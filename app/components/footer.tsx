@@ -5,7 +5,7 @@ const SOURCE_URL = "https://github.com/toadish-frog/agent-andon-light";
 export function Footer({ dict }: { dict: Dictionary["footer"] }) {
   return (
     <footer className="border-t border-black/5 px-6 py-10 text-sm text-neutral-500 dark:border-white/10">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2">
+      <div className="3xl:max-w-[1800px] mx-auto flex max-w-6xl flex-col gap-2 2xl:max-w-[1440px]">
         <p>{dict.tagline}</p>
         <a
           href={SOURCE_URL}
