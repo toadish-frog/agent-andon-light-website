@@ -7,7 +7,7 @@ order: 3
 
 运行一次 `andon-light install-hooks --agent codex` 之后，灯就会自己更新。日常不需要你运行任何命令。这篇讲讲这个设置到底做了什么，为什么这么设计，方便你在遇到奇怪的情况时能有个参考。
 
-Codex CLI 也支持和 Claude Code 一样的"hook"机制：在它自身生命周期里的一些节点，可以自动帮你运行一条命令。装好这个集成之后，每个这样的节点都会被接上，调用 `andon-light` 并传入对应的颜色。用的是同一个 `andon-light` 程序、同一条 USB 连接、同一套固件（参见[Claude Code Hook 集成](/docs/software/claude-code-hooks)）——变的只是你电脑上运行的软件，设备那一端什么都没变。
+Codex CLI 也支持和 Claude Code 一样的"hook"机制：在它自身生命周期里的一些节点，可以自动帮你运行一条命令。装好这个集成之后，每个这样的节点都会被接上，调用 `andon-light` 并传入对应的颜色。用的是同一个 `andon-light` 程序、同一条 USB 连接、同一套固件（参见[Claude Code Hook 集成](/docs/software/claude-code-hooks)）。变的只是你电脑上运行的软件，设备那一端什么都没变。
 
 ## 什么时候触发哪种颜色
 
@@ -23,17 +23,17 @@ Codex CLI 也支持和 Claude Code 一样的"hook"机制：在它自身生命周
 
 Claude Code 有一个 Codex 没有的东西：一个通用的"需要你关注"的通知。Codex 唯一的"等你处理"时刻就是上面的授权请求，所以黄色也只由这一个 hook 负责。详见下面的[为什么没有通用通知 hook](#为什么没有通用通知-hook)。
 
-这些命令是一条接一条按顺序执行的，不是放在后台运行——和 Claude Code 一样的理由（参见[为什么不放在后台运行](/docs/software/claude-code-hooks#为什么不放在后台运行)）。Claude Code 的设置会合并进一个更大的设置文件，而 Codex 的 hook 放在自己专属的文件里，所以这个集成会直接写入（或合并进）那个文件——具体是全局的 `~/.codex/hooks.json`，还是某一个项目自己的，取决于你安装时选的范围。如果你编辑了这个文件，需要重启 Codex CLI（或者开一个新会话）才会生效。
+这些命令是一条接一条按顺序执行的，不是放在后台运行，和 Claude Code 一样的理由（参见[为什么不放在后台运行](/docs/software/claude-code-hooks#为什么不放在后台运行)）。Claude Code 的设置会合并进一个更大的设置文件，而 Codex 的 hook 放在自己专属的文件里，所以这个集成会直接写入（或合并进）那个文件，具体是全局的 `~/.codex/hooks.json`，还是某一个项目自己的，取决于你安装时选的范围。如果你编辑了这个文件，需要重启 Codex CLI（或者开一个新会话）才会生效。
 
 ## 运行前先信任它
 
-在你亲自在 CLI 里查看并批准之前，Codex 不会运行一个新增或改动过的 hook 文件——没有办法从外部授予这个信任。运行完 `andon-light install-hooks --agent codex` 之后，启动 Codex CLI，运行 `/hooks`，确认新的配置内容。如果跳过这一步，灯没反应，先查这个：不受信任的 hook 不会报错，只会悄悄地不执行。
+在你亲自在 CLI 里查看并批准之前，Codex 不会运行一个新增或改动过的 hook 文件。没有办法从外部授予这个信任。运行完 `andon-light install-hooks --agent codex` 之后，启动 Codex CLI，运行 `/hooks`，确认新的配置内容。如果跳过这一步，灯没反应，先查这个：不受信任的 hook 不会报错，只会悄悄地不执行。
 
 ### 如果你用的是 ChatGPT 桌面应用，而不是终端
 
-在 Windows 上，"Codex 应用"通常指的是 ChatGPT 桌面应用（Microsoft Store 上那个）里的 Codex 标签页——这是一个聊天窗口，不是你在终端里打的 `codex` 命令。这一点很重要，因为上面说的信任步骤只能在交互式的终端会话里完成，ChatGPT 应用本身没有 `/hooks` 界面。
+在 Windows 上，"Codex 应用"通常指的是 ChatGPT 桌面应用（Microsoft Store 上那个）里的 Codex 标签页，这是一个聊天窗口，不是你在终端里打的 `codex` 命令。这一点很重要，因为上面说的信任步骤只能在交互式的终端会话里完成，ChatGPT 应用本身没有 `/hooks` 界面。
 
-不过信任设置本身和是从哪个应用授予的没有关系——终端和 ChatGPT 应用读的是同一份 `~/.codex` 配置。所以就算你平时只用 ChatGPT 应用，也需要**一次性**打开终端里的 Codex CLI 会话，在那里运行 `/hooks` 并批准。之后 ChatGPT 应用就会自动使用同一份受信任的 hook 配置。在完成这一步之前，ChatGPT 应用里的灯就是安安静静地没反应，也不会显示任何错误——和前面说的"不受信任的 hook"是同一种表现。
+不过信任设置本身和是从哪个应用授予的没有关系，终端和 ChatGPT 应用读的是同一份 `~/.codex` 配置。所以就算你平时只用 ChatGPT 应用，也需要**一次性**打开终端里的 Codex CLI 会话，在那里运行 `/hooks` 并批准。之后 ChatGPT 应用就会自动使用同一份受信任的 hook 配置。在完成这一步之前，ChatGPT 应用里的灯就是安安静静地没反应，也不会显示任何错误。和前面说的"不受信任的 hook"是同一种表现。
 
 如果在终端里输入 `codex` 提示不是可识别的命令，那是因为 ChatGPT 应用内置了自己的一份 CLI，没有把它加进系统 PATH。在 PowerShell 里找到并运行它的方法：
 
@@ -45,17 +45,15 @@ Claude Code 有一个 Codex 没有的东西：一个通用的"需要你关注"�
 
    会打印出类似 `CODEX_CLI_PATH = "C:\Users\you\AppData\...\codex.exe"` 这样一行。
 
-2. 把这个路径原样加上引号，前面加 `&`（PowerShell 的"运行这个程序"运算符）：
+2. 把这个路径原样加上引号，前面加 `&`（PowerShell 的"运行这个程序"运算符），把下面示例里的路径换成你刚才找到的那个：
 
    ```powershell
    & "C:\Users\you\AppData\...\codex.exe"
    ```
 
-   ——把示例路径换成你刚才找到的那个。
-
 3. 这会打开一个真正的终端 Codex CLI 会话。在里面运行 `/hooks`，查看内容并批准。
 
-4. 关掉那个窗口就行。ChatGPT 应用的 Codex 标签页之后会自动使用这份受信任的 hook 配置——信任状态存在磁盘上，不依赖于是哪个窗口批准的。
+4. 关掉那个窗口就行。ChatGPT 应用的 Codex 标签页之后会自动使用这份受信任的 hook 配置。信任状态存在磁盘上，不依赖于是哪个窗口批准的。
 
 ## 几个设计上的考虑
 
@@ -65,7 +63,7 @@ Claude Code 有一个 Codex 没有的东西：一个通用的"需要你关注"�
 
 ### 为什么没有通用通知 hook
 
-Claude Code 除了专门的授权请求 hook 之外，还有一个更宽泛的"需要你关注"hook。Codex 的生命周期 hook 里没有对应的东西——最接近的是一个叫 `notify` 的独立配置项，但它只在一轮结束时触发，而这已经被上面的"一轮结束"hook 覆盖了。这样一来，授权请求就是 Codex 以 hook 形式暴露出来的唯一"等你处理"时刻，黄色也就只由这一个 hook 负责。
+Claude Code 除了专门的授权请求 hook 之外，还有一个更宽泛的"需要你关注"hook。Codex 的生命周期 hook 里没有对应的东西。最接近的是一个叫 `notify` 的独立配置项，但它只在一轮结束时触发，而这已经被上面的"一轮结束"hook 覆盖了。这样一来，授权请求就是 Codex 以 hook 形式暴露出来的唯一"等你处理"时刻，黄色也就只由这一个 hook 负责。
 
 ### 为什么内部整理要有专属的显示效果
 

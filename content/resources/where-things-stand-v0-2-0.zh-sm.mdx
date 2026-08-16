@@ -6,9 +6,9 @@ date: "2026-08-17"
 
 和[上一篇](/resources/where-things-stand-v0-1-0)一样，简单诚实地更新一下：变了什么、测过了什么、还没做到的是什么。
 
-**这次新增的：** Codex CLI 现在是继 Claude Code 之后第二个受支持的集成。这只是电脑这一端的改动——用的是同一个 `andon-light` CLI、同一条 USB 连接、同一套固件，设备本身什么都没变。`andon-light install-hooks --agent codex` 会设置 Codex 自己的 hook，替代（或者附加在）Claude Code 的 hook 之外。对应关系和背后的设计考虑，参见 [Codex CLI Hook 集成](/docs/software/codex-cli-hooks)。
+**这次新增的：** Codex CLI 现在是继 Claude Code 之后第二个受支持的集成。这只是电脑这一端的改动，用的是同一个 `andon-light` CLI、同一条 USB 连接、同一套固件，设备本身什么都没变。`andon-light install-hooks --agent codex` 会设置 Codex 自己的 hook，替代（或者附加在）Claude Code 的 hook 之外。对应关系和背后的设计考虑，参见 [Codex CLI Hook 集成](/docs/software/codex-cli-hooks)。
 
-**做之前没想到的一点：** 在你亲自在 CLI 里信任之前，Codex 不会执行 hook 文件，而这个信任步骤只能在交互式的终端会话里完成。如果你用的是 ChatGPT 桌面应用的 Codex 标签页而不是终端，应用里并没有对应的界面——还是得一次性打开终端里的 Codex 会话，运行 `/hooks` 并批准。做完这一步之后，因为终端和 ChatGPT 应用读的是同一份磁盘上的配置，ChatGPT 应用那边会自动获得同样的信任。跳过这一步，灯就只是安静地没反应，也不会有任何报错告诉你原因。
+**做之前没想到的一点：** 在你亲自在 CLI 里信任之前，Codex 不会执行 hook 文件，而这个信任步骤只能在交互式的终端会话里完成。如果你用的是 ChatGPT 桌面应用的 Codex 标签页而不是终端，应用里并没有对应的界面。还是得一次性打开终端里的 Codex 会话，运行 `/hooks` 并批准。做完这一步之后，因为终端和 ChatGPT 应用读的是同一份磁盘上的配置，ChatGPT 应用那边会自动获得同样的信任。跳过这一步，灯就只是安静地没反应，也不会有任何报错告诉你原因。
 
 **Windows 安装程序：** 完成页面现在有两个各自独立的复选框，一个对应一个 agent。不用碰终端，就能接上 Claude Code、Codex CLI，或者两个都接上。包括上面说的 ChatGPT 应用那条路径，都已经在真机上完整验证过。
 
