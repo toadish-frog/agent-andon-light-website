@@ -104,7 +104,14 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] 
           <button
             type="button"
             aria-label={dict.themeToggle}
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() =>
+              // Reads the DOM class directly (set by next-themes' anti-flash
+              // script before hydration) instead of the `theme` state value,
+              // which is `undefined` until mounted — using it here would
+              // make a click during that window always resolve to "dark",
+              // a no-op when already dark that looks like a dead first click.
+              setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark")
+            }
             className={cn(
               "rounded-md border border-black/10 p-2 transition-colors hover:bg-black/5",
               "dark:border-white/20 dark:hover:bg-white/10",
