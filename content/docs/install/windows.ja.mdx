@@ -29,13 +29,16 @@ andon-light doctor
 
 ツールがデバイスを見つけられるか確認できます。
 
-## 4. Claude Codeと接続する
+## 4. 使っているエージェントと接続する
 
-インストーラーの完了画面にあるチェックボックスをオンにすると、[Claude Code フック連携](/docs/software/claude-code-hooks)で説明している「変更内容を表示してから確認を求める」流れで、`andon-light install-hooks` を自動的に実行してくれます。後からでも、ターミナルで次を実行すればいつでも同じことができます。
+インストーラーの完了画面には、Claude Code用とCodex CLI用、それぞれ独立したチェックボックスがあります。使っている方にチェックを入れてください。どちらも、[Claude Code フック連携](/docs/software/claude-code-hooks)や[Codex CLI フック連携](/docs/software/codex-cli-hooks)で説明している「変更内容を表示してから確認を求める」流れで、そのエージェント向けの `andon-light install-hooks` を実行してくれます。後からでも、ターミナルで次を実行すればいつでも同じことができます。
 
 ```txt
-andon-light install-hooks
+andon-light install-hooks                 # Claude Code
+andon-light install-hooks --agent codex   # Codex CLI
 ```
+
+Codex CLIのチェックボックスを入れた場合、インストーラーでは代行できないもう一つの手順があります：Codex CLIを開いて `/hooks` を一度実行し、新しいフックファイルを信頼する必要があります。理由と、ChatGPTデスクトップアプリのCodexタブしか使わない場合に必要な追加手順は、[Codex CLI フック連携](/docs/software/codex-cli-hooks#実行前に信頼を与える)を参照してください。
 
 ## うまくいかない場合
 

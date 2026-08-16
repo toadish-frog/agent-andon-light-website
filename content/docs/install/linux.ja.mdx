@@ -1,6 +1,6 @@
 ---
 title: "Linuxへのインストール"
-description: "インストールに1つ、動作確認に1つ、Claude Codeとの連携に1つ。コマンド3つで完了します。"
+description: "インストールに1つ、動作確認に1つ、エージェントとの連携に1つ。コマンド3つで完了します。"
 section: "install"
 order: 1
 ---
@@ -24,10 +24,11 @@ andon-light doctor
 
 ツールが実際にデバイスを見つけられるかを確認します。権限エラーが表示された場合は、ユーザーアカウントを `dialout` グループに追加する必要があります。具体的な手順はトラブルシューティングページの[Linux特有の注意点](/docs/hardware/troubleshooting#linux特有の注意点)を参照してください。
 
-## 3. Claude Codeと接続する
+## 3. 使っているエージェントと接続する
 
 ```txt
-andon-light install-hooks
+andon-light install-hooks                 # Claude Code
+andon-light install-hooks --agent codex   # Codex CLI
 ```
 
-Claude Codeの設定に追加しようとしている内容を、変更前にそのまま表示し、確認を求めます。適用範囲もグローバル（`~/.claude/settings.json`）か、プロジェクト単位（`./.claude/settings.json`）かを選べます。実際に何が設定され、なぜそういう作りになっているのかは[Claude Code フック連携](/docs/software/claude-code-hooks)を参照してください。
+どちらも、追加しようとしている内容を、変更前にそのまま表示し、確認を求めます。適用範囲もグローバルか、プロジェクト単位かを選べます。実際に何が設定され、なぜそういう作りになっているのかは[Claude Code フック連携](/docs/software/claude-code-hooks)または[Codex CLI フック連携](/docs/software/codex-cli-hooks)を参照してください。Codex CLIを使う場合は、フックが実際に動き出す前にもう一段階必要な手順があります——[実行前に信頼を与える](/docs/software/codex-cli-hooks#実行前に信頼を与える)を参照してください。

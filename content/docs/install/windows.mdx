@@ -29,13 +29,16 @@ andon-light doctor
 
 This confirms the tool can find your device.
 
-## 4. Connect it to Claude Code
+## 4. Connect it to your agent
 
-The installer's finish page has a checkbox that runs `andon-light install-hooks` for you. It opens a visible console window with the same "show you what's about to change, then ask for confirmation" flow described in [Claude Code Hooks](/docs/software/claude-code-hooks). You can also run this yourself later from a terminal at any time:
+The installer's finish page has two independent checkboxes — one for Claude Code, one for Codex CLI — check whichever ones you use. Each runs `andon-light install-hooks` for that agent, in a visible console window, with the same "show you what's about to change, then ask for confirmation" flow described in [Claude Code Hooks](/docs/software/claude-code-hooks) and [Codex CLI Hooks](/docs/software/codex-cli-hooks). You can also run either of these yourself later from a terminal at any time:
 
 ```txt
-andon-light install-hooks
+andon-light install-hooks                 # Claude Code
+andon-light install-hooks --agent codex   # Codex CLI
 ```
+
+If you checked the Codex CLI box, there's one more step Codex requires that the installer can't do for you: open Codex CLI and run `/hooks` once to trust the new hook file. See [Codex CLI Hooks](/docs/software/codex-cli-hooks#trust-it-before-it-runs) for why, and for the extra step needed if you only use the ChatGPT desktop app's Codex tab.
 
 ## If something's not working
 

@@ -1,0 +1,84 @@
+---
+title: "Codex CLI Hooks"
+description: "How the light knows what Codex CLI is doing, without you running any commands yourself."
+section: "software"
+order: 3
+---
+
+Once you run `andon-light install-hooks --agent codex`, the light updates on its own. You don't run any commands day-to-day. This page explains what that setup actually does, and why it's built the way it is, in case you're curious or something isn't behaving as expected.
+
+Codex CLI supports the same kind of "hooks" Claude Code does: places in its own lifecycle where it can run a command for you automatically. Installing the integration wires up each of those moments to call `andon-light` with the right color. It's the same `andon-light` program, the same USB connection, and the same firmware as [Claude Code Hooks](/docs/software/claude-code-hooks) — this is a change to what runs on your computer, not to the device itself.
+
+## What triggers each color
+
+| Moment | Color | Why |
+| --- | --- | --- |
+| A new session starts | Idle (red) | A session hasn't been given anything to do yet. |
+| You submit a prompt | Working (green) | You just gave it something to work on. |
+| Right before it uses any tool | Working (green) | This fires on every single tool call, which keeps the light green continuously through a long, tool-heavy stretch of work. |
+| Codex is about to ask your permission | Waiting (yellow) | For example, approving a command it wants to run. |
+| Housekeeping ("compacting") | Chase pattern | Internal maintenance: still working, just a different kind of busy. |
+| A turn ends normally | Idle (red) | Back to idle. |
+| A session ends for any reason | Idle (red) | Covers the cases a normal "ended" moment might miss. |
+
+One thing Claude Code has that Codex doesn't: a general "something needs your attention" notification. Codex's only "waiting on you" moment is the permission request above, so that's the one hook carrying the yellow color here. See [Why there's no general notification hook](#why-theres-no-general-notification-hook) below.
+
+These commands run one at a time, in order (never in the background) — same reasoning as Claude Code, see [Claude Code Hooks](/docs/software/claude-code-hooks#why-not-run-them-in-the-background). Unlike Claude Code's setup, which merges into a broader settings file, Codex keeps hooks in their own dedicated file, so this integration writes (or merges into) that file directly — either your global `~/.codex/hooks.json` or a single project's, whichever you choose during install. If you edit this file, restart Codex CLI (or start a new session) for the change to take effect.
+
+## Trust it before it runs
+
+Codex won't run a new or changed hooks file until you explicitly review and approve it from inside the CLI — there's no way to grant that trust from outside. After running `andon-light install-hooks --agent codex`, start Codex CLI, run `/hooks`, and confirm the new entries. If you skip this and the light doesn't react, this is the first thing to check: an untrusted hook doesn't error, it just silently doesn't run.
+
+### If you use the ChatGPT desktop app instead of a terminal
+
+On Windows, "the Codex app" usually means the Codex tab inside the ChatGPT desktop app (the one from the Microsoft Store) — a chat window, not the `codex` command you'd type in a terminal. That matters here because the trust step above only exists inside an interactive terminal session; the ChatGPT app has no `/hooks` screen of its own.
+
+The trust setting itself isn't tied to which app granted it, though — both the terminal and the ChatGPT app read the same `~/.codex` configuration on disk. So even if you only ever use the ChatGPT app day to day, you still need to open a terminal Codex CLI session **once**, run `/hooks` there, and approve it. After that, the ChatGPT app picks up the same trusted hooks automatically. Until you've done this, the light just stays silent in the ChatGPT app, with no error shown — the same "untrusted hook, no message" behavior described above.
+
+If typing `codex` in a terminal says it isn't a recognized command, that's because the ChatGPT app installs its own copy of the CLI rather than adding one to your system PATH. Here's how to find and run it, in PowerShell:
+
+1. Look at the setting directly, so you're reading the real value rather than trusting a script blindly:
+
+   ```powershell
+   Get-Content "$env:USERPROFILE\.codex\config.toml" | Select-String CODEX_CLI_PATH
+   ```
+
+   This prints a line like `CODEX_CLI_PATH = "C:\Users\you\AppData\...\codex.exe"`.
+
+2. Run that exact path, in quotes, with `&` in front (PowerShell's "run this program" operator):
+
+   ```powershell
+   & "C:\Users\you\AppData\...\codex.exe"
+   ```
+
+   — replacing the example path with the one you just found.
+
+3. That opens a real terminal Codex CLI session. Run `/hooks` there, review what it shows, and approve it.
+
+4. Close that window. The ChatGPT app's Codex tab will pick up the trusted hooks from then on — the trust is stored on disk, not tied to the window that granted it.
+
+## A few design decisions explained
+
+### Why "before using a tool" matters so much
+
+Same reasoning as Claude Code: most moments in the table above only happen once per turn, but a single Codex response can involve dozens of tool calls in a row. Hooking into "right before every tool call" keeps the light refreshed continuously through that stretch, instead of risking a stale/disconnected pulse partway through active work. A turn that's pure thinking with no tool calls at all isn't covered by this, but that gap is much shorter than the firmware's 30-minute watchdog timeout, so it isn't a practical problem — see [Firmware Overview](/docs/firmware/overview).
+
+### Why there's no general notification hook
+
+Claude Code has a broad "something needs your attention" hook in addition to its specific permission-request one. Codex's lifecycle hooks don't include an equivalent — the closest thing, a separate `notify` setting, only fires when a turn finishes, which the "turn ends" hook above already covers. That leaves the permission-request moment as the only "waiting on you" signal Codex exposes as a hook, so it's the one hook that carries the yellow color here.
+
+### Why housekeeping gets its own distinct look
+
+Same rationale as Claude Code: without a dedicated pattern, a housekeeping pause would either stay on whatever color it interrupted (misleading if that was red/idle) or need an extra hook just to change it back afterward. The chase pattern reads as "still alive, doing upkeep" at a glance, and naturally gives way to whatever the next real state is once the following hook fires.
+
+### Why sessions start and end on idle, deliberately
+
+Setting idle explicitly when a session starts means a new session never inherits whatever color a previous, possibly abnormally-ended session left behind. Setting idle again when a session ends (for any reason Codex reports) catches terminations that the normal "turn ended" hook wouldn't — an interrupted or abruptly closed session, for instance.
+
+## Why not run them in the background
+
+Same tradeoff as Claude Code: running each `andon-light` call in the background only guarantees it *starts* in the right order, not that it *finishes* in the right order. Each call is its own short-lived program — quick (about 40-50ms), but not instant — so under a tool-heavy stretch, a later call could finish before an earlier one, silently overwriting a correct color with a stale one. Running them one at a time in order costs a small, unnoticeable wait per call, which is worth it for guaranteeing the light always reflects the true order of events. See [Claude Code Hooks](/docs/software/claude-code-hooks#why-not-run-them-in-the-background) for the full version of this reasoning.
+
+## Why every command is set up to fail silently
+
+Same reasoning as Claude Code: if the board is unplugged, or you run Codex on a machine without one connected, every hook would otherwise print a loud error on every single event, which defeats the point of a status light that's supposed to quietly sit in the background. Worth revisiting once the tool can automatically reconnect or gracefully handle a genuinely missing device — see [Claude Code Hooks](/docs/software/claude-code-hooks#why-every-command-is-set-up-to-fail-silently).

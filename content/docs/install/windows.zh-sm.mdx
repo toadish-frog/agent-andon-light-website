@@ -29,13 +29,16 @@ andon-light doctor
 
 确认工具能找到你的设备。
 
-## 4. 接上 Claude Code
+## 4. 接上你用的 agent
 
-安装程序完成页面上有个复选框，勾选后会自动运行 `andon-light install-hooks`，走的是和 [Claude Code Hook 集成](/docs/software/claude-code-hooks)里说的一样的流程：先展示要改的内容，再等你确认。以后你也可以随时自己在终端里运行：
+安装程序完成页面上有两个各自独立的复选框——一个对应 Claude Code，一个对应 Codex CLI，勾选你用到的那个（或两个都勾）。勾选后会自动为对应的 agent 运行 `andon-light install-hooks`，走的是和 [Claude Code Hook 集成](/docs/software/claude-code-hooks)、[Codex CLI Hook 集成](/docs/software/codex-cli-hooks)里说的一样的流程：先展示要改的内容，再等你确认。以后你也可以随时自己在终端里运行：
 
 ```txt
-andon-light install-hooks
+andon-light install-hooks                 # Claude Code
+andon-light install-hooks --agent codex   # Codex CLI
 ```
+
+如果你勾选了 Codex CLI，还有一步安装程序代替不了：打开 Codex CLI，运行一次 `/hooks`，信任新的 hook 文件。原因，以及如果你只用 ChatGPT 桌面应用的 Codex 标签页需要多做的那一步，参见 [Codex CLI Hook 集成](/docs/software/codex-cli-hooks#运行前先信任它)。
 
 ## 遇到问题？
 

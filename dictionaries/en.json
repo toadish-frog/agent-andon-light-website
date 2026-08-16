@@ -13,7 +13,7 @@
     "sourceLink": "View source"
   },
   "home": {
-    "eyebrow": "Agent Andon Light v0.1.0",
+    "eyebrow": "Agent Andon Light v0.2.0",
     "title": "A status light for Claude Code and other coding agents.",
     "subtitle": "Green while it's working, yellow when it's waiting on you, red when it's idle.",
     "ctaProduct": "See the product",
@@ -26,7 +26,7 @@
     },
     "whatItIs": {
       "heading": "Ten LEDs. A USB-C board. A small CLI.",
-      "body": "Ten addressable LEDs behind a diffuser, wired to a USB-C dev board, driven by a small Python CLI (a program you run by typing a command, not something with a window or icon). Claude Code hooks send state changes to the CLI, which updates the light: green while it's working, yellow when it's waiting on you, red when it's idle."
+      "body": "Ten addressable LEDs behind a diffuser, wired to a USB-C dev board, driven by a small Python CLI (a program you run by typing a command, not something with a window or icon). Claude Code and Codex CLI hooks send state changes to the CLI, which updates the light: green while it's working, yellow when it's waiting on you, red when it's idle."
     },
     "states": {
       "heading": "Four states, one glance.",
@@ -91,8 +91,8 @@
       "body": "A 30-minute watchdog runs on the firmware itself. If it stops hearing from the host, the red section switches from solid to a slow breathing pulse instead of freezing on a stale color. A status light you walk away from has to fail visibly, not silently."
     },
     "hooks": {
-      "heading": "Wired straight into Claude Code",
-      "body": "Claude Code hooks call the CLI directly, one event at a time, waiting for each call to finish before moving to the next. That's what keeps the light showing the true order of events, even during a turn with a lot of tool calls back to back.",
+      "heading": "Wired straight into Claude Code and Codex CLI",
+      "body": "Claude Code and Codex CLI hooks call the CLI directly, one event at a time, waiting for each call to finish before moving to the next. That's what keeps the light showing the true order of events, even during a turn with a lot of tool calls back to back.",
       "eventLabel": "Hook event",
       "colorLabel": "Color",
       "hookRows": [

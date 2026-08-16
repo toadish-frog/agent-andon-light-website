@@ -1,0 +1,17 @@
+---
+title: "目前的進度：v0.2.0"
+description: "第二個 agent，第二個核取方塊：Codex CLI 支援，以及要把它做對需要搞清楚的事。"
+date: "2026-08-17"
+---
+
+和[上一篇](/resources/where-things-stand-v0-1-0)一樣，簡單誠實地更新一下：變了什麼、測過了什麼、還沒做到的是什麼。
+
+**這次新增的：** Codex CLI 現在是繼 Claude Code 之後第二個受支援的整合。這只是電腦這一端的改動——用的是同一個 `andon-light` CLI、同一條 USB 連線、同一套韌體，裝置本身什麼都沒變。`andon-light install-hooks --agent codex` 會設定 Codex 自己的 hook，取代（或附加在）Claude Code 的 hook 之外。對應關係和背後的設計考量，參見 [Codex CLI Hook 整合](/docs/software/codex-cli-hooks)。
+
+**動手之前沒想到的一點：** 在你親自在 CLI 裡信任之前，Codex 不會執行 hook 檔案，而這個信任步驟只能在互動式的終端機工作階段裡完成。如果你用的是 ChatGPT 桌面應用程式的 Codex 分頁而不是終端機，應用程式裡並沒有對應的介面——還是得一次性開啟終端機裡的 Codex 工作階段，執行 `/hooks` 並核准。做完這一步之後，因為終端機和 ChatGPT 應用程式讀的是同一份磁碟上的設定，ChatGPT 應用程式那邊會自動取得同樣的信任。跳過這一步，燈就只是安靜地沒反應，也不會有任何錯誤訊息告訴你原因。
+
+**Windows 安裝程式：** 完成頁面現在有兩個各自獨立的核取方塊，一個對應一個 agent。不用碰終端機，就能接上 Claude Code、Codex CLI，或兩個都接上。包括上面說的 ChatGPT 應用程式那條路徑，都已經在真機上完整驗證過。
+
+**上一篇裡說的其他內容都沒變：** Linux 還是一行 `pipx install`，Windows 還是一鍵安裝程式（仍然沒有簽章，參見 [Windows 安裝指南](/docs/install/windows)），macOS 依然沒測試、不支援，整個專案還是 MIT 條款，也依然不是商用產品。
+
+如果你在用 Codex CLI 搭配它，遇到這篇沒提到的情況，歡迎告訴我們。

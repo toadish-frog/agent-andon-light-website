@@ -5,7 +5,7 @@ section: "software"
 order: 1
 ---
 
-`andon-light` は、パソコン上で動き、USB経由でデバイスと通信する小さなプログラムです。Pythonで書かれていて、Claude Codeのフックが裏側でライトを自動的に切り替える際に呼び出しているのもこれです。もちろん、自分で直接実行することもできます。
+`andon-light` は、パソコン上で動き、USB経由でデバイスと通信する小さなプログラムです。Pythonで書かれていて、Claude CodeとCodex CLIのフックが裏側でライトを自動的に切り替える際に呼び出しているのもこれです。もちろん、自分で直接実行することもできます。
 
 ## インストール
 
@@ -38,11 +38,19 @@ andon-light set idle                             # 赤色に点灯
 andon-light set compacting                       # 順次点灯パターン（内部整理中）
 andon-light heartbeat                            # ウォッチドッグをリセットするだけ、色は変わらない
 andon-light --port /dev/ttyACM0 set working      # 自動検出が違うポートを選んでしまう場合に、手動でポートを指定する
-andon-light install-hooks                        # Claude Codeとの連携をセットアップする
+andon-light install-hooks                        # Claude Codeとの連携をセットアップする（デフォルト）
+andon-light install-hooks --agent codex          # 代わりにCodex CLIとの連携をセットアップする
 andon-light install-hooks --yes --scope global   # 同上、確認プロンプトなしで実行する
 ```
 
-`install-hooks` は、何かを変更する前に必ず変更内容をそのまま表示し、確認を求めます。適用範囲もグローバル（`~/.claude/settings.json`）か、プロジェクト単位（`./.claude/settings.json`）かを選べます。すでにカスタマイズ済みのフックを上書きしてしまいそうな場合は、事前に警告が表示されます。実際に何を設定していて、なぜそうなっているかについては[Claude Code Hooks](/docs/software/claude-code-hooks)を参照してください。
+`install-hooks` は、何かを変更する前に必ず変更内容をそのまま表示し、確認を求めます。適用範囲もグローバルか、プロジェクト単位かを選べます。すでにカスタマイズ済みのフックを上書きしてしまいそうな場合は、事前に警告が表示されます。`--agent` で、どちらの連携を設定するか選べます。
+
+| `--agent` | グローバル | プロジェクト単位 | 何を設定するか |
+| --- | --- | --- | --- |
+| `claude`（デフォルト） | `~/.claude/settings.json` | `./.claude/settings.json` | [Claude Code フック連携](/docs/software/claude-code-hooks)を参照 |
+| `codex` | `~/.codex/hooks.json` | `./.codex/hooks.json` | [Codex CLI フック連携](/docs/software/codex-cli-hooks)を参照 |
+
+どちらのエージェントも、同じファームウェアと同じ通信プロトコルで動いています——違うのはパソコン側で動くソフトだけで、デバイス側には何の違いもありません。
 
 ## デバイスの見つけ方
 

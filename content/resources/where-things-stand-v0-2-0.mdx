@@ -1,0 +1,17 @@
+---
+title: "Where Things Stand: v0.2.0"
+description: "A second agent, a second checkbox: Codex CLI support, and what it took to get right."
+date: "2026-08-17"
+---
+
+Another quick, honest update, same as [the last one](/resources/where-things-stand-v0-1-0): what changed, what's tested, what isn't there yet.
+
+**What's new:** Codex CLI is now a second supported integration, alongside Claude Code. It's a host-only change — the same `andon-light` CLI, the same USB connection, the same firmware. Nothing about the device itself changed; `andon-light install-hooks --agent codex` just wires up Codex's own hooks instead of (or alongside) Claude Code's. See [Codex CLI Hooks](/docs/software/codex-cli-hooks) for the mapping and the design decisions behind it.
+
+**The part that wasn't obvious going in:** Codex won't run a hooks file until you explicitly trust it from inside the CLI, and that trust step only exists in an interactive terminal session. If you use the ChatGPT desktop app's Codex tab instead of a terminal, there's no equivalent screen in it — you still have to open a terminal Codex session once, run `/hooks`, and approve it there. After that, the ChatGPT app picks up the same trust automatically, since both read the same configuration on disk. Skip that step and the light just stays quiet, with no error to explain why.
+
+**Windows installer:** the finish page now has two independent checkboxes, one per agent, so you can wire up Claude Code, Codex CLI, or both without touching a terminal. Verified end-to-end on real hardware, including the ChatGPT app path above.
+
+**Everything from the last update still holds:** Linux is a one-line `pipx install`, Windows has a one-click installer (still unsigned — see the [Windows install guide](/docs/install/windows)), macOS is untested and unsupported, and the whole thing is still MIT-licensed, still not a commercial product.
+
+If you're using Codex CLI with this and hit something this page doesn't cover, that's exactly the kind of thing we'd like to hear about.

@@ -13,7 +13,7 @@
     "sourceLink": "查看原始碼"
   },
   "home": {
-    "eyebrow": "Agent Andon Light v0.1.0",
+    "eyebrow": "Agent Andon Light v0.2.0",
     "title": "為 Claude Code 等 CLI 編碼 Agent 打造的狀態燈。",
     "subtitle": "工作中是綠色，等你處理時是黃色，閒置時是紅色。",
     "ctaProduct": "查看產品",
@@ -26,7 +26,7 @@
     },
     "whatItIs": {
       "heading": "10 顆 LED，一塊 USB-C 板，一個小 CLI。",
-      "body": "擴散罩下面是 10 顆可定址 LED，接在一塊 USB-C 開發板上，由一個小巧的 Python CLI 驅動（CLI 就是命令列程式，沒有圖示也沒有視窗，靠打指令來執行）。Claude Code 的 hooks 把狀態變化傳給這個 CLI，CLI 再去改變燈的顏色：工作時是綠色，等你處理時是黃色，閒置時是紅色。"
+      "body": "擴散罩下面是 10 顆可定址 LED，接在一塊 USB-C 開發板上，由一個小巧的 Python CLI 驅動（CLI 就是命令列程式，沒有圖示也沒有視窗，靠打指令來執行）。Claude Code 和 Codex CLI 的 hooks 把狀態變化傳給這個 CLI，CLI 再去改變燈的顏色：工作時是綠色，等你處理時是黃色，閒置時是紅色。"
     },
     "states": {
       "heading": "四種狀態，一眼看懂。",
@@ -88,8 +88,8 @@
       "body": "韌體本身跑著一個 30 分鐘的看門狗計時器。一旦主機端失聯，紅色區段不會停在常亮狀態，而是切換成緩慢的呼吸式閃爍。一盞可以放心離開的狀態燈，必須把異常清清楚楚地顯示出來，而不是悄悄卡住。"
     },
     "hooks": {
-      "heading": "直接接上 Claude Code",
-      "body": "Claude Code 的 hooks 會一條一條按順序呼叫 CLI，等前一條處理完才呼叫下一條。這樣即使在工具呼叫密集的回合裡，燈光也始終反映事件的真實順序。",
+      "heading": "直接接上 Claude Code 和 Codex CLI",
+      "body": "Claude Code 和 Codex CLI 的 hooks 會一條一條按順序呼叫 CLI，等前一條處理完才呼叫下一條。這樣即使在工具呼叫密集的回合裡，燈光也始終反映事件的真實順序。",
       "eventLabel": "Hook 事件",
       "colorLabel": "顏色",
       "hookRows": [

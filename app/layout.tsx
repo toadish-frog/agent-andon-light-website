@@ -6,7 +6,7 @@ import "./global.css";
 
 export const metadata: Metadata = {
   title: "Agent Andon Light",
-  description: "A physical desktop status light for Claude Code and CLI coding agents.",
+  description: "A physical desktop status light for Claude Code and Codex CLI.",
 };
 
 export default function RootLayout({

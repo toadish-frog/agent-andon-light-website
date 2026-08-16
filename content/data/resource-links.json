@@ -127,6 +127,21 @@
             "zh-tr": "這個專案整合所依賴的 Hook 事件官方文件。"
           },
           "url": "https://code.claude.com/docs/en/hooks"
+        },
+        {
+          "title": {
+            "en": "Codex CLI Hooks reference",
+            "ja": "Codex CLI フックリファレンス",
+            "zh-sm": "Codex CLI Hook 参考文档",
+            "zh-tr": "Codex CLI Hook 參考文件"
+          },
+          "description": {
+            "en": "Official docs for the Codex CLI hook events this project's second integration is built on.",
+            "ja": "このプロジェクトの2つ目の連携が使っている、Codex CLIのフックイベントの公式ドキュメントです。",
+            "zh-sm": "这个项目第二套集成所依赖的 Codex CLI Hook 事件的官方文档。",
+            "zh-tr": "這個專案第二套整合所依賴的 Codex CLI Hook 事件官方文件。"
+          },
+          "url": "https://learn.chatgpt.com/docs/hooks"
         }
       ]
     }

@@ -1,6 +1,6 @@
 ---
 title: "在 Linux 上安裝"
-description: "一條指令安裝，一條指令檢查，一條指令接上 Claude Code。"
+description: "一條指令安裝，一條指令檢查，一條指令接上你的 agent。"
 section: "install"
 order: 1
 ---
@@ -24,10 +24,11 @@ andon-light doctor
 
 確認工具真的能找到你的裝置。如果提示權限錯誤，需要把你的使用者帳號加入 `dialout` 使用者群組。具體步驟參見疑難排解頁面的 [Linux 專屬說明](/docs/hardware/troubleshooting#linux-專屬說明)。
 
-## 3. 接上 Claude Code
+## 3. 接上你用的 agent
 
 ```txt
-andon-light install-hooks
+andon-light install-hooks                 # Claude Code
+andon-light install-hooks --agent codex   # Codex CLI
 ```
 
-在做任何變更之前，會先完整顯示即將寫入 Claude Code 設定的內容，並等你確認。你可以選擇套用範圍是全域（`~/.claude/settings.json`）還是單一專案（`./.claude/settings.json`）。具體設定了什麼、為什麼這樣設計，參見 [Claude Code Hook 整合](/docs/software/claude-code-hooks)。
+不管哪一個，在做任何變更之前都會先完整顯示即將寫入的內容，並等你確認。你可以選擇套用範圍是全域還是單一專案。具體設定了什麼、為什麼這樣設計，參見 [Claude Code Hook 整合](/docs/software/claude-code-hooks)或 [Codex CLI Hook 整合](/docs/software/codex-cli-hooks)。如果你用的是 Codex CLI，hook 要真正生效還需要多一步，參見[執行前先信任它](/docs/software/codex-cli-hooks#執行前先信任它)。

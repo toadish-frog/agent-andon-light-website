@@ -110,7 +110,9 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] 
               // which is `undefined` until mounted — using it here would
               // make a click during that window always resolve to "dark",
               // a no-op when already dark that looks like a dead first click.
-              setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark")
+              setTheme(
+                document.documentElement.classList.contains("dark") ? "light" : "dark",
+              )
             }
             className={cn(
               "rounded-md border border-black/10 p-2 transition-colors hover:bg-black/5",

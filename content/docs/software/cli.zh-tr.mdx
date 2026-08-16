@@ -5,7 +5,7 @@ section: "software"
 order: 1
 ---
 
-`andon-light` 是執行在你電腦上、透過 USB 和裝置溝通的一個小程式。它是用 Python 寫的，Claude Code 的 hook 在背後自動切換燈光顏色時，呼叫的正是它。不過你隨時也可以自己手動執行它。
+`andon-light` 是執行在你電腦上、透過 USB 和裝置溝通的一個小程式。它是用 Python 寫的，Claude Code 和 Codex CLI 的 hook 在背後自動切換燈光顏色時，呼叫的正是它。不過你隨時也可以自己手動執行它。
 
 ## 安裝
 
@@ -38,11 +38,19 @@ andon-light set idle                             # 常亮紅色
 andon-light set compacting                       # 依序點亮模式（整理中）
 andon-light heartbeat                            # 只重置看門狗，不改變顏色
 andon-light --port /dev/ttyACM0 set working      # 如果自動偵測選錯了連接埠，手動指定
-andon-light install-hooks                        # 設定和 Claude Code 的整合
+andon-light install-hooks                        # 設定和 Claude Code 的整合（預設）
+andon-light install-hooks --agent codex          # 改成設定和 Codex CLI 的整合
 andon-light install-hooks --yes --scope global   # 同上，跳過確認直接執行
 ```
 
-`install-hooks` 在做任何變更之前，都會先完整顯示即將寫入的內容，並等你確認。你可以選擇套用範圍是全域（`~/.claude/settings.json`）還是單一專案（`./.claude/settings.json`）。如果某個 hook 你已經自訂過，即將被覆蓋，它會事先警告你。具體設定了什麼、為什麼這樣設計，參見 [Claude Code Hook 整合](/docs/software/claude-code-hooks)。
+`install-hooks` 在做任何變更之前，都會先完整顯示即將寫入的內容，並等你確認。你可以選擇套用範圍是全域還是單一專案。如果某個 hook 你已經自訂過，即將被覆蓋，它會事先警告你。`--agent` 用來選擇設定哪一個整合：
+
+| `--agent` | 全域 | 專案內 | 設定的是什麼 |
+| --- | --- | --- | --- |
+| `claude`（預設） | `~/.claude/settings.json` | `./.claude/settings.json` | 參見 [Claude Code Hook 整合](/docs/software/claude-code-hooks) |
+| `codex` | `~/.codex/hooks.json` | `./.codex/hooks.json` | 參見 [Codex CLI Hook 整合](/docs/software/codex-cli-hooks) |
+
+兩個 agent 用的是同一套韌體、同一套通訊協定——差別只在電腦這一端跑的軟體，裝置那一端沒有任何不同。
 
 ## 怎麼找到你的裝置
 

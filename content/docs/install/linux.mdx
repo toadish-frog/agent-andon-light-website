@@ -1,6 +1,6 @@
 ---
 title: "Install on Linux"
-description: "One command to install, one to check it worked, one to wire it up to Claude Code."
+description: "One command to install, one to check it worked, one to wire it up to your agent."
 section: "install"
 order: 1
 ---
@@ -24,10 +24,11 @@ andon-light doctor
 
 This confirms the tool can actually find your device. If it reports a permission error instead, your user account needs to be added to the `dialout` group. See the [Linux-specific section](/docs/hardware/troubleshooting#linux-specific-notes) of the troubleshooting page for exactly how.
 
-## 3. Connect it to Claude Code
+## 3. Connect it to your agent
 
 ```txt
-andon-light install-hooks
+andon-light install-hooks                 # Claude Code
+andon-light install-hooks --agent codex   # Codex CLI
 ```
 
-This shows you exactly what it's about to add to your Claude Code settings before making any changes, asks you to confirm, and lets you choose whether to apply it globally (`~/.claude/settings.json`) or to a single project (`./.claude/settings.json`). See [Claude Code Hooks](/docs/software/claude-code-hooks) for what this actually sets up and why it's built the way it is.
+Either way, this shows you exactly what it's about to add before making any changes, asks you to confirm, and lets you choose whether to apply it globally or to a single project. See [Claude Code Hooks](/docs/software/claude-code-hooks) or [Codex CLI Hooks](/docs/software/codex-cli-hooks) for what this actually sets up and why it's built the way it is. If you use Codex CLI, there's one more step it requires before hooks actually run — see [Trust it before it runs](/docs/software/codex-cli-hooks#trust-it-before-it-runs).
