@@ -42,21 +42,12 @@ This is the easy path, and it's what most people will do. The fabricated board a
 
 1. Solder the RP2040-Zero onto the board. It has small half-circle notches along its edge (called "castellated pads") that line up with matching pads on the board. Solder each one. Some of these connections carry power and data, and some are just there to hold the chip in place mechanically, but it's simplest to just solder all of them.
 
-   ```txt
-      top of board
-           |
-           v
-      ______________
-     |              |
-     |   PCB body   |__
-     |  (green)     |  \__ half-circle notch
-     |______________|      (this is where solder goes)
-           |
-           | <- a little solder fills the gap between
-           |    the chip's pad and the board's pad
-           v
-        ( o )  <- a finished solder joint
-   ```
+<DiagramImage
+  src="/solder-joint.png"
+  alt="Angled CAD view of the RP2040-Zero mounted on the board, with the half-circle notches along its edge marked as the solder points, plus a small top-view inset"
+  width="1796"
+  height="1149"
+/>
 
    A couple of tips if you're new to soldering: let each joint cool for a few seconds before you touch it, and try not to let solder bridge across two neighboring pads into one blob. If that happens, you can usually fix it by reheating and adding a touch more solder to separate them, or using solder wick to pull the extra away.
 

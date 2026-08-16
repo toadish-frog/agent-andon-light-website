@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
+
 import { AuroraGlow } from "@/app/components/ui/auroraGlow";
-import { BoardDiagram } from "@/app/components/ui/boardDiagram";
 import { LiveStatusStrip } from "@/app/components/ui/liveStatusStrip";
 import { ProductSectionNav } from "@/app/components/ui/productSectionNav";
 import { Reveal } from "@/app/components/ui/reveal";
@@ -55,17 +56,13 @@ export function ProductClient({ dict }: { locale: Locale; dict: Dictionary }) {
           <p className={`mx-auto max-w-2xl text-center ${bodyClass}`}>
             {p.overview.body}
           </p>
-          <div className="mt-10 overflow-hidden rounded-2xl border border-black/10 p-4 dark:border-white/10">
-            <BoardDiagram
-              ariaLabel={p.overview.diagramAriaLabel}
-              labels={{
-                working: dict.home.states.working.label,
-                waiting: dict.home.states.waiting.label,
-                idle: dict.home.states.idle.label,
-              }}
-              className="w-full"
-            />
-          </div>
+          <Image
+            src="/product-board.png"
+            alt={p.overview.diagramAriaLabel}
+            width={1920}
+            height={1080}
+            className="mt-10 h-auto w-full"
+          />
         </Reveal>
       </section>
 

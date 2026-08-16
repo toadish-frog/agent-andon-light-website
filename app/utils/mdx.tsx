@@ -7,6 +7,7 @@ import GithubSlugger from "github-slugger";
 import Link from "next/link";
 
 import { Note, Warning } from "@/app/components/ui/callout";
+import { DiagramImage } from "@/app/components/ui/diagramImage";
 import { defaultLocale, locales, type Locale } from "@/i18n";
 
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
@@ -138,6 +139,7 @@ export function mdxLinkComponents(locale: Locale) {
   return {
     Note,
     Warning,
+    DiagramImage,
     a: ({ href = "", ...props }: ComponentProps<"a">) => {
       if (href.startsWith("/docs/") || href.startsWith("/resources/")) {
         // Trailing slash (required by next.config's trailingSlash: true) has
