@@ -27,13 +27,21 @@ These commands run one at a time, in order, never in the background, for the sam
 
 ## Trust it before it runs
 
-Codex won't run a new or changed hooks file until you explicitly review and approve it from inside the CLI. There's no way to grant that trust from outside. After running `andon-light install-hooks --agent codex`, start Codex CLI, run `/hooks`, and confirm the new entries. If you skip this and the light doesn't react, this is the first thing to check: an untrusted hook doesn't error, it just silently doesn't run.
+Codex won't run a new or changed hooks file until you explicitly review and approve it from inside the CLI. There's no way to grant that trust from outside. After running `andon-light install-hooks --agent codex`, start Codex CLI, run `/hooks`, and confirm the new entries.
+
+<Note>
+If you skip this and the light doesn't react, this is the first thing to check: an untrusted hook doesn't error, it just silently doesn't run.
+</Note>
 
 ### If you use the ChatGPT desktop app instead of a terminal
 
 On Windows, "the Codex app" usually means the Codex tab inside the ChatGPT desktop app (the one from the Microsoft Store), a chat window, not the `codex` command you'd type in a terminal. That matters here because the trust step above only exists inside an interactive terminal session; the ChatGPT app has no `/hooks` screen of its own.
 
-The trust setting itself isn't tied to which app granted it, though: both the terminal and the ChatGPT app read the same `~/.codex` configuration on disk. So even if you only ever use the ChatGPT app day to day, you still need to open a terminal Codex CLI session **once**, run `/hooks` there, and approve it. After that, the ChatGPT app picks up the same trusted hooks automatically. Until you've done this, the light just stays silent in the ChatGPT app, with no error shown. Same "untrusted hook, no message" behavior described above.
+The trust setting itself isn't tied to which app granted it, though: both the terminal and the ChatGPT app read the same `~/.codex` configuration on disk. So even if you only ever use the ChatGPT app day to day, you still need to open a terminal Codex CLI session **once**, run `/hooks` there, and approve it. After that, the ChatGPT app picks up the same trusted hooks automatically.
+
+<Note>
+Until you've done this, the light just stays silent in the ChatGPT app, with no error shown. Same "untrusted hook, no message" behavior described above.
+</Note>
 
 If typing `codex` in a terminal says it isn't a recognized command, that's because the ChatGPT app installs its own copy of the CLI rather than adding one to your system PATH. Here's how to find and run it, in PowerShell:
 

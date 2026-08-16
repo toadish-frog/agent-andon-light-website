@@ -6,6 +6,7 @@ import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import Link from "next/link";
 
+import { Note, Warning } from "@/app/components/ui/callout";
 import { defaultLocale, locales, type Locale } from "@/i18n";
 
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
@@ -135,6 +136,8 @@ export function extractHeadings(markdown: string): Heading[] {
  */
 export function mdxLinkComponents(locale: Locale) {
   return {
+    Note,
+    Warning,
     a: ({ href = "", ...props }: ComponentProps<"a">) => {
       if (href.startsWith("/docs/") || href.startsWith("/resources/")) {
         // Trailing slash (required by next.config's trailingSlash: true) has

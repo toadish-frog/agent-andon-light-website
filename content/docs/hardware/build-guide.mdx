@@ -22,7 +22,19 @@ Before touching any hardware, install the tools that let your computer talk to t
 
 ## 2. Build the hardware
 
-There are two ways to build this, depending on what you have. Pick the one that matches your situation. You only need to do one.
+If you don't have a board yet, start with fabricating one below, then come back and continue to [If you have the fabricated board](#if-you-have-the-fabricated-board). If you already have one, or you're only testing without committing to a board yet, skip straight to whichever of the next two sections matches you: you only need one of those two.
+
+### If you want to fabricate your own board
+
+Skip this if you already have the fabricated board, or you're only prototyping on a breadboard (see below).
+
+Everything needed to have a real board made is in [the hardware folder on GitHub](https://github.com/toadish-frog/agent-andon-light/tree/main/device/hardware):
+
+- **The KiCad project:** the actual design files, in the same free tool ([KiCad](https://www.kicad.org/)) used to design this board. Open it if you want to view or change the design yourself; skip it if you don't.
+- **The gerber files:** a set of manufacturing files that tell a board fabrication service exactly what to build. You don't need to open or understand these: upload the whole folder to a fabrication service (this project used JLCPCB) and they send back a board with everything soldered on except the microcontroller, same as [the parts list](/docs/hardware/bom) describes.
+- **The chassis files:** ready-to-print files for the 3D-printed case, for a 3D-printing service or your own printer.
+
+Once your board arrives, come back and continue below.
 
 ### If you have the fabricated board
 
@@ -69,10 +81,14 @@ Skip this section if you already did the fabricated-board build above. This path
 
    A few things worth knowing:
    - Connect the ground wire (`G`) first.
-   - Connect `V` to the `5V` pin, not `3V3`. The `3V3` pin can't supply enough current for 10 LEDs. This is the single most common wiring mistake people make on this build.
+   - Connect `V` to the `5V` pin, not `3V3`.
    - Connect `S` (signal) to whichever GPIO pin you soldered, matching the `kDataPin` setting in the firmware file (or just edit that file to match however you wired it).
    - Plug in the USB-C cable only after all three wires are connected. Powering up a half-finished connection risks a short.
    - Optional: a small resistor and capacitor can help with signal stability. See items #8–9 in the [BOM](/docs/hardware/bom) if you run into flicker.
+
+<Warning>
+The `3V3` pin can't supply enough current for 10 LEDs. Wiring `V` to `3V3` instead of `5V` is the single most common wiring mistake people make on this build.
+</Warning>
 
 Once wired up, continue to [Flash and verify](#3-flash-and-verify).
 

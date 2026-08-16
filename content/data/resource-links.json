@@ -65,6 +65,21 @@
         },
         {
           "title": {
+            "en": "PCB and chassis design files",
+            "ja": "基板・筐体の設計データ",
+            "zh-sm": "电路板和外壳的设计文件",
+            "zh-tr": "電路板和外殼的設計檔案"
+          },
+          "description": {
+            "en": "The actual KiCad project for this board, the gerber files a fabrication service needs to build the PCB itself, and the chassis CAD. Start here if you want to get your own board fabricated.",
+            "ja": "このボードの実際のKiCadプロジェクトと、基板製造サービスが実際に基板を作る際に使うガーバーファイル、それに筐体のCADデータです。自分でも基板を製造したい場合はここから始めてください。",
+            "zh-sm": "这块板子实际的 KiCad 工程文件、代工厂用来实际生产电路板的 Gerber 文件，以及外壳的 CAD 文件。想自己找厂商做板子，从这里开始。",
+            "zh-tr": "這塊板子實際的 KiCad 專案檔、代工廠用來實際生產電路板的 Gerber 檔案，以及外殼的 CAD 檔案。想自己找廠商做板子，從這裡開始。"
+          },
+          "url": "https://github.com/toadish-frog/agent-andon-light/tree/main/device/hardware"
+        },
+        {
+          "title": {
             "en": "RP2040 documentation",
             "ja": "RP2040 ドキュメント",
             "zh-sm": "RP2040 文档",

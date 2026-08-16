@@ -13,7 +13,11 @@ Grab `andon-light-setup.exe` from the project's [GitHub releases page](https://g
 
 ## 2. About the security warning
 
-Neither the installer nor the tool itself is digitally signed, so Windows will show a "Windows protected your PC" warning the first time you run either one, and some antivirus tools might flag it too. This is a side effect of how small, unsigned tools like this get packaged, which happens to resemble how some actual malware behaves. It doesn't mean anything is broken.
+Neither the installer nor the tool itself is digitally signed, so Windows will show a "Windows protected your PC" warning the first time you run either one, and some antivirus tools might flag it too.
+
+<Note>
+This is a side effect of how small, unsigned tools like this get packaged, which happens to resemble how some actual malware behaves. It doesn't mean anything is broken.
+</Note>
 
 **To continue anyway:** click "More info," then "Run anyway."
 
@@ -38,7 +42,9 @@ andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```
 
+<Note>
 If you checked the Codex CLI box, there's one more step Codex requires that the installer can't do for you: open Codex CLI and run `/hooks` once to trust the new hook file. See [Codex CLI Hooks](/docs/software/codex-cli-hooks#trust-it-before-it-runs) for why, and for the extra step needed if you only use the ChatGPT desktop app's Codex tab.
+</Note>
 
 ## If something's not working
 

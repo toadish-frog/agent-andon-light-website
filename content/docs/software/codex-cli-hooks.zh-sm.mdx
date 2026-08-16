@@ -27,13 +27,21 @@ Claude Code 有一个 Codex 没有的东西：一个通用的"需要你关注"�
 
 ## 运行前先信任它
 
-在你亲自在 CLI 里查看并批准之前，Codex 不会运行一个新增或改动过的 hook 文件。没有办法从外部授予这个信任。运行完 `andon-light install-hooks --agent codex` 之后，启动 Codex CLI，运行 `/hooks`，确认新的配置内容。如果跳过这一步，灯没反应，先查这个：不受信任的 hook 不会报错，只会悄悄地不执行。
+在你亲自在 CLI 里查看并批准之前，Codex 不会运行一个新增或改动过的 hook 文件。没有办法从外部授予这个信任。运行完 `andon-light install-hooks --agent codex` 之后，启动 Codex CLI，运行 `/hooks`，确认新的配置内容。
+
+<Note>
+如果跳过这一步，灯没反应，先查这个：不受信任的 hook 不会报错，只会悄悄地不执行。
+</Note>
 
 ### 如果你用的是 ChatGPT 桌面应用，而不是终端
 
 在 Windows 上，"Codex 应用"通常指的是 ChatGPT 桌面应用（Microsoft Store 上那个）里的 Codex 标签页，这是一个聊天窗口，不是你在终端里打的 `codex` 命令。这一点很重要，因为上面说的信任步骤只能在交互式的终端会话里完成，ChatGPT 应用本身没有 `/hooks` 界面。
 
-不过信任设置本身和是从哪个应用授予的没有关系，终端和 ChatGPT 应用读的是同一份 `~/.codex` 配置。所以就算你平时只用 ChatGPT 应用，也需要**一次性**打开终端里的 Codex CLI 会话，在那里运行 `/hooks` 并批准。之后 ChatGPT 应用就会自动使用同一份受信任的 hook 配置。在完成这一步之前，ChatGPT 应用里的灯就是安安静静地没反应，也不会显示任何错误。和前面说的"不受信任的 hook"是同一种表现。
+不过信任设置本身和是从哪个应用授予的没有关系，终端和 ChatGPT 应用读的是同一份 `~/.codex` 配置。所以就算你平时只用 ChatGPT 应用，也需要**一次性**打开终端里的 Codex CLI 会话，在那里运行 `/hooks` 并批准。之后 ChatGPT 应用就会自动使用同一份受信任的 hook 配置。
+
+<Note>
+在完成这一步之前，ChatGPT 应用里的灯就是安安静静地没反应，也不会显示任何错误。和前面说的"不受信任的 hook"是同一种表现。
+</Note>
 
 如果在终端里输入 `codex` 提示不是可识别的命令，那是因为 ChatGPT 应用内置了自己的一份 CLI，没有把它加进系统 PATH。在 PowerShell 里找到并运行它的方法：
 

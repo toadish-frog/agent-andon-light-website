@@ -13,7 +13,11 @@ Windows 上用的是一鍵安裝程式，而不是命令列安裝。下載下來
 
 ## 2. 關於安全性警告
 
-安裝程式和工具本身都沒有數位簽章，所以不管第一次執行哪一個，Windows 都會跳出「Windows 已保護您的電腦」的警告，某些防毒軟體也可能會反應。這是這類小型未簽章工具打包方式的副作用，恰好和某些惡意軟體的行為有點像，並不代表任何東西壞了。
+安裝程式和工具本身都沒有數位簽章，所以不管第一次執行哪一個，Windows 都會跳出「Windows 已保護您的電腦」的警告，某些防毒軟體也可能會反應。
+
+<Note>
+這是這類小型未簽章工具打包方式的副作用，恰好和某些惡意軟體的行為有點像，並不代表任何東西壞了。
+</Note>
 
 **要繼續執行：** 點「其他資訊」，然後點「仍要執行」。
 
@@ -38,7 +42,9 @@ andon-light install-hooks                 # Claude Code
 andon-light install-hooks --agent codex   # Codex CLI
 ```
 
+<Note>
 如果你勾選了 Codex CLI，還有一步安裝程式代替不了：開啟 Codex CLI，執行一次 `/hooks`，信任新的 hook 檔案。原因，以及如果你只用 ChatGPT 桌面應用程式的 Codex 分頁需要多做的那一步，參見 [Codex CLI Hook 整合](/docs/software/codex-cli-hooks#執行前先信任它)。
+</Note>
 
 ## 遇到問題？
 

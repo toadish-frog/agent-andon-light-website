@@ -135,7 +135,9 @@ Check the group column: it should say `dialout`.
 id
 ```
 
+<Note>
 Here's the subtlety: `id` with no arguments shows the group permissions actually baked into your *current shell*, which is what the system checks when `andon-light` tries to open the port. `groups $USER` instead looks up your account's settings fresh, regardless of what any already-running program has. So it's possible to see `dialout` listed under `groups $USER` while every currently open terminal, even a brand new one, still doesn't have it under `id`, because group membership gets fixed in place wherever a session started, and just logging out and back in on the desktop doesn't reliably refresh every process.
+</Note>
 
 If `dialout` is missing from `id`:
 
@@ -179,7 +181,11 @@ exit=0
 
 ### "Windows protected your PC" warning
 
-Neither `andon-light.exe` nor the installer is digitally signed, so Windows shows this warning the first time either one runs, and some antivirus tools may flag it too. This is a side effect of how these particular installers package themselves, which happens to resemble how some malware behaves. Neither means anything is actually broken.
+Neither `andon-light.exe` nor the installer is digitally signed, so Windows shows this warning the first time either one runs, and some antivirus tools may flag it too.
+
+<Note>
+This is a side effect of how these particular installers package themselves, which happens to resemble how some malware behaves. Neither means anything is actually broken.
+</Note>
 
 **To continue anyway:** click "More info," then "Run anyway."
 
