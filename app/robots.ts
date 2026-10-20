@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    // TODO: swap in the real production origin once hosting is finalized.
-    sitemap: "https://agent-andon-light.example.com/sitemap.xml",
+    sitemap: "https://www.agent-andon-light.site/sitemap.xml",
   };
 }

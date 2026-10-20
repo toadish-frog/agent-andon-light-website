@@ -3,8 +3,7 @@ import { getAllPosts } from "@/lib/blog";
 // Required for route handlers under output: 'export' (static export).
 export const dynamic = "force-static";
 
-// TODO: swap in the real production origin once hosting is finalized — matches robots.ts/sitemap.ts.
-const SITE_URL = "https://agent-andon-light.example.com";
+const SITE_URL = "https://www.agent-andon-light.site";
 
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
