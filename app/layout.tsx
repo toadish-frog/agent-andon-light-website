@@ -7,6 +7,12 @@ import "./global.css";
 export const metadata: Metadata = {
   title: "Agent Andon Light",
   description: "A physical desktop status light for Claude Code and Codex CLI.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
